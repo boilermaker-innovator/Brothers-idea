@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Message with iTab Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f3f2ef;
+            color: #000000E6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+        }
+        .header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #0a66c2;
+        }
+        .message {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .link-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .info-link {
+            color: #0a66c2;
+            text-decoration: none;
+            flex-grow: 1;
+            font-weight: 500;
+        }
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            background: #0a66c2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .info-icon:hover {
+            background: #084482;
+            transform: scale(1.1);
+        }
+        .signature {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #f3f2ef;
+            color: #666;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 50px auto;
+            max-width: 600px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .modal-header {
+            background: #0a66c2;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .close-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+        }
+        .tab.active {
+            color: #0a66c2;
+            border-bottom: 2px solid #0a66c2;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Message to Brothers</h1>
+        </div>
+
+        <div class="message">
+            <p>Hi Ian, Phil & Harry,</p>
+
+            <p>I know it's been a while. I've been working with Claude (an AI assistant) on something I think is revolutionary - reimagining how we share web content using what we're calling iTabs (based on the universal (i) information symbol).</p>
+
+            <div class="link-container">
+                <a href="#" class="info-link">Check out the iTab Preview System</a>
+                <button onclick="openModal()" class="info-icon">i</button>
+            </div>
+
+            <p>The core concept: Instead of sending full webpage links that often go unread, we create smart teasers with tabbed previews. Think of it like a 'movie trailer' for web content. The clever part? It uses minimal storage by working with metadata and essential info only.</p>
+
+            <p>We started with my interest in GIFs and social sharing, but through AI discussions, evolved it into this iTab concept. For the MVP, I'm planning to start with a WordPress plugin focused on charity websites - making it super easy for them to create and share these preview tabs. I figure WordPress is perfect for testing since:</p>
+            
+            <ul>
+                <li>It's widely used by charities</li>
+                <li>Plugin installation is straightforward</li>
+                <li>We can get real user feedback quickly</li>
+                <li>Easy to iterate and improve</li>
+            </ul>
+
+            <p>Would love to get your developer perspective on this. The technical foundation is there - clean, efficient, and scalable. Plus, starting with WordPress means we can validate the concept quickly without building everything from scratch.</p>
+            
+            <p>Want to hear your thoughts on this approach?</p>
+        </div>
+
+        <div class="signature">
+            <p>Looking forward to catching up,<br>[Your name]</p>
+        </div>
+    </div>
+
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>iTab Preview System</h2>
+                <button class="close-button" onclick="closeModal()">&times;</button>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('overview')">Overview</button>
+                <button class="tab" onclick="showTab('features')">Features</button>
+                <button class="tab" onclick="showTab('wordpress')">WordPress MVP</button>
+                <button class="tab" onclick="showTab('next')">Next Steps</button>
+            </div>
+
+            <div id="overview" class="tab-content active">
+                <h3>Smart Preview System</h3>
+                <p>Transform how we share web content with intelligent preview tabs. Create engaging, informative previews that give readers exactly what they need to know.</p>
+                <img src="/api/placeholder/400/200" alt="Preview System" style="width: 100%; border-radius: 8px; margin-top: 15px;">
+            </div>
+
+            <div id="features" class="tab-content">
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Smart content summarization</li>
+                    <li>Tabbed information display</li>
+                    <li>Efficient storage using metadata</li>
+                    <li>Easy integration options</li>
+                </ul>
+            </div>
+
+            <div id="wordpress" class="tab-content">
+                <h3>WordPress Plugin MVP</h3>
+                <p>Starting with a focused WordPress plugin for charities:</p>
+                <ul>
+                    <li>Simple installation and setup</li>
+                    <li>Easy preview generation</li>
+                    <li>Custom shortcode support</li>
+                    <li>Built-in analytics</li>
+                </ul>
+            </div>
+
+            <div id="next" class="tab-content">
+                <h3>Development Roadmap</h3>
+                <ul>
+                    <li>Initial WordPress plugin release</li>
+                    <li>Charity website testing phase</li>
+                    <li>Feature refinement based on feedback</li>
+                    <li>Expansion to broader applications</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('previewModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            var tabContents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+
+            // Remove active class from all tab buttons
+            var tabs = document.getElementsByClassName('tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Make clicked tab button active
+            event.currentTarget.classList.add('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            var modal = document.getElementById('previewModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
