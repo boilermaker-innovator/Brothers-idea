@@ -1,3 +1,287 @@
+i have decided this page can update 
+
+15/225
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs and Teasers Demonstration</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-light: #ffffff;
+            --background-light: #f5f5f5;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-light);
+            line-height: 1.6;
+        }
+
+        /* iTab Description Styles */
+        .itab-description {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 0 8px 8px 0;
+            color: #2c3e50;
+        }
+        
+        .itab-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 50%;
+            margin-right: 8px;
+            font-style: normal;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .itab-icon:hover {
+            background-color: #2980b9;
+        }
+
+        /* Teaser Styles */
+        #industryTeaser {
+            display: none;
+            max-width: 800px;
+            margin: 20px auto;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .teaser-visible {
+            display: block !important;
+            opacity: 1 !important;
+        }
+
+        .itab-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .itab-header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 1.5rem;
+        }
+        
+        .itab-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .itab-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: 500;
+            color: var(--primary-color);
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+        
+        .tab:hover {
+            opacity: 1;
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .tab.active {
+            opacity: 1;
+            border-bottom: 3px solid var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .use-case {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .use-case h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+        }
+        
+        .action-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: 0.3s;
+        }
+        
+        .action-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .itab-container, .itab-description {
+                margin: 10px;
+            }
+            .tabs {
+                flex-wrap: wrap;
+            }
+            .tab {
+                padding: 0.8rem 1rem;
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="itab-description">
+        Look for the <i class="itab-icon">i</i> icon throughout our platform. While exploring my vision for workshop training <i class="itab-icon" onclick="showIndustryTeaser()">i</i> I realized this same approach could transform knowledge sharing across all industries. Each icon is a gateway to a Teaser - a quick, informative preview of deeper content. See one next to a topic that interests you? Click it to reveal a concise, well-structured preview of what's ahead. From workshop insights to financial analysis, each Teaser gives you the key points before you dive deeper.
+    </div>
+
+    <div id="industryTeaser">
+        <div class="itab-container">
+            <div class="itab-header">
+                <h2>Teaser: Beyond Workshops</h2>
+                <p>From manufacturing to finance - transforming how we share knowledge</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('workshop')">Workshops</button>
+                <button class="tab" onclick="switchTab('finance')">Finance</button>
+                <button class="tab" onclick="switchTab('healthcare')">Healthcare</button>
+                <button class="tab" onclick="switchTab('your-field')">Your Field</button>
+            </div>
+            
+            <div id="workshop" class="tab-content active">
+                <div class="use-case">
+                    <h3>Manufacturing & Workshops</h3>
+                    <p>Transform machine operation training with instant, visual guides:</p>
+                    <ul>
+                        <li>QR-linked machine instructions</li>
+                        <li>Operator-created content</li>
+                        <li>Real-time updates for equipment changes</li>
+                    </ul>
+                </div>
+                <a href="#" class="action-button">See Workshop Implementation</a>
+            </div>
+            
+            <div id="finance" class="tab-content">
+                <div class="use-case">
+                    <h3>Financial Markets</h3>
+                    <p>Quick-access market insights and analysis:</p>
+                    <ul>
+                        <li>Instant market trend previews</li>
+                        <li>Trading strategy snapshots</li>
+                        <li>Real-time financial data visualization</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="healthcare" class="tab-content">
+                <div class="use-case">
+                    <h3>Healthcare</h3>
+                    <p>Streamline medical knowledge sharing:</p>
+                    <ul>
+                        <li>Procedure quick-guides</li>
+                        <li>Equipment operation summaries</li>
+                        <li>Patient care protocols</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="your-field" class="tab-content">
+                <div class="use-case">
+                    <h3>Your Industry</h3>
+                    <p>The possibilities are endless:</p>
+                    <ul>
+                        <li>Create instant knowledge previews</li>
+                        <li>Share expertise efficiently</li>
+                        <li>Build practical knowledge bases</li>
+                    </ul>
+                </div>
+                <p>How could iTabs transform information sharing in your field?</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showIndustryTeaser() {
+            const teaser = document.getElementById('industryTeaser');
+            teaser.style.display = 'block';
+            // Force reflow
+            void teaser.offsetWidth;
+            teaser.classList.add('teaser-visible');
+        }
+
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate selected tab
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
+14/2/2025
 <!DOCTYPE html>
 <html lang="en">
 <head>
