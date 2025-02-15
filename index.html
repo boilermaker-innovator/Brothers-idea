@@ -2,7 +2,353 @@ i have decided this page can update
 </html>
 15/225
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaser Maker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-section, .preview-section {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 150px;
+            font-family: monospace;
+        }
+
+        .trigger-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .trigger-type {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .trigger-type:hover {
+            border-color: #0066cc;
+        }
+
+        .trigger-type.active {
+            border-color: #0066cc;
+            background: #e6f0ff;
+        }
+
+        .trigger-preview {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .preview-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .i-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 8px;
+            border-radius: 10px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 12px;
+            margin: 0 5px;
+        }
+
+        .custom-trigger {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .icon-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 50px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: #1a1a1a;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+        }
+
+        .color-option.active {
+            border-color: #0066cc;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h2>Teaser Maker</h2>
+            
+            <div class="form-group">
+                <label>Trigger Type</label>
+                <div class="trigger-options">
+                    <div class="trigger-type active" onclick="changeTriggerType('i')" data-type="i">
+                        <div>i Button</div>
+                        <small>Classic info button</small>
+                    </div>
+                    <div class="trigger-type" onclick="changeTriggerType('text')" data-type="text">
+                        <div>Custom Text</div>
+                        <small>Your own text</small>
+                    </div>
+                    <div class="trigger-type" onclick="changeTriggerType('icon')" data-type="icon">
+                        <div>Icon</div>
+                        <small>Symbol or emoji</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" id="triggerCustomization">
+                <!-- Customization options will be inserted here -->
+            </div>
+
+            <div class="form-group">
+                <label>Trigger Style</label>
+                <div class="color-picker">
+                    <div class="color-option active" style="background-color: #0066cc" onclick="changeColor('#0066cc')"></div>
+                    <div class="color-option" style="background-color: #28a745" onclick="changeColor('#28a745')"></div>
+                    <div class="color-option" style="background-color: #dc3545" onclick="changeColor('#dc3545')"></div>
+                    <div class="color-option" style="background-color: #6c757d" onclick="changeColor('#6c757d')"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="teaserContent">Teaser Content (HTML)</label>
+                <textarea id="teaserContent" placeholder="Enter your teaser content here..."></textarea>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <h2>Preview</h2>
+            <div class="preview-box">
+                <div>This is a sample text with your teaser trigger: <span id="triggerPreview"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Preview</h3>
+                <button onclick="closeModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-body" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentType = 'i';
+        let currentColor = '#0066cc';
+        let customText = 'More info';
+        let customIcon = '?';
+
+        const triggerCustomizationHTML = {
+            i: '',
+            text: `
+                <label for="customText">Button Text</label>
+                <input type="text" id="customText" value="More info" onchange="updateCustomText(this.value)">
+            `,
+            icon: `
+                <label for="customIcon">Icon/Symbol</label>
+                <input type="text" id="customIcon" value="?" onchange="updateCustomIcon(this.value)">
+            `
+        };
+
+        function changeTriggerType(type) {
+            currentType = type;
+            document.querySelectorAll('.trigger-type').forEach(el => {
+                el.classList.toggle('active', el.dataset.type === type);
+            });
+            
+            document.getElementById('triggerCustomization').innerHTML = triggerCustomizationHTML[type];
+            updatePreview();
+        }
+
+        function changeColor(color) {
+            currentColor = color;
+            document.querySelectorAll('.color-option').forEach(el => {
+                el.classList.toggle('active', el.style.backgroundColor === color);
+            });
+            updatePreview();
+        }
+
+        function updateCustomText(text) {
+            customText = text;
+            updatePreview();
+        }
+
+        function updateCustomIcon(icon) {
+            customIcon = icon;
+            updatePreview();
+        }
+
+        function updatePreview() {
+            let triggerHTML = '';
+            switch(currentType) {
+                case 'i':
+                    triggerHTML = `<button class="i-button" style="background-color: ${currentColor}" onclick="showModal()">i</button>`;
+                    break;
+                case 'text':
+                    triggerHTML = `<button class="custom-trigger" style="background-color: ${currentColor}" onclick="showModal()">${customText}</button>`;
+                    break;
+                case 'icon':
+                    triggerHTML = `<button class="icon-trigger" onclick="showModal()">${customIcon}</button>`;
+                    break;
+            }
+            document.getElementById('triggerPreview').innerHTML = triggerHTML;
+        }
+
+        function showModal() {
+            const content = document.getElementById('teaserContent').value || 'No content added yet';
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('previewModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('previewModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // Initialize
+        updatePreview();
+    </script>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
