@@ -1,6 +1,476 @@
 i have decided this page can update 
+16/2/25
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs Creator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e8f4ff;
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #1a73e8;
+            margin-bottom: 10px;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #1a73e8;
+            background: #f8f9fa;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            cursor: pointer;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .preview-image:hover {
+            transform: scale(1.05);
+        }
+
+        .media-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .play-icon:after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 16px;
+            border-color: transparent transparent transparent white;
+            margin-left: 4px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+
+        .popup.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .popup-media {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #1557b0;
+        }
+
+        .code-output {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .code-preview {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .copy-button {
+            background: #34a853;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #2d8a46;
+        }
+
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #34a853;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            animation: fadeInOut 2.5s ease forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .preview-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 15px; }
+            .preview-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<!-- END OF PART 1 -->
+    <body>
+    <div class="container">
+        <div class="header">
+            <h1>iTabs Creator</h1>
+            <p>Select from gallery or capture new media</p>
+        </div>
+
+        <input type="file" id="fileInput" accept="video/*,image/*" multiple style="display: none">
+        <div class="upload-area" id="uploadArea">
+            Tap to select or capture media
+        </div>
+
+        <div class="preview-grid" id="previewGrid"></div>
+        
+        <button id="generateButton" class="button">Generate Code</button>
+
+        <div id="codeOutput" class="code-output">
+            <div class="code-header">
+                <h3>Your iTabs Code</h3>
+                <button id="copyButton" class="copy-button">Copy Code</button>
+            </div>
+            <div id="codePreview" class="code-preview"></div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div id="popupContent" class="popup-content"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const previewGrid = document.getElementById('previewGrid');
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popupContent');
+        const generateButton = document.getElementById('generateButton');
+        const codeOutput = document.getElementById('codeOutput');
+        const codePreview = document.getElementById('codePreview');
+        const copyButton = document.getElementById('copyButton');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', async (event) => {
+            const files = Array.from(event.target.files);
+            
+            for (const file of files) {
+                try {
+                    if (file.type.startsWith('video/')) {
+                        await handleVideo(file);
+                    } else if (file.type.startsWith('image/')) {
+                        await handleImage(file);
+                    }
+                } catch (error) {
+                    console.error('Error processing file:', error);
+                }
+            }
+        });
+
+        async function handleVideo(file) {
+            return new Promise((resolve, reject) => {
+                const videoUrl = URL.createObjectURL(file);
+                const video = document.createElement('video');
+                video.src = videoUrl;
+                video.muted = true;
+
+                video.onloadeddata = () => {
+                    // Create thumbnail
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0);
+                    
+                    // Create preview item with video
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    
+                    // Thumbnail image
+                    const img = document.createElement('img');
+                    img.src = canvas.toDataURL();
+                    img.className = 'preview-image';
+                    
+                    // Store video URL
+                    const videoBlob = new Blob([file], { type: file.type });
+                    const permanentVideoUrl = URL.createObjectURL(videoBlob);
+                    img.dataset.videoUrl = permanentVideoUrl;
+                    
+                    // Add play icon
+                    const playIcon = document.createElement('div');
+                    playIcon.className = 'play-icon';
+                    
+                    // Add badge
+                    const badge = document.createElement('span');
+                    badge.className = 'media-badge';
+                    badge.textContent = 'VIDEO';
+                    
+                    // Assemble preview item
+                    previewItem.appendChild(img);
+                    previewItem.appendChild(playIcon);
+                    previewItem.appendChild(badge);
+                    
+                    // Add click handler for preview
+                    previewItem.addEventListener('click', () => {
+                        popupContent.innerHTML = '';
+                        const popupVideo = document.createElement('video');
+                        popupVideo.src = permanentVideoUrl;
+                        popupVideo.className = 'popup-media';
+                        popupVideo.controls = true;
+                        popupVideo.autoplay = true;
+                        popupContent.appendChild(popupVideo);
+                        popup.classList.add('active');
+                    });
+                    
+                    previewGrid.appendChild(previewItem);
+                    resolve();
+                };
+
+                video.onerror = reject;
+            });
+        }
+
+        async function handleImage(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image';
+                    
+                    const badge = document.createElement('span');
+                    badge.className = 'media-badge';
+                    badge.textContent = file.type.includes('gif') ? 'GIF' : 'IMG';
+                    
+                    previewItem.appendChild(img);
+                    previewItem.appendChild(badge);
+                    
+                    previewItem.addEventListener('click', () => {
+                        popupContent.innerHTML = '';
+                        const popupImg = document.createElement('img');
+                        popupImg.src = e.target.result;
+                        popupImg.className = 'popup-media';
+                        popupContent.appendChild(popupImg);
+                        popup.classList.add('active');
+                    });
+                    
+                    previewGrid.appendChild(previewItem);
+                    resolve();
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.classList.remove('active');
+                const video = popup.querySelector('video');
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            }
+        });
+
+        generateButton.addEventListener('click', () => {
+            const items = Array.from(document.querySelectorAll('.preview-item'));
+            if (items.length === 0) {
+                alert('Please add some media first!');
+                return;
+            }
+
+            let embedCode = `<div class="itabs-container">
+<style>
+.itabs-container{max-width:600px;margin:0 auto}
+.itabs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:15px}
+.itabs-item{position:relative;aspect-ratio:1;cursor:pointer;border-radius:8px;overflow:hidden}
+.itabs-media{width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.itabs-media:hover{transform:scale(1.05)}
+.itabs-badge{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.7);color:#fff;padding:2px 6px;border-radius:4px;font-size:12px;z-index:1}
+.itabs-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;background:rgba(0,0,0,.7);border-radius:50%;z-index:1}
+.itabs-play:after{content:'';position:absolute;top:50%;left:55%;transform:translate(-50%,-50%);border-style:solid;border-width:10px 0 10px 16px;border-color:transparent transparent transparent #fff}
+</style>
+<div class="itabs-grid">`;
+
+            items.forEach(item => {
+                const img = item.querySelector('.preview-image');
+                const badge = item.querySelector('.media-badge');
+                const isVideo = badge.textContent === 'VIDEO';
+                
+                embedCode += `
+    <div class="itabs-item">
+        <img class="itabs-media" src="${img.src}"${isVideo ? ` data-video="${img.dataset.videoUrl}"` : ''}>
+        <span class="itabs-badge">${badge.textContent}</span>
+        ${isVideo ? '<div class="itabs-play"></div>' : ''}
+    </div>`;
+            });
+
+            embedCode += `
+</div>
+</div>`;
+
+            codePreview.textContent = embedCode;
+            codeOutput.style.display = 'block';
+        });
+
+        copyButton.addEventListener('click', () => {
+            const textarea = document.createElement('textarea');
+            textarea.value = codePreview.textContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const toast = document.createElement('div');
+            toast.className = 'success-toast';
+            toast.textContent = 'Code copied to clipboard!';
+            document.body.appendChild(toast);
+
+            setTimeout(() => document.body.removeChild(toast), 2500);
+        });
+    </script>
+</body>
 </html>
-15/225
+15/2/25
 <!DOCTYPE html>
 <html lang="en">
 <head>
