@@ -1,11 +1,10 @@
-i have decided this page can update 
-16/2/25
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete iTabs Creator</title>
+    <title>iTabs Creator</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -40,11 +39,56 @@ i have decided this page can update
             border-bottom: 2px solid #e8f0fe;
         }
 
+        /* Input Styles */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Color Selection */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .color-option {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+        }
+
         /* Media Upload Styles */
         .upload-area {
             border: 2px dashed #ccc;
             border-radius: 8px;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             margin-bottom: 20px;
@@ -58,9 +102,8 @@ i have decided this page can update
 
         .preview-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-top: 15px;
         }
 
         .preview-item {
@@ -95,75 +138,18 @@ i have decided this page can update
             z-index: 2;
         }
 
-        /* Style Customization */
-        .style-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .style-option {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            background: white;
-            transition: all 0.2s;
-        }
-
-        .style-option.selected {
-            border-color: #1a73e8;
-            background: #e8f0fe;
-        }
-
-        .color-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .color-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s;
-        }
-
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-
-        .color-option.selected {
-            border-color: #333;
-        }
-
-        /* Content Input */
-        .content-input {
-            width: 100%;
-            min-height: 100px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin: 10px 0 20px;
-            resize: vertical;
-            font-family: inherit;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        /* Button Colors */
-        .blue { background: #1a73e8; }
-        .green { background: #34a853; }
-        .red { background: #ea4335; }
-        .gray { background: #5f6368; }
-        .purple { background: #7140cc; }
-
         /* Preview Styles */
+        .custom-button {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Popup Styles */
         .popup {
             display: none;
             position: fixed;
@@ -182,77 +168,60 @@ i have decided this page can update
         }
 
         .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
             max-width: 90%;
             max-height: 90vh;
-            position: relative;
+            overflow-y: auto;
         }
 
         .popup-media {
             max-width: 100%;
-            max-height: 80vh;
+            max-height: 70vh;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
         }
 
-        /* iTabs Preview Styles */
-        .itab-circle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+        /* Generate and Copy Buttons */
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .generate-button {
+            background: #1a73e8;
             color: white;
-            font-weight: bold;
-            font-style: italic;
-            cursor: pointer;
         }
 
-        .itab-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 12px;
-            border-radius: 20px;
+        .generate-button:hover {
+            background: #1557b0;
+        }
+
+        .copy-button {
+            background: #34a853;
             color: white;
-            cursor: pointer;
         }
 
-        .itab-text {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
+        .copy-button:hover {
+            background: #2d8a46;
         }
 
-        .preview-button {
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .preview-popup {
-            margin-top: 10px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Code Output Styles */
+        /* Code Output */
         .code-output {
             display: none;
             margin-top: 20px;
-            padding: 20px;
+            padding: 15px;
             background: #f8f9fa;
             border-radius: 8px;
-        }
-
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
         }
 
         .code-preview {
@@ -261,34 +230,20 @@ i have decided this page can update
             border-radius: 6px;
             border: 1px solid #ddd;
             font-family: monospace;
+            font-size: 14px;
             white-space: pre-wrap;
             max-height: 300px;
             overflow-y: auto;
         }
 
-        .copy-button {
-            background: #34a853;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        /* Colors */
+        .blue { background: #1a73e8; }
+        .green { background: #34a853; }
+        .red { background: #ea4335; }
+        .gray { background: #5f6368; }
+        .purple { background: #7140cc; }
 
-        .generate-button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
+        /* Success Toast */
         .success-toast {
             position: fixed;
             top: 20px;
@@ -317,8 +272,8 @@ i have decided this page can update
             .preview-grid { 
                 grid-template-columns: repeat(2, 1fr); 
             }
-            .style-options {
-                grid-template-columns: 1fr;
+            .color-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
@@ -327,46 +282,41 @@ i have decided this page can update
     <body>
     <div class="container">
         <div class="section">
-            <h2 class="section-title">Media Upload</h2>
-            <input type="file" id="fileInput" accept="video/*,image/*" multiple style="display: none">
-            <div class="upload-area" id="uploadArea">
-                Tap to select photos or videos
+            <h2 class="section-title">Button Text</h2>
+            <div class="input-group">
+                <label class="input-label">Enter your button text:</label>
+                <input type="text" id="buttonText" class="text-input" value="Click to view gallery" placeholder="Enter text for your button...">
             </div>
-            <div class="preview-grid" id="previewGrid"></div>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">iTab Style</h2>
-            <div class="style-options">
-                <button class="style-option selected" data-style="circle">Circle 'i'</button>
-                <button class="style-option" data-style="button">Button</button>
-                <button class="style-option" data-style="text">Text Link</button>
-            </div>
-
-            <h3 class="section-title">Color</h3>
-            <div class="color-options">
+            
+            <h2 class="section-title">Button Color</h2>
+            <div class="color-grid">
                 <div class="color-option blue selected" data-color="#1a73e8"></div>
                 <div class="color-option green" data-color="#34a853"></div>
                 <div class="color-option red" data-color="#ea4335"></div>
                 <div class="color-option gray" data-color="#5f6368"></div>
                 <div class="color-option purple" data-color="#7140cc"></div>
             </div>
-
-            <h3 class="section-title">Content</h3>
-            <textarea id="contentInput" class="content-input" 
-                placeholder="Enter the content that will appear when clicking the iTabs button..."></textarea>
         </div>
 
         <div class="section">
-            <h2 class="section-title">Live Preview</h2>
-            <div id="stylePreview" style="margin-bottom: 20px;"></div>
-            <button id="generateButton" class="generate-button">Generate Code</button>
+            <h2 class="section-title">Media Upload</h2>
+            <input type="file" id="fileInput" accept="video/*,image/*" multiple style="display: none">
+            <div class="upload-area" id="uploadArea">
+                Tap to add photos or videos
+            </div>
+            <div class="preview-grid" id="previewGrid"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Preview</h2>
+            <div id="buttonPreview" style="margin-bottom: 20px;"></div>
+            <button id="generateButton" class="button generate-button">Generate Code</button>
         </div>
 
         <div id="codeOutput" class="code-output">
             <div class="code-header">
                 <h3>Your iTabs Code</h3>
-                <button id="copyButton" class="copy-button">Copy Code</button>
+                <button id="copyButton" class="button copy-button">Copy Code</button>
             </div>
             <div id="codePreview" class="code-preview"></div>
         </div>
@@ -383,78 +333,42 @@ i have decided this page can update
         const previewGrid = document.getElementById('previewGrid');
         const popup = document.getElementById('popup');
         const popupContent = document.getElementById('popupContent');
-        const stylePreview = document.getElementById('stylePreview');
+        const buttonPreview = document.getElementById('buttonPreview');
+        const buttonText = document.getElementById('buttonText');
         const generateButton = document.getElementById('generateButton');
         const codeOutput = document.getElementById('codeOutput');
         const codePreview = document.getElementById('codePreview');
         const copyButton = document.getElementById('copyButton');
-        const contentInput = document.getElementById('contentInput');
 
-        // Style state
-        let currentStyle = 'circle';
+        // State
         let currentColor = '#1a73e8';
         let mediaItems = [];
 
-        // Initialize style options
-        document.querySelectorAll('.style-option').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelectorAll('.style-option').forEach(opt => 
-                    opt.classList.remove('selected'));
-                option.classList.add('selected');
-                currentStyle = option.dataset.style;
-                updateStylePreview();
-            });
-        });
-
+        // Color selection
         document.querySelectorAll('.color-option').forEach(option => {
             option.addEventListener('click', () => {
                 document.querySelectorAll('.color-option').forEach(opt => 
                     opt.classList.remove('selected'));
                 option.classList.add('selected');
                 currentColor = option.dataset.color;
-                updateStylePreview();
+                updateButtonPreview();
             });
         });
 
-        // Update preview when content changes
-        contentInput.addEventListener('input', updateStylePreview);
+        // Button text input
+        buttonText.addEventListener('input', updateButtonPreview);
 
-        function updateStylePreview() {
-            const content = contentInput.value || 'Preview content goes here...';
-            
-            let buttonHtml = '';
-            switch(currentStyle) {
-                case 'circle':
-                    buttonHtml = `<span class="itab-circle" style="background-color: ${currentColor}">i</span>`;
-                    break;
-                case 'button':
-                    buttonHtml = `<span class="itab-button" style="background-color: ${currentColor}">
-                        <span style="font-style: italic;">i</span>
-                        <span>Info</span>
-                    </span>`;
-                    break;
-                case 'text':
-                    buttonHtml = `<span class="itab-text" style="color: ${currentColor}">
-                        <span style="font-style: italic;">i</span>
-                        <span>More Info</span>
-                    </span>`;
-                    break;
-            }
-
-            stylePreview.innerHTML = `
-                <div class="preview-button">${buttonHtml}</div>
-                <div class="preview-popup" style="display: none;">
-                    ${content}
-                </div>
+        function updateButtonPreview() {
+            const text = buttonText.value || 'Click to view gallery';
+            buttonPreview.innerHTML = `
+                <span class="custom-button" style="color: white; background-color: ${currentColor}">
+                    ${text}
+                </span>
             `;
 
-            // Add click handler
-            const previewButton = stylePreview.querySelector('.preview-button');
-            const previewPopup = stylePreview.querySelector('.preview-popup');
-            
+            const previewButton = buttonPreview.querySelector('.custom-button');
             previewButton.addEventListener('click', () => {
-                const isShowing = previewPopup.style.display === 'block';
-                previewPopup.style.display = isShowing ? 'none' : 'block';
+                showPopup();
             });
         }
 
@@ -536,34 +450,70 @@ i have decided this page can update
             badge.className = 'media-badge';
             badge.textContent = type;
             
-            if (type === 'VIDEO') {
-                const playIcon = document.createElement('div');
-                playIcon.className = 'play-icon';
-                previewItem.appendChild(playIcon);
-            }
-            
             previewItem.appendChild(img);
             previewItem.appendChild(badge);
             previewGrid.appendChild(previewItem);
             
             previewItem.addEventListener('click', () => {
-                popupContent.innerHTML = '';
-                
                 if (type === 'VIDEO') {
-                    const video = document.createElement('video');
-                    video.src = videoUrl;
-                    video.className = 'popup-media';
-                    video.controls = true;
-                    video.autoplay = true;
-                    popupContent.appendChild(video);
+                    showMedia(videoUrl, true);
                 } else {
-                    const popupImg = document.createElement('img');
-                    popupImg.src = thumbnailSrc;
-                    popupImg.className = 'popup-media';
-                    popupContent.appendChild(popupImg);
+                    showMedia(thumbnailSrc, false);
                 }
-                
-                popup.classList.add('active');
+            });
+        }
+
+        function showMedia(url, isVideo) {
+            popupContent.innerHTML = '';
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.src = url;
+                video.className = 'popup-media';
+                video.controls = true;
+                video.autoplay = true;
+                popupContent.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = 'popup-media';
+                popupContent.appendChild(img);
+            }
+            popup.classList.add('active');
+        }
+
+        function showPopup() {
+            if (mediaItems.length === 0) {
+                alert('Please add some media first!');
+                return;
+            }
+
+            popupContent.innerHTML = `
+                <div class="preview-grid">
+                    ${mediaItems.map((item, index) => `
+                        <div class="preview-item">
+                            <img src="${item.thumbnail}" class="preview-image" data-index="${index}" ${item.type === 'video' ? `data-video="${item.url}"` : ''}>
+                            <span class="media-badge">${item.type.toUpperCase()}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            popup.classList.add('active');
+
+            // Add click handlers to preview items
+            popupContent.querySelectorAll('.preview-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const videoUrl = img.dataset.video;
+                    const index = parseInt(img.dataset.index);
+                    const mediaItem = mediaItems[index];
+                    
+                    if (videoUrl) {
+                        showMedia(videoUrl, true);
+                    } else {
+                        showMedia(mediaItem.url, false);
+                    }
+                });
             });
         }
 
@@ -573,80 +523,94 @@ i have decided this page can update
                 const video = popup.querySelector('video');
                 if (video) {
                     video.pause();
-                    video.currentTime = 0;
                 }
             }
         });
 
         generateButton.addEventListener('click', () => {
-            if (!contentInput.value) {
-                alert('Please add some content first!');
+            if (mediaItems.length === 0) {
+                alert('Please add some media first!');
                 return;
             }
 
+            const text = buttonText.value || 'Click to view gallery';
             let code = `<!-- iTabs Styles -->
 <style>
 .itab-container { max-width: 600px; margin: 0 auto; }
-.itab-trigger { ${currentStyle === 'text' ? `color: ${currentColor};` : ''} cursor: pointer; }
-.itab-content { display: none; padding: 15px; background: white; border-radius: 8px; margin-top: 10px; border: 1px solid #ddd; }
-${getButtonCSS()}
+.itab-button { display: inline-block; padding: 8px 16px; background-color: ${currentColor}; color: white; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+.itab-button:hover { opacity: 0.9; }
+.itab-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
+.itab-popup.active { display: flex; justify-content: center; align-items: center; }
+.itab-content { background: white; padding: 20px; border-radius: 12px; max-width: 90%; max-height: 90vh; overflow-y: auto; }
+.itab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.itab-item { position: relative; aspect-ratio: 1; cursor: pointer; border-radius: 8px; overflow: hidden; }
+.itab-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s; }
+.itab-image:hover { transform: scale(1.05); }
+.itab-badge { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.7); color: white; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+.itab-media { max-width: 100%; max-height: 80vh; border-radius: 8px; }
 </style>
 
 <!-- iTabs Content -->
 <div class="itab-container">
-    ${getButtonHTML()}
-    <div class="itab-content">
-        ${contentInput.value}
+    <span class="itab-button">${text}</span>
+    
+    <div class="itab-popup">
+        <div class="itab-content">
+            <div class="itab-grid">
+                ${mediaItems.map((item, index) => `
+                <div class="itab-item" data-index="${index}">
+                    <img src="${item.thumbnail}" class="itab-image" ${item.type === 'video' ? `data-video="${item.url}"` : ''}>
+                    <span class="itab-badge">${item.type.toUpperCase()}</span>
+                </div>`).join('')}
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-document.querySelector('.itab-trigger').addEventListener('click', function() {
-    const content = document.querySelector('.itab-content');
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+document.querySelector('.itab-button').addEventListener('click', function() {
+    document.querySelector('.itab-popup').classList.add('active');
+});
+
+document.querySelector('.itab-popup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.remove('active');
+        const video = this.querySelector('video');
+        if (video) {
+            video.pause();
+        }
+    }
+});
+
+document.querySelectorAll('.itab-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        const videoUrl = img.dataset.video;
+        const popup = document.querySelector('.itab-popup');
+        const content = popup.querySelector('.itab-content');
+        
+        content.innerHTML = '';
+        
+        if (videoUrl) {
+            const video = document.createElement('video');
+            video.src = videoUrl;
+            video.className = 'itab-media';
+            video.controls = true;
+            video.autoplay = true;
+            content.appendChild(video);
+        } else {
+            const image = document.createElement('img');
+            image.src = img.src;
+            image.className = 'itab-media';
+            content.appendChild(image);
+        }
+    });
 });
 <\/script>`;
 
             codePreview.textContent = code;
             codeOutput.style.display = 'block';
         });
-
-        function getButtonCSS() {
-            switch(currentStyle) {
-                case 'circle':
-                    return `
-.itab-circle { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background-color: ${currentColor}; color: white; font-weight: bold; font-style: italic; }`;
-                case 'button':
-                    return `
-.itab-button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background-color: ${currentColor}; color: white; border-radius: 20px; }`;
-                case 'text':
-                    return `
-.itab-text { display: inline-flex; align-items: center; gap: 4px; color: ${currentColor}; }`;
-            }
-        }
-
-        function getButtonHTML() {
-            switch(currentStyle) {
-                case 'circle':
-                    return `<span class="itab-trigger">
-                        <span class="itab-circle">i</span>
-                    </span>`;
-                case 'button':
-                    return `<span class="itab-trigger">
-                        <span class="itab-button">
-                            <span style="font-style: italic;">i</span>
-                            <span>Info</span>
-                        </span>
-                    </span>`;
-                case 'text':
-                    return `<span class="itab-trigger">
-                        <span class="itab-text">
-                            <span style="font-style: italic;">i</span>
-                            <span>More Info</span>
-                        </span>
-                    </span>`;
-            }
-        }
 
         copyButton.addEventListener('click', () => {
             const textarea = document.createElement('textarea');
@@ -665,7 +629,7 @@ document.querySelector('.itab-trigger').addEventListener('click', function() {
         });
 
         // Initial preview
-        updateStylePreview();
+        updateButtonPreview();
     </script>
 </body>
 </html>
