@@ -1,4 +1,726 @@
 17/02/25
+
+here is the updated version
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced iTabs Creator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #1a73e8;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f0fe;
+        }
+
+        /* Input Styles */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Color Selection */
+        .color-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .color-option {
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .color-option:hover {
+            transform: scale(1.02);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+        }
+
+        /* Video Styles */
+        .video-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .video-source {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .video-source.active {
+            border-color: #1a73e8;
+            background: #e8f0fe;
+        }
+
+        .video-input-container {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .video-input-container.active {
+            display: block;
+        }
+
+        .video-preview {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-preview video {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        /* Media Upload Styles */
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #1a73e8;
+            background: #f8f9fa;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        .preview-image:hover {
+            transform: scale(1.05);
+        }
+
+        .media-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* Colors */
+        .blue { background: #1a73e8; }
+        .green { background: #34a853; }
+        .red { background: #ea4335; }
+        .gray { background: #5f6368; }
+        .purple { background: #7140cc; }
+
+        /* Button and Output Styles */
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .generate-button {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .copy-button {
+            background: #34a853;
+            color: white;
+        }
+
+        .code-output {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .code-preview {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+
+        .popup.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Toast Message */
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #34a853;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            animation: fadeInOut 2.5s ease forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">Button Text</h2>
+            <div class="input-group">
+                <label class="input-label">Enter your button text:</label>
+                <input type="text" id="buttonText" class="text-input" value="Click to view gallery" placeholder="Enter text for your button...">
+            </div>
+            
+            <h2 class="section-title">Button Color</h2>
+            <div class="color-grid">
+                <div class="color-option blue selected" data-color="#1a73e8">Blue</div>
+                <div class="color-option green" data-color="#34a853">Green</div>
+                <div class="color-option red" data-color="#ea4335">Red</div>
+                <div class="color-option gray" data-color="#5f6368">Gray</div>
+                <div class="color-option purple" data-color="#7140cc">Purple</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Video Content</h2>
+            <div class="video-options">
+                <div class="video-source active" data-source="upload">
+                    Upload Video
+                </div>
+                <div class="video-source" data-source="url">
+                    Video URL
+                </div>
+            </div>
+
+            <div class="video-input-container active" id="uploadInput">
+                <input type="file" id="videoFile" accept="video/*" class="text-input">
+                <small>Maximum file size: 50MB</small>
+            </div>
+
+            <div class="video-input-container" id="urlInput">
+                <input type="url" id="videoUrl" placeholder="Enter video URL" class="text-input">
+            </div>
+
+            <div class="video-preview" id="videoPreview"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Image Upload</h2>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display: none">
+            <div class="upload-area" id="uploadArea">
+                Tap to add photos
+            </div>
+            <div class="preview-grid" id="previewGrid"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Preview</h2>
+            <div id="buttonPreview" style="margin-bottom: 20px;"></div>
+            <button id="generateButton" class="button generate-button">Generate Code</button>
+        </div>
+
+        <div id="codeOutput" class="code-output">
+            <div class="code-header">
+                <h3>Your iTabs Code</h3>
+                <button id="copyButton" class="button copy-button">Copy Code</button>
+            </div>
+            <div id="codePreview" class="code-preview"></div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div id="popupContent" class="popup-content"></div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced iTabs Creator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #1a73e8;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f0fe;
+        }
+
+        /* Input Styles */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Color Selection */
+        .color-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .color-option {
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .color-option:hover {
+            transform: scale(1.02);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+        }
+
+        /* Video Styles */
+        .video-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .video-source {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .video-source.active {
+            border-color: #1a73e8;
+            background: #e8f0fe;
+        }
+
+        .video-input-container {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .video-input-container.active {
+            display: block;
+        }
+
+        .video-preview {
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-preview video {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        /* Media Upload Styles */
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #1a73e8;
+            background: #f8f9fa;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        .preview-image:hover {
+            transform: scale(1.05);
+        }
+
+        .media-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* Colors */
+        .blue { background: #1a73e8; }
+        .green { background: #34a853; }
+        .red { background: #ea4335; }
+        .gray { background: #5f6368; }
+        .purple { background: #7140cc; }
+
+        /* Button and Output Styles */
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .generate-button {
+            background: #1a73e8;
+            color: white;
+        }
+
+        .copy-button {
+            background: #34a853;
+            color: white;
+        }
+
+        .code-output {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .code-preview {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+
+        .popup.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Toast Message */
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #34a853;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            animation: fadeInOut 2.5s ease forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">Button Text</h2>
+            <div class="input-group">
+                <label class="input-label">Enter your button text:</label>
+                <input type="text" id="buttonText" class="text-input" value="Click to view gallery" placeholder="Enter text for your button...">
+            </div>
+            
+            <h2 class="section-title">Button Color</h2>
+            <div class="color-grid">
+                <div class="color-option blue selected" data-color="#1a73e8">Blue</div>
+                <div class="color-option green" data-color="#34a853">Green</div>
+                <div class="color-option red" data-color="#ea4335">Red</div>
+                <div class="color-option gray" data-color="#5f6368">Gray</div>
+                <div class="color-option purple" data-color="#7140cc">Purple</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Video Content</h2>
+            <div class="video-options">
+                <div class="video-source active" data-source="upload">
+                    Upload Video
+                </div>
+                <div class="video-source" data-source="url">
+                    Video URL
+                </div>
+            </div>
+
+            <div class="video-input-container active" id="uploadInput">
+                <input type="file" id="videoFile" accept="video/*" class="text-input">
+                <small>Maximum file size: 50MB</small>
+            </div>
+
+            <div class="video-input-container" id="urlInput">
+                <input type="url" id="videoUrl" placeholder="Enter video URL" class="text-input">
+            </div>
+
+            <div class="video-preview" id="videoPreview"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Image Upload</h2>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display: none">
+            <div class="upload-area" id="uploadArea">
+                Tap to add photos
+            </div>
+            <div class="preview-grid" id="previewGrid"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Preview</h2>
+            <div id="buttonPreview" style="margin-bottom: 20px;"></div>
+            <button id="generateButton" class="button generate-button">Generate Code</button>
+        </div>
+
+        <div id="codeOutput" class="code-output">
+            <div class="code-header">
+                <h3>Your iTabs Code</h3>
+                <button id="copyButton" class="button copy-button">Copy Code</button>
+            </div>
+            <div id="codePreview" class="code-preview"></div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div id="popupContent" class="popup-content"></div>
+    </div>
+</body>
+</html>
 video plays in this one but does not have all fatures so will habe to go back and do that
 
 <!-- iTabs Styles -->
