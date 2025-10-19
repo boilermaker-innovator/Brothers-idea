@@ -1,3 +1,54 @@
+<!-- iTabs Code - Paste this where you want the product image -->
+<div style="position: relative; display: inline-block;">
+    <img src="https://i.ibb.co/7VfcGvX/IMG-1673.jpg" alt="Product" style="max-width: 100%; height: auto; border-radius: 8px;">
+    <div onclick="openItabsPopup()" style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; background: rgba(33, 150, 243, 0.9); color: white; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">i</div>
+</div>
+
+<div id="itabsPopup" onclick="closeItabsPopup(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+    <div onclick="event.stopPropagation()" style="background: white; border-radius: 8px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto;">
+        <div style="position: sticky; top: 0; background: white; padding: 15px; border-bottom: 1px solid #eee; text-align: right;">
+            <button onclick="closeItabsPopup()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">&times;</button>
+        </div>
+        <div style="padding: 20px; border-bottom: 1px solid #eee;">
+            <h3 style="color: #2196F3; margin-bottom: 10px;">What is it?</h3>
+            <p>iTabs is a simple information popup system that helps explain confusing products to customers. Just add a little "i" button to any product image, and customers can click to learn more in plain English.</p>
+        </div>
+        <div style="padding: 20px; border-bottom: 1px solid #eee;">
+            <h3 style="color: #2196F3; margin-bottom: 10px;">Why do I need it?</h3>
+            <p>Customers abandon products they don't understand. Technical jargon, part numbers, and confusing specifications lose you sales. iTabs translates complex products into simple explanations that anyone can understand.</p>
+        </div>
+        <div style="padding: 20px; border-bottom: 1px solid #eee;">
+            <h3 style="color: #2196F3; margin-bottom: 10px;">How does it work?</h3>
+            <p>Click the "i" button on any product image. A popup appears with clear sections explaining what the product is, why you need it, and what makes it special. Scroll through the information, then click the button at the bottom to take action.</p>
+        </div>
+        <div style="padding: 20px; border-bottom: 1px solid #eee;">
+            <h3 style="color: #2196F3; margin-bottom: 10px;">What makes it different?</h3>
+            <p>iTabs works on any website, mobile or desktop. No complicated setup, no database required. It's self-explanatory - the product demonstrates itself. Business owners can create iTabs in minutes, and customers understand products instantly.</p>
+        </div>
+        <a href="https://example.com/contact" target="_blank" style="display: block; width: calc(100% - 40px); margin: 20px; padding: 15px; background: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 4px; font-weight: bold;">Get iTabs For Your Business</a>
+    </div>
+</div>
+
+<script>
+function openItabsPopup() {
+    document.getElementById('itabsPopup').style.display = 'flex';
+}
+function closeItabsPopup(event) {
+    if (event && event.target.id === 'itabsPopup') {
+        document.getElementById('itabsPopup').style.display = 'none';
+    } else if (!event) {
+        document.getElementById('itabsPopup').style.display = 'none';
+    }
+}
+</script>
+
+
+
+
+
+
+
+
 
 const campaignData = {
     id: "bioanalytics-2024",
