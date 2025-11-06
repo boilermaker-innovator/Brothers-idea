@@ -121,10 +121,12 @@
     .popup-box {
         background: white;
         border-radius: 15px;
-        padding: 20px;
+        padding: 15px;
         max-width: 600px;
+        width: 100%;
         margin: 20px auto;
         position: relative;
+        box-sizing: border-box;
     }
 
     .close-btn {
@@ -180,7 +182,7 @@
 
     /* Quote Form */
     .form-field {
-        margin-bottom: 18px;
+        margin-bottom: 12px;
     }
 
     .form-field label {
@@ -214,7 +216,7 @@
         background: #f9f9f9;
         border: 2px solid #ddd;
         border-radius: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         overflow: hidden;
     }
 
@@ -224,10 +226,10 @@
     }
 
     .part-header {
-        padding: 15px;
+        padding: 12px;
         display: flex;
-        align-items: center;
-        gap: 12px;
+        align-items: flex-start;
+        gap: 10px;
         cursor: pointer;
     }
 
@@ -235,10 +237,14 @@
         width: 24px;
         height: 24px;
         flex-shrink: 0;
+        order: 1;
+        margin-top: 2px;
     }
 
     .part-info {
         flex: 1;
+        min-width: 0;
+        text-align: left;
     }
 
     .part-name {
@@ -246,17 +252,19 @@
         font-weight: 600;
         color: #333;
         margin-bottom: 4px;
+        text-align: left;
     }
 
     .part-price {
         font-size: 18px;
         font-weight: bold;
         color: #4CAF50;
+        text-align: left;
     }
 
     .qty-section {
         display: none;
-        padding: 12px 15px;
+        padding: 10px 12px;
         background: white;
         border-top: 1px solid #ddd;
     }
