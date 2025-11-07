@@ -1,7 +1,4 @@
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,7 +118,7 @@
         .popup-box {
             background: white;
             border-radius: 15px;
-            padding: 15px;
+            padding: 20px;
             max-width: 600px;
             width: 100%;
             margin: 20px auto;
@@ -142,13 +139,14 @@
             font-size: 22px;
             cursor: pointer;
             line-height: 1;
+            z-index: 10;
         }
 
         .popup-title {
             font-size: 24px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding-right: 40px;
         }
 
@@ -181,14 +179,14 @@
         }
 
         .form-field {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .form-field label {
             display: block;
             font-weight: bold;
             color: #333;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-size: 15px;
         }
 
@@ -214,7 +212,7 @@
             background: #f9f9f9;
             border: 2px solid #ddd;
             border-radius: 10px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             overflow: hidden;
         }
 
@@ -224,25 +222,23 @@
         }
 
         .part-header {
-            padding: 12px;
+            padding: 14px;
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
             cursor: pointer;
         }
 
         .part-checkbox {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             flex-shrink: 0;
-            order: 1;
-            margin-top: 2px;
+            cursor: pointer;
         }
 
         .part-info {
             flex: 1;
             min-width: 0;
-            text-align: left;
         }
 
         .part-name {
@@ -250,19 +246,17 @@
             font-weight: 600;
             color: #333;
             margin-bottom: 4px;
-            text-align: left;
         }
 
         .part-price {
             font-size: 18px;
             font-weight: bold;
             color: #4CAF50;
-            text-align: left;
         }
 
         .qty-section {
             display: none;
-            padding: 10px 12px;
+            padding: 12px 14px;
             background: white;
             border-top: 1px solid #ddd;
         }
@@ -276,42 +270,43 @@
         .qty-label {
             font-weight: 600;
             color: #555;
+            font-size: 15px;
         }
 
         .qty-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
         }
 
         .qty-btn {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border: 2px solid #2196F3;
             background: white;
             color: #2196F3;
             border-radius: 8px;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             cursor: pointer;
         }
 
         .qty-num {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
-            min-width: 30px;
+            min-width: 28px;
             text-align: center;
         }
 
         .total-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px;
+            padding: 16px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px;
+            margin: 16px 0;
         }
 
         .total-label {
@@ -333,7 +328,7 @@
             font-size: 17px;
             font-weight: bold;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
             cursor: pointer;
         }
 
@@ -502,7 +497,7 @@
                         <div class="parts-list">
                             <div class="part-card" id="card-0">
                                 <div class="part-header" onclick="togglePart(0)">
-                                    <input type="checkbox" class="part-checkbox" id="check-0" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="part-checkbox" id="check-0" onclick="event.stopPropagation(); togglePart(0)">
                                     <div class="part-info">
                                         <div class="part-name">Brake Pads (NWP-B4C)</div>
                                         <div class="part-price">$89.95</div>
@@ -520,7 +515,7 @@
 
                             <div class="part-card" id="card-1">
                                 <div class="part-header" onclick="togglePart(1)">
-                                    <input type="checkbox" class="part-checkbox" id="check-1" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="part-checkbox" id="check-1" onclick="event.stopPropagation(); togglePart(1)">
                                     <div class="part-info">
                                         <div class="part-name">Brake Rotors (DBR-3124-F)</div>
                                         <div class="part-price">$124.50</div>
@@ -538,7 +533,7 @@
 
                             <div class="part-card" id="card-2">
                                 <div class="part-header" onclick="togglePart(2)">
-                                    <input type="checkbox" class="part-checkbox" id="check-2" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="part-checkbox" id="check-2" onclick="event.stopPropagation(); togglePart(2)">
                                     <div class="part-info">
                                         <div class="part-name">Cabin Air Filter (CAF-872-HC)</div>
                                         <div class="part-price">$34.95</div>
@@ -556,7 +551,7 @@
 
                             <div class="part-card" id="card-3">
                                 <div class="part-header" onclick="togglePart(3)">
-                                    <input type="checkbox" class="part-checkbox" id="check-3" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="part-checkbox" id="check-3" onclick="event.stopPropagation(); togglePart(3)">
                                     <div class="part-info">
                                         <div class="part-name">Brake Fluid (DOT 4)</div>
                                         <div class="part-price">$45.00</div>
@@ -574,7 +569,7 @@
 
                             <div class="part-card" id="card-4">
                                 <div class="part-header" onclick="togglePart(4)">
-                                    <input type="checkbox" class="part-checkbox" id="check-4" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="part-checkbox" id="check-4" onclick="event.stopPropagation(); togglePart(4)">
                                     <div class="part-info">
                                         <div class="part-name">Engine Oil Filter</div>
                                         <div class="part-price">$28.50</div>
