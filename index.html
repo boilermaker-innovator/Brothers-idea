@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +124,6 @@
             width: 100%;
             margin: 20px auto;
             position: relative;
-            box-sizing: border-box;
         }
 
         .close-btn {
@@ -227,6 +227,7 @@
             align-items: center;
             gap: 12px;
             cursor: pointer;
+            min-height: 60px;
         }
 
         .part-checkbox {
@@ -238,20 +239,23 @@
 
         .part-info {
             flex: 1;
-            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .part-name {
             font-size: 15px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 4px;
+            line-height: 1.3;
         }
 
         .part-price {
             font-size: 18px;
             font-weight: bold;
             color: #4CAF50;
+            line-height: 1.2;
         }
 
         .qty-section {
@@ -359,7 +363,6 @@
         📱 iTabs Demo - Try It!
     </div>
 
-    <!-- Products -->
     <div class="product-card">
         <div class="product-row">
             <div class="product-code">NWP-B4C</div>
@@ -387,7 +390,6 @@
         <button class="get-quote-btn" onclick="showQuote('CAF-872-HC', 'Cabin Air Filter', 2)">Get Instant Quote</button>
     </div>
 
-    <!-- Info Popup - Brake Pads -->
     <div id="info-pads" class="popup">
         <div class="popup-box">
             <button class="close-btn" onclick="closePopup('info-pads')">×</button>
@@ -417,7 +419,6 @@
         </div>
     </div>
 
-    <!-- Info Popup - Rotors -->
     <div id="info-rotors" class="popup">
         <div class="popup-box">
             <button class="close-btn" onclick="closePopup('info-rotors')">×</button>
@@ -447,7 +448,6 @@
         </div>
     </div>
 
-    <!-- Info Popup - Filter -->
     <div id="info-filter" class="popup">
         <div class="popup-box">
             <button class="close-btn" onclick="closePopup('info-filter')">×</button>
@@ -477,7 +477,6 @@
         </div>
     </div>
 
-    <!-- Quote Popup -->
     <div id="quote-popup" class="popup">
         <div class="popup-box">
             <button class="close-btn" onclick="closePopup('quote-popup')">×</button>
@@ -697,7 +696,6 @@
             closePopup('quote-popup');
         }
 
-        // Close popups when clicking outside
         document.querySelectorAll('.popup').forEach(popup => {
             popup.addEventListener('click', function(e) {
                 if (e.target === this) {
