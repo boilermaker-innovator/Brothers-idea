@@ -1,5 +1,8 @@
-<!DOCTYPE html>
 
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,350 +16,343 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-```
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-        background: #f5f5f5;
-        padding: 10px;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 10px;
+        }
 
-    .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 15px;
-        text-align: center;
-    }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
 
-    .header h1 {
-        font-size: 22px;
-        margin-bottom: 5px;
-    }
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
 
-    .demo-badge {
-        background: #fff3cd;
-        border: 2px solid #ffc107;
-        border-radius: 10px;
-        padding: 12px;
-        margin-bottom: 15px;
-        text-align: center;
-        color: #856404;
-        font-size: 14px;
-        font-weight: 600;
-    }
+        .demo-badge {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #856404;
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-    /* Product Cards on Main Page */
-    .product-card {
-        background: white;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
-    .product-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-    }
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
-    .product-code {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-    }
+        .product-code {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
 
-    .info-btn {
-        background: #2196F3;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
-    }
+        .info-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+        }
 
-    .product-price {
-        font-size: 24px;
-        color: #4CAF50;
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
+        .product-price {
+            font-size: 24px;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
 
-    .get-quote-btn {
-        background: #4CAF50;
-        color: white;
-        border: none;
-        padding: 14px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        width: 100%;
-        cursor: pointer;
-    }
+        .get-quote-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
 
-    /* Popup Overlay */
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.75);
-        z-index: 9999;
-        overflow-y: auto;
-        padding: 15px;
-    }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 15px;
+        }
 
-    .popup.show {
-        display: block;
-    }
+        .popup.show {
+            display: block;
+        }
 
-    .popup-box {
-        background: white;
-        border-radius: 15px;
-        padding: 15px;
-        max-width: 600px;
-        width: 100%;
-        margin: 20px auto;
-        position: relative;
-        box-sizing: border-box;
-    }
+        .popup-box {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px auto;
+            position: relative;
+            box-sizing: border-box;
+        }
 
-    .close-btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: #f44336;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        font-size: 22px;
-        cursor: pointer;
-        line-height: 1;
-    }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+        }
 
-    .popup-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 15px;
-        padding-right: 40px;
-    }
+        .popup-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-right: 40px;
+        }
 
-    .info-section {
-        margin-bottom: 20px;
-    }
+        .info-section {
+            margin-bottom: 20px;
+        }
 
-    .info-section h3 {
-        color: #2196F3;
-        font-size: 16px;
-        margin-bottom: 8px;
-    }
+        .info-section h3 {
+            color: #2196F3;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
 
-    .info-section p {
-        color: #555;
-        line-height: 1.6;
-        font-size: 15px;
-    }
+        .info-section p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
 
-    .specs {
-        list-style: none;
-        margin-top: 10px;
-    }
+        .specs {
+            list-style: none;
+            margin-top: 10px;
+        }
 
-    .specs li {
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-        color: #555;
-        font-size: 14px;
-    }
+        .specs li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            font-size: 14px;
+        }
 
-    /* Quote Form */
-    .form-field {
-        margin-bottom: 12px;
-    }
+        .form-field {
+            margin-bottom: 12px;
+        }
 
-    .form-field label {
-        display: block;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 6px;
-        font-size: 15px;
-    }
+        .form-field label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
 
-    .form-field input {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        font-size: 16px;
-    }
+        .form-field input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
 
-    .help-text {
-        font-size: 12px;
-        color: #999;
-        margin-top: 4px;
-    }
+        .help-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
 
-    /* Parts Selection */
-    .parts-list {
-        margin-top: 10px;
-    }
+        .parts-list {
+            margin-top: 10px;
+        }
 
-    .part-card {
-        background: #f9f9f9;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        margin-bottom: 8px;
-        overflow: hidden;
-    }
+        .part-card {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
 
-    .part-card.selected {
-        border-color: #2196F3;
-        background: #e3f2fd;
-    }
+        .part-card.selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
 
-    .part-header {
-        padding: 12px;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        cursor: pointer;
-    }
+        .part-header {
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+        }
 
-    .part-checkbox {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        order: 1;
-        margin-top: 2px;
-    }
+        .part-checkbox {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            order: 1;
+            margin-top: 2px;
+        }
 
-    .part-info {
-        flex: 1;
-        min-width: 0;
-        text-align: left;
-    }
+        .part-info {
+            flex: 1;
+            min-width: 0;
+            text-align: left;
+        }
 
-    .part-name {
-        font-size: 15px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 4px;
-        text-align: left;
-    }
+        .part-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+            text-align: left;
+        }
 
-    .part-price {
-        font-size: 18px;
-        font-weight: bold;
-        color: #4CAF50;
-        text-align: left;
-    }
+        .part-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+            text-align: left;
+        }
 
-    .qty-section {
-        display: none;
-        padding: 10px 12px;
-        background: white;
-        border-top: 1px solid #ddd;
-    }
+        .qty-section {
+            display: none;
+            padding: 10px 12px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
 
-    .qty-section.show {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .qty-section.show {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .qty-label {
-        font-weight: 600;
-        color: #555;
-    }
+        .qty-label {
+            font-weight: 600;
+            color: #555;
+        }
 
-    .qty-buttons {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
+        .qty-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-    .qty-btn {
-        width: 38px;
-        height: 38px;
-        border: 2px solid #2196F3;
-        background: white;
-        color: #2196F3;
-        border-radius: 8px;
-        font-size: 22px;
-        font-weight: bold;
-        cursor: pointer;
-    }
+        .qty-btn {
+            width: 38px;
+            height: 38px;
+            border: 2px solid #2196F3;
+            background: white;
+            color: #2196F3;
+            border-radius: 8px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    .qty-num {
-        font-size: 20px;
-        font-weight: bold;
-        min-width: 30px;
-        text-align: center;
-    }
+        .qty-num {
+            font-size: 20px;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
 
-    .total-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-    }
+        .total-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
 
-    .total-label {
-        font-size: 16px;
-        font-weight: 600;
-    }
+        .total-label {
+            font-size: 16px;
+            font-weight: 600;
+        }
 
-    .total-amount {
-        font-size: 28px;
-        font-weight: bold;
-    }
+        .total-amount {
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    .submit-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        padding: 16px;
-        border-radius: 10px;
-        font-size: 17px;
-        font-weight: bold;
-        width: 100%;
-        margin-top: 15px;
-        cursor: pointer;
-    }
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+        }
 
-    .success-box {
-        text-align: center;
-        padding: 30px 20px;
-    }
+        .success-box {
+            text-align: center;
+            padding: 30px 20px;
+        }
 
-    .success-icon {
-        font-size: 60px;
-        margin-bottom: 15px;
-    }
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
 
-    .success-box h3 {
-        color: #4CAF50;
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-</style>
-```
-
+        .success-box h3 {
+            color: #4CAF50;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -364,359 +360,356 @@
         <p>Quality Parts • Instant Quotes</p>
     </div>
 
-```
-<div class="demo-badge">
-    📱 iTabs Demo - Try It!
-</div>
-
-<!-- Products -->
-<div class="product-card">
-    <div class="product-row">
-        <div class="product-code">NWP-B4C</div>
-        <button class="info-btn" onclick="showInfo('pads')">i</button>
+    <div class="demo-badge">
+        📱 iTabs Demo - Try It!
     </div>
-    <div class="product-price">$89.95</div>
-    <button class="get-quote-btn" onclick="showQuote('NWP-B4C', 'Brake Pads', 0)">Get Instant Quote</button>
-</div>
 
-<div class="product-card">
-    <div class="product-row">
-        <div class="product-code">DBR-3124-F</div>
-        <button class="info-btn" onclick="showInfo('rotors')">i</button>
+    <!-- Products -->
+    <div class="product-card">
+        <div class="product-row">
+            <div class="product-code">NWP-B4C</div>
+            <button class="info-btn" onclick="showInfo('pads')">i</button>
+        </div>
+        <div class="product-price">$89.95</div>
+        <button class="get-quote-btn" onclick="showQuote('NWP-B4C', 'Brake Pads', 0)">Get Instant Quote</button>
     </div>
-    <div class="product-price">$124.50</div>
-    <button class="get-quote-btn" onclick="showQuote('DBR-3124-F', 'Brake Rotors', 1)">Get Instant Quote</button>
-</div>
 
-<div class="product-card">
-    <div class="product-row">
-        <div class="product-code">CAF-872-HC</div>
-        <button class="info-btn" onclick="showInfo('filter')">i</button>
+    <div class="product-card">
+        <div class="product-row">
+            <div class="product-code">DBR-3124-F</div>
+            <button class="info-btn" onclick="showInfo('rotors')">i</button>
+        </div>
+        <div class="product-price">$124.50</div>
+        <button class="get-quote-btn" onclick="showQuote('DBR-3124-F', 'Brake Rotors', 1)">Get Instant Quote</button>
     </div>
-    <div class="product-price">$34.95</div>
-    <button class="get-quote-btn" onclick="showQuote('CAF-872-HC', 'Cabin Air Filter', 2)">Get Instant Quote</button>
-</div>
 
-<!-- Info Popup - Brake Pads -->
-<div id="info-pads" class="popup">
-    <div class="popup-box">
-        <button class="close-btn" onclick="closePopup('info-pads')">×</button>
-        <div class="popup-title">Premium Ceramic Brake Pads</div>
-        
-        <div class="info-section">
-            <h3>What Are These?</h3>
-            <p>Premium ceramic brake pads for Toyota Camry (2012-2017). These press against your brake rotors to stop your car safely.</p>
+    <div class="product-card">
+        <div class="product-row">
+            <div class="product-code">CAF-872-HC</div>
+            <button class="info-btn" onclick="showInfo('filter')">i</button>
         </div>
-
-        <div class="info-section">
-            <h3>Why Choose These?</h3>
-            <p>Ceramic brake pads last longer, produce less dust, and operate more quietly than standard pads. Perfect for everyday driving.</p>
-        </div>
-
-        <div class="info-section">
-            <h3>Specifications</h3>
-            <ul class="specs">
-                <li><strong>Fits:</strong> Toyota Camry 2012-2017 (Front)</li>
-                <li><strong>Material:</strong> Ceramic Composite</li>
-                <li><strong>Expected Life:</strong> 50,000-70,000 km</li>
-                <li><strong>Warranty:</strong> 12 months</li>
-            </ul>
-        </div>
-
-        <button class="get-quote-btn" onclick="closePopup('info-pads'); showQuote('NWP-B4C', 'Brake Pads', 0)">Get Quote for This Part</button>
+        <div class="product-price">$34.95</div>
+        <button class="get-quote-btn" onclick="showQuote('CAF-872-HC', 'Cabin Air Filter', 2)">Get Instant Quote</button>
     </div>
-</div>
 
-<!-- Info Popup - Rotors -->
-<div id="info-rotors" class="popup">
-    <div class="popup-box">
-        <button class="close-btn" onclick="closePopup('info-rotors')">×</button>
-        <div class="popup-title">Slotted Brake Rotors</div>
-        
-        <div class="info-section">
-            <h3>What Are These?</h3>
-            <p>High-performance slotted brake rotors (the discs your brake pads clamp onto). Designed for Toyota Camry with improved cooling.</p>
+    <!-- Info Popup - Brake Pads -->
+    <div id="info-pads" class="popup">
+        <div class="popup-box">
+            <button class="close-btn" onclick="closePopup('info-pads')">×</button>
+            <div class="popup-title">Premium Ceramic Brake Pads</div>
+            
+            <div class="info-section">
+                <h3>What Are These?</h3>
+                <p>Premium ceramic brake pads for Toyota Camry (2012-2017). These press against your brake rotors to stop your car safely.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Why Choose These?</h3>
+                <p>Ceramic brake pads last longer, produce less dust, and operate more quietly than standard pads. Perfect for everyday driving.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Specifications</h3>
+                <ul class="specs">
+                    <li><strong>Fits:</strong> Toyota Camry 2012-2017 (Front)</li>
+                    <li><strong>Material:</strong> Ceramic Composite</li>
+                    <li><strong>Expected Life:</strong> 50,000-70,000 km</li>
+                    <li><strong>Warranty:</strong> 12 months</li>
+                </ul>
+            </div>
+
+            <button class="get-quote-btn" onclick="closePopup('info-pads'); showQuote('NWP-B4C', 'Brake Pads', 0)">Get Quote for This Part</button>
         </div>
-
-        <div class="info-section">
-            <h3>Why Choose These?</h3>
-            <p>Slotted rotors dissipate heat better and maintain consistent braking. The slots help clear brake dust and water for safer stopping.</p>
-        </div>
-
-        <div class="info-section">
-            <h3>Specifications</h3>
-            <ul class="specs">
-                <li><strong>Fits:</strong> Toyota Camry 2012-2017 (Front Pair)</li>
-                <li><strong>Type:</strong> Slotted Performance Rotors</li>
-                <li><strong>Diameter:</strong> 296mm</li>
-                <li><strong>Warranty:</strong> 24 months</li>
-            </ul>
-        </div>
-
-        <button class="get-quote-btn" onclick="closePopup('info-rotors'); showQuote('DBR-3124-F', 'Brake Rotors', 1)">Get Quote for This Part</button>
     </div>
-</div>
 
-<!-- Info Popup - Filter -->
-<div id="info-filter" class="popup">
-    <div class="popup-box">
-        <button class="close-btn" onclick="closePopup('info-filter')">×</button>
-        <div class="popup-title">HEPA Cabin Air Filter</div>
-        
-        <div class="info-section">
-            <h3>What Is This?</h3>
-            <p>High-efficiency cabin air filter that cleans air coming into your car. Filters dust, pollen, and pollutants.</p>
+    <!-- Info Popup - Rotors -->
+    <div id="info-rotors" class="popup">
+        <div class="popup-box">
+            <button class="close-btn" onclick="closePopup('info-rotors')">×</button>
+            <div class="popup-title">Slotted Brake Rotors</div>
+            
+            <div class="info-section">
+                <h3>What Are These?</h3>
+                <p>High-performance slotted brake rotors (the discs your brake pads clamp onto). Designed for Toyota Camry with improved cooling.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Why Choose These?</h3>
+                <p>Slotted rotors dissipate heat better and maintain consistent braking. The slots help clear brake dust and water for safer stopping.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Specifications</h3>
+                <ul class="specs">
+                    <li><strong>Fits:</strong> Toyota Camry 2012-2017 (Front Pair)</li>
+                    <li><strong>Type:</strong> Slotted Performance Rotors</li>
+                    <li><strong>Diameter:</strong> 296mm</li>
+                    <li><strong>Warranty:</strong> 24 months</li>
+                </ul>
+            </div>
+
+            <button class="get-quote-btn" onclick="closePopup('info-rotors'); showQuote('DBR-3124-F', 'Brake Rotors', 1)">Get Quote for This Part</button>
         </div>
-
-        <div class="info-section">
-            <h3>Why Replace It?</h3>
-            <p>A clogged cabin filter reduces airflow and air quality. Replace every 12 months or 15,000km for fresh, clean air.</p>
-        </div>
-
-        <div class="info-section">
-            <h3>Specifications</h3>
-            <ul class="specs">
-                <li><strong>Fits:</strong> Toyota Camry 2012-2017</li>
-                <li><strong>Type:</strong> HEPA Activated Carbon</li>
-                <li><strong>Filtration:</strong> 99.5% particles</li>
-                <li><strong>Replacement:</strong> Every 12 months</li>
-            </ul>
-        </div>
-
-        <button class="get-quote-btn" onclick="closePopup('info-filter'); showQuote('CAF-872-HC', 'Cabin Air Filter', 2)">Get Quote for This Part</button>
     </div>
-</div>
 
-<!-- Quote Popup -->
-<div id="quote-popup" class="popup">
-    <div class="popup-box">
-        <button class="close-btn" onclick="closePopup('quote-popup')">×</button>
-        
-        <div id="quote-form-area">
-            <div class="popup-title">Get Instant Quote</div>
+    <!-- Info Popup - Filter -->
+    <div id="info-filter" class="popup">
+        <div class="popup-box">
+            <button class="close-btn" onclick="closePopup('info-filter')">×</button>
+            <div class="popup-title">HEPA Cabin Air Filter</div>
+            
+            <div class="info-section">
+                <h3>What Is This?</h3>
+                <p>High-efficiency cabin air filter that cleans air coming into your car. Filters dust, pollen, and pollutants.</p>
+            </div>
 
-            <form onsubmit="submitForm(event)">
-                <div class="form-field">
-                    <label>Your Vehicle</label>
-                    <input type="text" id="vehicle" placeholder="e.g., 2015 Toyota Camry" required>
-                    <div class="help-text">Make, model, and year</div>
-                </div>
+            <div class="info-section">
+                <h3>Why Replace It?</h3>
+                <p>A clogged cabin filter reduces airflow and air quality. Replace every 12 months or 15,000km for fresh, clean air.</p>
+            </div>
 
-                <div class="form-field">
-                    <label>Select Parts You Need</label>
-                    <div class="parts-list">
-                        <div class="part-card" id="card-0">
-                            <div class="part-header" onclick="togglePart(0)">
-                                <input type="checkbox" class="part-checkbox" id="check-0" onclick="event.stopPropagation()">
-                                <div class="part-info">
-                                    <div class="part-name">Brake Pads (NWP-B4C)</div>
-                                    <div class="part-price">$89.95</div>
+            <div class="info-section">
+                <h3>Specifications</h3>
+                <ul class="specs">
+                    <li><strong>Fits:</strong> Toyota Camry 2012-2017</li>
+                    <li><strong>Type:</strong> HEPA Activated Carbon</li>
+                    <li><strong>Filtration:</strong> 99.5% particles</li>
+                    <li><strong>Replacement:</strong> Every 12 months</li>
+                </ul>
+            </div>
+
+            <button class="get-quote-btn" onclick="closePopup('info-filter'); showQuote('CAF-872-HC', 'Cabin Air Filter', 2)">Get Quote for This Part</button>
+        </div>
+    </div>
+
+    <!-- Quote Popup -->
+    <div id="quote-popup" class="popup">
+        <div class="popup-box">
+            <button class="close-btn" onclick="closePopup('quote-popup')">×</button>
+            
+            <div id="quote-form-area">
+                <div class="popup-title">Get Instant Quote</div>
+
+                <form onsubmit="submitForm(event)">
+                    <div class="form-field">
+                        <label>Your Vehicle</label>
+                        <input type="text" id="vehicle" placeholder="e.g., 2015 Toyota Camry" required>
+                        <div class="help-text">Make, model, and year</div>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Select Parts You Need</label>
+                        <div class="parts-list">
+                            <div class="part-card" id="card-0">
+                                <div class="part-header" onclick="togglePart(0)">
+                                    <input type="checkbox" class="part-checkbox" id="check-0" onclick="event.stopPropagation()">
+                                    <div class="part-info">
+                                        <div class="part-name">Brake Pads (NWP-B4C)</div>
+                                        <div class="part-price">$89.95</div>
+                                    </div>
+                                </div>
+                                <div class="qty-section" id="qty-0">
+                                    <span class="qty-label">Quantity</span>
+                                    <div class="qty-buttons">
+                                        <button type="button" class="qty-btn" onclick="changeQty(0, -1)">−</button>
+                                        <span class="qty-num" id="num-0">1</span>
+                                        <button type="button" class="qty-btn" onclick="changeQty(0, 1)">+</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="qty-section" id="qty-0">
-                                <span class="qty-label">Quantity</span>
-                                <div class="qty-buttons">
-                                    <button type="button" class="qty-btn" onclick="changeQty(0, -1)">−</button>
-                                    <span class="qty-num" id="num-0">1</span>
-                                    <button type="button" class="qty-btn" onclick="changeQty(0, 1)">+</button>
+
+                            <div class="part-card" id="card-1">
+                                <div class="part-header" onclick="togglePart(1)">
+                                    <input type="checkbox" class="part-checkbox" id="check-1" onclick="event.stopPropagation()">
+                                    <div class="part-info">
+                                        <div class="part-name">Brake Rotors (DBR-3124-F)</div>
+                                        <div class="part-price">$124.50</div>
+                                    </div>
+                                </div>
+                                <div class="qty-section" id="qty-1">
+                                    <span class="qty-label">Quantity</span>
+                                    <div class="qty-buttons">
+                                        <button type="button" class="qty-btn" onclick="changeQty(1, -1)">−</button>
+                                        <span class="qty-num" id="num-1">1</span>
+                                        <button type="button" class="qty-btn" onclick="changeQty(1, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-card" id="card-2">
+                                <div class="part-header" onclick="togglePart(2)">
+                                    <input type="checkbox" class="part-checkbox" id="check-2" onclick="event.stopPropagation()">
+                                    <div class="part-info">
+                                        <div class="part-name">Cabin Air Filter (CAF-872-HC)</div>
+                                        <div class="part-price">$34.95</div>
+                                    </div>
+                                </div>
+                                <div class="qty-section" id="qty-2">
+                                    <span class="qty-label">Quantity</span>
+                                    <div class="qty-buttons">
+                                        <button type="button" class="qty-btn" onclick="changeQty(2, -1)">−</button>
+                                        <span class="qty-num" id="num-2">1</span>
+                                        <button type="button" class="qty-btn" onclick="changeQty(2, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-card" id="card-3">
+                                <div class="part-header" onclick="togglePart(3)">
+                                    <input type="checkbox" class="part-checkbox" id="check-3" onclick="event.stopPropagation()">
+                                    <div class="part-info">
+                                        <div class="part-name">Brake Fluid (DOT 4)</div>
+                                        <div class="part-price">$45.00</div>
+                                    </div>
+                                </div>
+                                <div class="qty-section" id="qty-3">
+                                    <span class="qty-label">Quantity</span>
+                                    <div class="qty-buttons">
+                                        <button type="button" class="qty-btn" onclick="changeQty(3, -1)">−</button>
+                                        <span class="qty-num" id="num-3">1</span>
+                                        <button type="button" class="qty-btn" onclick="changeQty(3, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="part-card" id="card-4">
+                                <div class="part-header" onclick="togglePart(4)">
+                                    <input type="checkbox" class="part-checkbox" id="check-4" onclick="event.stopPropagation()">
+                                    <div class="part-info">
+                                        <div class="part-name">Engine Oil Filter</div>
+                                        <div class="part-price">$28.50</div>
+                                    </div>
+                                </div>
+                                <div class="qty-section" id="qty-4">
+                                    <span class="qty-label">Quantity</span>
+                                    <div class="qty-buttons">
+                                        <button type="button" class="qty-btn" onclick="changeQty(4, -1)">−</button>
+                                        <span class="qty-num" id="num-4">1</span>
+                                        <button type="button" class="qty-btn" onclick="changeQty(4, 1)">+</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="part-card" id="card-1">
-                            <div class="part-header" onclick="togglePart(1)">
-                                <input type="checkbox" class="part-checkbox" id="check-1" onclick="event.stopPropagation()">
-                                <div class="part-info">
-                                    <div class="part-name">Brake Rotors (DBR-3124-F)</div>
-                                    <div class="part-price">$124.50</div>
-                                </div>
-                            </div>
-                            <div class="qty-section" id="qty-1">
-                                <span class="qty-label">Quantity</span>
-                                <div class="qty-buttons">
-                                    <button type="button" class="qty-btn" onclick="changeQty(1, -1)">−</button>
-                                    <span class="qty-num" id="num-1">1</span>
-                                    <button type="button" class="qty-btn" onclick="changeQty(1, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="part-card" id="card-2">
-                            <div class="part-header" onclick="togglePart(2)">
-                                <input type="checkbox" class="part-checkbox" id="check-2" onclick="event.stopPropagation()">
-                                <div class="part-info">
-                                    <div class="part-name">Cabin Air Filter (CAF-872-HC)</div>
-                                    <div class="part-price">$34.95</div>
-                                </div>
-                            </div>
-                            <div class="qty-section" id="qty-2">
-                                <span class="qty-label">Quantity</span>
-                                <div class="qty-buttons">
-                                    <button type="button" class="qty-btn" onclick="changeQty(2, -1)">−</button>
-                                    <span class="qty-num" id="num-2">1</span>
-                                    <button type="button" class="qty-btn" onclick="changeQty(2, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="part-card" id="card-3">
-                            <div class="part-header" onclick="togglePart(3)">
-                                <input type="checkbox" class="part-checkbox" id="check-3" onclick="event.stopPropagation()">
-                                <div class="part-info">
-                                    <div class="part-name">Brake Fluid (DOT 4)</div>
-                                    <div class="part-price">$45.00</div>
-                                </div>
-                            </div>
-                            <div class="qty-section" id="qty-3">
-                                <span class="qty-label">Quantity</span>
-                                <div class="qty-buttons">
-                                    <button type="button" class="qty-btn" onclick="changeQty(3, -1)">−</button>
-                                    <span class="qty-num" id="num-3">1</span>
-                                    <button type="button" class="qty-btn" onclick="changeQty(3, 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="part-card" id="card-4">
-                            <div class="part-header" onclick="togglePart(4)">
-                                <input type="checkbox" class="part-checkbox" id="check-4" onclick="event.stopPropagation()">
-                                <div class="part-info">
-                                    <div class="part-name">Engine Oil Filter</div>
-                                    <div class="part-price">$28.50</div>
-                                </div>
-                            </div>
-                            <div class="qty-section" id="qty-4">
-                                <span class="qty-label">Quantity</span>
-                                <div class="qty-buttons">
-                                    <button type="button" class="qty-btn" onclick="changeQty(4, -1)">−</button>
-                                    <span class="qty-num" id="num-4">1</span>
-                                    <button type="button" class="qty-btn" onclick="changeQty(4, 1)">+</button>
-                                </div>
-                            </div>
+                        <div class="total-box">
+                            <span class="total-label">Estimated Total:</span>
+                            <span class="total-amount" id="total">$0.00</span>
                         </div>
                     </div>
 
-                    <div class="total-box">
-                        <span class="total-label">Estimated Total:</span>
-                        <span class="total-amount" id="total">$0.00</span>
+                    <div class="form-field">
+                        <label>Your Name</label>
+                        <input type="text" id="name" placeholder="John Smith" required>
                     </div>
+
+                    <div class="form-field">
+                        <label>Your Email</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                        <div class="help-text">Quote emailed to you in 30 seconds</div>
+                    </div>
+
+                    <div class="form-field">
+                        <label>Phone (Optional)</label>
+                        <input type="tel" id="phone" placeholder="0400 123 456">
+                    </div>
+
+                    <button type="submit" class="submit-btn">🚀 Get My Quote Now</button>
+                </form>
+            </div>
+
+            <div id="success-area" style="display:none;">
+                <div class="success-box">
+                    <div class="success-icon">✅</div>
+                    <h3>Quote Request Received!</h3>
+                    <p>Your quote will be emailed within 30 seconds.</p>
+                    <button class="submit-btn" onclick="resetQuoteForm()">Request Another Quote</button>
                 </div>
-
-                <div class="form-field">
-                    <label>Your Name</label>
-                    <input type="text" id="name" placeholder="John Smith" required>
-                </div>
-
-                <div class="form-field">
-                    <label>Your Email</label>
-                    <input type="email" id="email" placeholder="john@example.com" required>
-                    <div class="help-text">Quote emailed to you in 30 seconds</div>
-                </div>
-
-                <div class="form-field">
-                    <label>Phone (Optional)</label>
-                    <input type="tel" id="phone" placeholder="0400 123 456">
-                </div>
-
-                <button type="submit" class="submit-btn">🚀 Get My Quote Now</button>
-            </form>
-        </div>
-
-        <div id="success-area" style="display:none;">
-            <div class="success-box">
-                <div class="success-icon">✅</div>
-                <h3>Quote Request Received!</h3>
-                <p>Your quote will be emailed within 30 seconds.</p>
-                <button class="submit-btn" onclick="resetQuoteForm()">Request Another Quote</button>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const prices = [89.95, 124.50, 34.95, 45.00, 28.50];
-    let quantities = [1, 1, 1, 1, 1];
+    <script>
+        const prices = [89.95, 124.50, 34.95, 45.00, 28.50];
+        let quantities = [1, 1, 1, 1, 1];
 
-    function showInfo(type) {
-        document.getElementById('info-' + type).classList.add('show');
-    }
-
-    function showQuote(code, name, partIndex) {
-        document.getElementById('check-' + partIndex).checked = true;
-        togglePart(partIndex);
-        document.getElementById('quote-popup').classList.add('show');
-    }
-
-    function closePopup(id) {
-        document.getElementById(id).classList.remove('show');
-    }
-
-    function togglePart(index) {
-        const checkbox = document.getElementById('check-' + index);
-        const card = document.getElementById('card-' + index);
-        const qtySection = document.getElementById('qty-' + index);
-        
-        if (checkbox.checked) {
-            card.classList.add('selected');
-            qtySection.classList.add('show');
-        } else {
-            card.classList.remove('selected');
-            qtySection.classList.remove('show');
+        function showInfo(type) {
+            document.getElementById('info-' + type).classList.add('show');
         }
-        
-        updateTotal();
-    }
 
-    function changeQty(index, change) {
-        quantities[index] = Math.max(1, Math.min(10, quantities[index] + change));
-        document.getElementById('num-' + index).textContent = quantities[index];
-        updateTotal();
-    }
+        function showQuote(code, name, partIndex) {
+            document.getElementById('check-' + partIndex).checked = true;
+            togglePart(partIndex);
+            document.getElementById('quote-popup').classList.add('show');
+        }
 
-    function updateTotal() {
-        let total = 0;
-        for (let i = 0; i < 5; i++) {
-            const checkbox = document.getElementById('check-' + i);
-            if (checkbox && checkbox.checked) {
-                total += prices[i] * quantities[i];
+        function closePopup(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        function togglePart(index) {
+            const checkbox = document.getElementById('check-' + index);
+            const card = document.getElementById('card-' + index);
+            const qtySection = document.getElementById('qty-' + index);
+            
+            if (checkbox.checked) {
+                card.classList.add('selected');
+                qtySection.classList.add('show');
+            } else {
+                card.classList.remove('selected');
+                qtySection.classList.remove('show');
             }
+            
+            updateTotal();
         }
-        document.getElementById('total').textContent = '$' + total.toFixed(2);
-    }
 
-    function submitForm(e) {
-        e.preventDefault();
-        document.getElementById('quote-form-area').style.display = 'none';
-        document.getElementById('success-area').style.display = 'block';
-    }
-
-    function resetQuoteForm() {
-        document.getElementById('quote-form-area').style.display = 'block';
-        document.getElementById('success-area').style.display = 'none';
-        document.querySelector('form').reset();
-        
-        for (let i = 0; i < 5; i++) {
-            document.getElementById('check-' + i).checked = false;
-            document.getElementById('card-' + i).classList.remove('selected');
-            document.getElementById('qty-' + i).classList.remove('show');
-            quantities[i] = 1;
-            document.getElementById('num-' + i).textContent = '1';
+        function changeQty(index, change) {
+            quantities[index] = Math.max(1, Math.min(10, quantities[index] + change));
+            document.getElementById('num-' + index).textContent = quantities[index];
+            updateTotal();
         }
-        
-        updateTotal();
-        closePopup('quote-popup');
-    }
 
-    // Close popups when clicking outside
-    document.querySelectorAll('.popup').forEach(popup => {
-        popup.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePopup(this.id);
+        function updateTotal() {
+            let total = 0;
+            for (let i = 0; i < 5; i++) {
+                const checkbox = document.getElementById('check-' + i);
+                if (checkbox && checkbox.checked) {
+                    total += prices[i] * quantities[i];
+                }
             }
+            document.getElementById('total').textContent = '$' + total.toFixed(2);
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            document.getElementById('quote-form-area').style.display = 'none';
+            document.getElementById('success-area').style.display = 'block';
+        }
+
+        function resetQuoteForm() {
+            document.getElementById('quote-form-area').style.display = 'block';
+            document.getElementById('success-area').style.display = 'none';
+            document.querySelector('form').reset();
+            
+            for (let i = 0; i < 5; i++) {
+                document.getElementById('check-' + i).checked = false;
+                document.getElementById('card-' + i).classList.remove('selected');
+                document.getElementById('qty-' + i).classList.remove('show');
+                quantities[i] = 1;
+                document.getElementById('num-' + i).textContent = '1';
+            }
+            
+            updateTotal();
+            closePopup('quote-popup');
+        }
+
+        // Close popups when clicking outside
+        document.querySelectorAll('.popup').forEach(popup => {
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closePopup(this.id);
+                }
+            });
         });
-    });
-</script>
-```
-
+    </script>
 </body>
 </html>
