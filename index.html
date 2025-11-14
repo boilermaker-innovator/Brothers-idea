@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs - The 'i' Button for Any Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px 60px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+        
+        .hero-subtext {
+            font-size: 1.1em;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: -40px auto 0 auto;
+            padding: 0 20px 80px 20px;
+        }
+        
+        /* Examples Grid */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        /* Example Card */
+        .example-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Image Container with iTabs Button */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+        }
+        
+        /* Placeholder images - will be replaced with real images */
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3em;
+            font-weight: 600;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        /* Campaign image style */
+        .campaign-bg {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+        
+        /* Product image style */
+        .product-bg {
+            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+        }
+        
+        /* Real estate image style */
+        .realestate-bg {
+            background: linear-gradient(135deg, #ffa94d 0%, #fd7e14 100%);
+        }
+        
+        /* Portfolio image style */
+        .portfolio-bg {
+            background: linear-gradient(135deg, #339af0 0%, #1c7ed6 100%);
+        }
+        
+        /* iTabs Button */
+        .itab-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            border: 3px solid white;
+            z-index: 10;
+        }
+        
+        .itab-button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
+            background: white;
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 15px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+        
+        .itab-button.pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Card Content */
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-title {
+            font-size: 1.5em;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .card-description {
+            color: #718096;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+        
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.3s ease;
+            overflow: hidden;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        
+        .close {
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 35px;
+            max-height: calc(80vh - 120px);
+            overflow-y: auto;
+        }
+        
+        .modal-body h4 {
+            color: #2d3748;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+        
+        .modal-body h4:first-child {
+            margin-top: 0;
+        }
+        
+        .modal-body p {
+            color: #4a5568;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .modal-body ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .modal-body li {
+            color: #4a5568;
+            font-size: 1.05em;
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+        
+        .highlight-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            border-radius: 25px;
+            text-align: center;
+            margin-top: 80px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .cta-section p {
+            font-size: 1.3em;
+            margin-bottom: 35px;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            
+            .hero p {
+                font-size: 1.2em;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .image-container {
+                height: 280px;
+            }
+            
+            .itab-button {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            
+            .cta-section h2 {
+                font-size: 1.8em;
+            }
+            
+            .cta-section p {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>The "i" Button for Any Image</h1>
+        <p>Click to reveal hidden information</p>
+        <p class="hero-subtext">Beautiful images stay clean. Details appear on demand.</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Examples Grid -->
+        <div class="examples-grid">
+            
+            <!-- Example 1: GoFundMe Campaign -->
+            <div class="example-card">
+                <div class="image-container campaign-bg" onclick="openModal('campaign')">
+                    <div class="placeholder-image">
+                        Medical Emergency Campaign<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Family Photo Here</span>
+                    </div>
+                    <div class="itab-button pulse">i</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">GoFundMe Campaign</h3>
+                    <p class="card-description">Clean campaign photo with "i" button revealing the full story, budget breakdown, and urgency.</p>
+                </div>
+            </div>
+
+            <!-- Example 2: Product Photo -->
+            <div class="example-card">
+                <div class="image-container product-bg" onclick="openModal('product')">
+                    <div class="placeholder-image">
+                        Premium Brake Pads<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Product Photo Here</span>
+                    </div>
+                    <div class="itab-button pulse">i</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Product Catalog</h3>
+                    <p class="card-description">Beautiful product shot with "i" revealing specifications, compatibility, and installation tips.</p>
+                </div>
+            </div>
+
+            <!-- Example 3: Real Estate -->
+            <div class="example-card">
+                <div class="image-container realestate-bg" onclick="openModal('realestate')">
+                    <div class="placeholder-image">
+                        3-Bedroom Family Home<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Property Photo Here</span>
+                    </div>
+                    <div class="itab-button pulse">i</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Real Estate Listing</h3>
+                    <p class="card-description">Stunning property photo with "i" showing room sizes, renovations, and neighborhood details.</p>
+                </div>
+            </div>
+
+            <!-- Example 4: Portfolio -->
+            <div class="example-card">
+                <div class="image-container portfolio-bg" onclick="openModal('portfolio')">
+                    <div class="placeholder-image">
+                        Mobile App Redesign<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Design Mockup Here</span>
+                    </div>
+                    <div class="itab-button pulse">i</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Portfolio Project</h3>
+                    <p class="card-description">Clean project visual with "i" revealing client brief, approach, and measurable results.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Create Your iTabs in 60 Seconds</h2>
+            <p>No coding. No complexity. Just beautiful images with hidden details.</p>
+            <a href="#" class="cta-button">Try It Free</a>
+        </div>
+    </div>
+
+    <!-- Modal: Campaign -->
+    <div id="campaign" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Medical Emergency Fund</h3>
+                <span class="close" onclick="closeModal('campaign')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>💔 What Happened</h4>
+                <p>Sarah, a single mother of two, was diagnosed with a rare heart condition requiring immediate surgery. Without insurance, the medical bills are overwhelming.</p>
+                
+                <h4>👨‍👩‍👧‍👦 Who Needs Help</h4>
+                <p>Sarah (34) and her children Emma (8) and Jack (5). Sarah has been the sole provider for her family since her husband passed away three years ago.</p>
+                
+                <h4>💰 Where Your Money Goes</h4>
+                <div class="highlight-box">
+                    <p><strong>Surgery Costs:</strong> $45,000</p>
+                    <p><strong>Post-Op Care:</strong> $12,000</p>
+                    <p><strong>Medication (6 months):</strong> $8,000</p>
+                    <p><strong>Living Expenses During Recovery:</strong> $10,000</p>
+                    <p style="margin-top: 15px;"><strong>Total Goal: $75,000</strong></p>
+                </div>
+                
+                <h4>⏰ Why Now</h4>
+                <p>Surgery is scheduled for <span class="highlight">next month</span>. Without upfront payment, the hospital cannot proceed. Every day we wait increases the risk of complications.</p>
+                
+                <h4>✅ Verified Campaign</h4>
+                <p>Medical records verified. Hospital billing department confirmed. Direct payment to St. Mary's Medical Center.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Product -->
+    <div id="product" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Premium Ceramic Brake Pads</h3>
+                <span class="close" onclick="closeModal('product')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>🔧 What It Is</h4>
+                <p>High-performance ceramic brake pads designed for superior stopping power, reduced noise, and extended rotor life. Professional-grade quality at an affordable price.</p>
+                
+                <h4>📋 Technical Specifications</h4>
+                <ul>
+                    <li><strong>Material:</strong> Premium ceramic composite</li>
+                    <li><strong>Temperature Range:</strong> -40°F to 800°F</li>
+                    <li><strong>Noise Level:</strong> Ultra-quiet operation</li>
+                    <li><strong>Dust Production:</strong> Minimal (90% reduction vs. standard pads)</li>
+                    <li><strong>Lifespan:</strong> 50,000-70,000 miles</li>
+                    <li><strong>Warranty:</strong> 3 years / 36,000 miles</li>
+                </ul>
+                
+                <h4>🚗 Vehicle Compatibility</h4>
+                <div class="highlight-box">
+                    <p><strong>Fits:</strong> Toyota Camry (2018-2024), Toyota RAV4 (2019-2024), Toyota Highlander (2020-2024)</p>
+                    <p><strong>Part Number:</strong> NWP-B4C-TY</p>
+                    <p><strong>OEM Equivalent:</strong> Toyota 04465-06090</p>
+                </div>
+                
+                <h4>🛠️ Installation Tips</h4>
+                <p>Professional installation recommended. DIY installation typically takes 1-2 hours per axle. Break-in period: 200-300 miles of normal driving.</p>
+                
+                <h4>💵 Pricing</h4>
+                <p style="font-size: 1.3em; font-weight: bold; color: #667eea;">$89.99 per axle set (4 pads)</p>
+                <p style="color: #718096;">Free shipping on orders over $100</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Real Estate -->
+    <div id="realestate" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Beautiful 3-Bedroom Family Home</h3>
+                <span class="close" onclick="closeModal('realestate')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>🏠 Property Overview</h4>
+                <p>Stunning single-family home in desirable Oak Ridge neighborhood. Move-in ready with recent upgrades throughout.</p>
+                
+                <h4>📐 Room Dimensions</h4>
+                <ul>
+                    <li><strong>Master Bedroom:</strong> 16' x 14' with walk-in closet</li>
+                    <li><strong>Bedroom 2:</strong> 12' x 11'</li>
+                    <li><strong>Bedroom 3:</strong> 11' x 10'</li>
+                    <li><strong>Living Room:</strong> 20' x 16' with vaulted ceiling</li>
+                    <li><strong>Kitchen:</strong> 14' x 12' with island</li>
+                    <li><strong>Total Square Footage:</strong> 2,150 sq ft</li>
+                </ul>
+                
+                <h4>✨ Recent Renovations (2023-2024)</h4>
+                <div class="highlight-box">
+                    <p>• New HVAC system (2024)</p>
+                    <p>• Renovated kitchen with granite countertops</p>
+                    <p>• Updated bathrooms with modern fixtures</p>
+                    <p>• New hardwood floors throughout main level</p>
+                    <p>• Fresh exterior paint</p>
+                    <p>• New roof (2023)</p>
+                </div>
+                
+                <h4>💡 Energy Efficiency</h4>
+                <p><strong>Monthly Energy Costs:</strong> $120-150 average</p>
+                <p>LED lighting, Energy Star appliances, excellent insulation</p>
+                
+                <h4>🏘️ Neighborhood Highlights</h4>
+                <ul>
+                    <li>Top-rated school district (Oak Ridge Elementary: 9/10)</li>
+                    <li>Walk to parks, shopping, and restaurants</li>
+                    <li>Low crime rate - one of safest neighborhoods in city</li>
+                    <li>15-minute commute to downtown</li>
+                </ul>
+                
+                <h4>💵 Price</h4>
+                <p style="font-size: 1.4em; font-weight: bold; color: #667eea;">$425,000</p>
+                <p style="color: #718096;">Comparable homes selling for $440K-460K</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Portfolio -->
+    <div id="portfolio" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>FitTrack Mobile App Redesign</h3>
+                <span class="close" onclick="closeModal('portfolio')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>📋 Client Brief</h4>
+                <p><strong>Client:</strong> FitTrack Health & Wellness</p>
+                <p><strong>Challenge:</strong> Mobile app had 2.8-star rating due to confusing navigation and outdated interface. User engagement dropped 40% over 6 months.</p>
+                <p><strong>Goal:</strong> Complete UX/UI overhaul to improve user retention and app store ratings.</p>
+                
+                <h4>💡 Solution Approach</h4>
+                <div class="highlight-box">
+                    <p><strong>1. User Research:</strong> Interviewed 50 users to identify pain points</p>
+                    <p><strong>2. Information Architecture:</strong> Simplified navigation from 6 tabs to 3</p>
+                    <p><strong>3. Visual Design:</strong> Modern, clean interface with improved readability</p>
+                    <p><strong>4. Prototype Testing:</strong> Iterated based on user feedback</p>
+                    <p><strong>5. Development Handoff:</strong> Detailed specs and design system</p>
+                </div>
+                
+                <h4>📊 Measurable Results</h4>
+                <ul>
+                    <li><span class="highlight">4.6-star rating</span> (up from 2.8) within 3 months of launch</li>
+                    <li><span class="highlight">67% increase</span> in daily active users</li>
+                    <li><span class="highlight">85% reduction</span> in customer support tickets</li>
+                    <li><span class="highlight">45% improvement</span> in user task completion rate</li>
+                    <li>Featured in App Store "Apps We Love" section</li>
+                </ul>
+                
+                <h4>🛠️ Technologies & Tools</h4>
+                <p>Figma (design), Maze (user testing), React Native (development), Google Analytics (tracking)</p>
+                
+                <h4>⏱️ Project Timeline</h4>
+                <p><strong>Duration:</strong> 12 weeks from kickoff to launch</p>
+                <p>Research (2 weeks) → Design (6 weeks) → Testing (2 weeks) → Handoff (2 weeks)</p>
+                
+                <h4>💬 Client Testimonial</h4>
+                <p style="font-style: italic; color: #4a5568; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 15px;">
+                    "The redesign transformed our app from a liability into our strongest growth driver. User engagement exceeded all expectations, and our team finally has a design system we can scale with."
+                    <br><br>
+                    <strong>— Jennifer Martinez, CEO, FitTrack</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+        
+        // Keyboard navigation (ESC to close)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.getElementsByClassName('modal');
+                for (let modal of modals) {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                }
+            }
+        });
+        
+        // Remove pulse animation after first click on any example
+        document.querySelectorAll('.image-container').forEach(container => {
+            container.addEventListener('click', function() {
+                document.querySelectorAll('.itab-button').forEach(btn => {
+                    btn.classList.remove('pulse');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
