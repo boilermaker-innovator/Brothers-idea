@@ -3,78 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iTabs - The 'i' Button for Any Image</title>
+    <title>iTabs Generator - Create Your Interactive Popup</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             background: #f8f9fa;
             line-height: 1.6;
         }
-        
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 80px 20px 60px 20px;
+            padding: 60px 20px 40px 20px;
         }
         
         .hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
+            font-size: 2.5em;
+            margin-bottom: 15px;
             font-weight: 700;
-            line-height: 1.2;
         }
         
         .hero p {
-            font-size: 1.5em;
-            margin-bottom: 15px;
+            font-size: 1.3em;
             opacity: 0.95;
         }
-        
-        .hero-subtext {
-            font-size: 1.1em;
-            opacity: 0.85;
-            max-width: 600px;
-            margin: 0 auto;
+
+        .free-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.5em;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
         }
-        
-        /* Main Container */
+
+        /* Container */
         .container {
-            max-width: 1400px;
-            margin: -40px auto 0 auto;
-            padding: 0 20px 80px 20px;
+            max-width: 900px;
+            margin: -20px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Instruction Box */
+        .instruction-box {
+            background: white;
+            border-left: 4px solid #4285F4;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .instruction-box h3 {
+            color: #4285F4;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .instruction-box ol {
+            margin-left: 20px;
+            color: #333;
+        }
+
+        .instruction-box li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .instruction-box a {
+            color: #4285F4;
+            font-weight: bold;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .ai-section {
+            background: linear-gradient(135deg, #E8F0FE 0%, #F8E8FF 100%);
+            border: 2px solid #667eea;
+        }
+
+        .ai-section h2 {
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
         }
         
-        /* Examples Grid */
-        .examples-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
         }
         
-        /* Example Card */
+        input[type="text"],
+        input[type="url"],
+        input[type="file"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        input[type="file"] {
+            padding: 10px;
+            background: white;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        textarea.prompt-area {
+            min-height: 80px;
+            background: #f8f9fa;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        small {
+            color: #666;
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .success-indicator {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .file-status {
+            color: #28a745;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .file-status.show {
+            display: block;
+        }
+        
+        .or-divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+            font-style: italic;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .or-divider::before {
+            left: 0;
+        }
+
+        .or-divider::after {
+            right: 0;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-ai-generate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            font-size: 18px;
+        }
+
+        .btn-ai-generate:hover:not(:disabled) {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+        }
+        
+        .btn-generate {
+            background: #4CAF50;
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-generate:hover:not(:disabled) {
+            background: #45a049;
+        }
+        
+        .btn-clear {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-clear:hover {
+            background: #da190b;
+        }
+        
+        .btn-copy {
+            background: #2196F3;
+            color: white;
+            width: 100%;
+        }
+        
+        .btn-copy:hover {
+            background: #0b7dda;
+        }
+
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 25px;
+            color: #666;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading p {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Messages */
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .success-message.active {
+            display: block;
+        }
+
+        /* Preview Section */
+        .preview-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .preview-section.active {
+            display: block;
+        }
+
+        .preview-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .preview-subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        /* Example Card Style - Matching Showcase */
         .example-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            max-width: 500px;
+            margin: 0 auto 30px auto;
         }
-        
+
         .example-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
         }
-        
-        /* Image Container with iTabs Button */
+
         .image-container {
             position: relative;
             width: 100%;
@@ -83,43 +396,46 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             cursor: pointer;
         }
-        
-        /* Placeholder images - will be replaced with real images */
-        .placeholder-image {
+
+        .preview-image {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
+        }
+
+        .preview-overlay {
+            position: absolute;
             color: white;
-            font-size: 1.3em;
-            font-weight: 600;
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            padding: 10px;
+            z-index: 10;
+            display: none;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
-            padding: 40px;
+            width: 90%;
         }
         
-        /* Campaign image style */
-        .campaign-bg {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        .preview-overlay.show {
+            display: block;
         }
         
-        /* Product image style */
-        .product-bg {
-            background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+        .preview-overlay.top {
+            top: 10px;
         }
         
-        /* Real estate image style */
-        .realestate-bg {
-            background: linear-gradient(135deg, #ffa94d 0%, #fd7e14 100%);
+        .preview-overlay.center {
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
         
-        /* Portfolio image style */
-        .portfolio-bg {
-            background: linear-gradient(135deg, #339af0 0%, #1c7ed6 100%);
+        .preview-overlay.bottom {
+            bottom: 10px;
         }
-        
-        /* iTabs Button */
-        .itab-button {
+
+        .itabs-button {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -137,52 +453,35 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
             border: 3px solid white;
-            z-index: 10;
+            z-index: 20;
         }
         
-        .itab-button:hover {
+        .itabs-button:hover {
             transform: scale(1.15);
             box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
             background: white;
         }
-        
-        /* Pulse animation */
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 0 rgba(255, 255, 255, 0.7);
-            }
-            50% {
-                box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 15px rgba(255, 255, 255, 0);
-            }
-            100% {
-                box-shadow: 0 4px 20px rgba(0,0,0,0.2), 0 0 0 0 rgba(255, 255, 255, 0);
-            }
-        }
-        
-        .itab-button.pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        /* Card Content */
+
         .card-content {
             padding: 25px;
+            text-align: center;
         }
-        
+
         .card-title {
-            font-size: 1.5em;
+            font-size: 1.3em;
             color: #2d3748;
             margin-bottom: 10px;
             font-weight: 600;
         }
-        
+
         .card-description {
             color: #718096;
-            font-size: 1.05em;
+            font-size: 1em;
             line-height: 1.6;
         }
-        
-        /* Modal Popup */
-        .modal {
+
+        /* Modal Popup - Matching Showcase */
+        .itabs-popup {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -193,16 +492,22 @@
             background-color: rgba(0, 0, 0, 0.8);
             animation: fadeIn 0.3s ease;
         }
+
+        .itabs-popup.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
         
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         
-        .modal-content {
+        .popup-content {
             position: relative;
             background-color: white;
-            margin: 5% auto;
             padding: 0;
             border-radius: 20px;
             width: 90%;
@@ -251,6 +556,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            background: none;
+            border: none;
+            padding: 0;
         }
         
         .close:hover {
@@ -265,7 +573,7 @@
         }
         
         .modal-body h4 {
-            color: #2d3748;
+            color: #667eea;
             font-size: 1.4em;
             margin-bottom: 15px;
             margin-top: 25px;
@@ -277,117 +585,93 @@
         
         .modal-body p {
             color: #4a5568;
-            font-size: 1.1em;
+            font-size: 1.05em;
             line-height: 1.8;
             margin-bottom: 15px;
         }
-        
-        .modal-body ul {
-            margin: 15px 0;
-            padding-left: 25px;
-        }
-        
-        .modal-body li {
-            color: #4a5568;
-            font-size: 1.05em;
-            margin-bottom: 12px;
-            line-height: 1.7;
-        }
-        
-        .highlight-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 5px solid #667eea;
-            margin: 20px 0;
-        }
-        
-        .highlight {
-            background: #fef3c7;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        .popup-button {
+            display: block;
+            margin: 25px 35px;
+            padding: 15px;
+            background: #4CAF50;
             color: white;
-            padding: 80px 40px;
-            border-radius: 25px;
             text-align: center;
-            margin-top: 80px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-        }
-        
-        .cta-section h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .cta-section p {
-            font-size: 1.3em;
-            margin-bottom: 35px;
-            opacity: 0.95;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 20px 50px;
-            border-radius: 50px;
-            font-size: 1.3em;
-            font-weight: bold;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
         }
         
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        .popup-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Code Section */
+        .code-section {
+            margin-top: 30px;
+        }
+
+        .code-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .code-instruction {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 1.05em;
         }
         
+        .code-box {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.2em;
+                font-size: 2em;
             }
             
             .hero p {
-                font-size: 1.2em;
+                font-size: 1.1em;
             }
-            
-            .examples-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
+
+            .form-section {
+                padding: 20px;
             }
-            
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
             .image-container {
                 height: 280px;
             }
-            
-            .itab-button {
+
+            .itabs-button {
                 width: 40px;
                 height: 40px;
                 font-size: 20px;
-                top: 15px;
-                right: 15px;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-            }
-            
-            .cta-section h2 {
-                font-size: 1.8em;
-            }
-            
-            .cta-section p {
-                font-size: 1.1em;
             }
         }
     </style>
@@ -395,298 +679,498 @@
 <body>
     <!-- Hero Section -->
     <div class="hero">
-        <h1>The "i" Button for Any Image</h1>
-        <p>Click to reveal hidden information</p>
-        <p class="hero-subtext">Beautiful images stay clean. Details appear on demand.</p>
+        <h1>iTabs Generator<span class="free-badge">100% FREE</span></h1>
+        <p>Create beautiful information popups in 60 seconds with AI</p>
     </div>
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Examples Grid -->
-        <div class="examples-grid">
+        <!-- Instructions -->
+        <div class="instruction-box">
+            <h3>🚀 How It Works:</h3>
+            <ol>
+                <li>Get your <strong>FREE</strong> Google API key from <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a> (no credit card needed!)</li>
+                <li>Paste your campaign/product URL below</li>
+                <li>Upload your image or use a URL</li>
+                <li>Click "Generate with AI" and wait 30 seconds</li>
+                <li>Review AI-generated content and click "Generate iTabs Code"</li>
+                <li>Copy the code and paste it on your website!</li>
+            </ol>
+        </div>
+
+        <!-- AI Generation Section -->
+        <div class="form-section ai-section">
+            <h2>✨ AI-Powered iTabs Generator</h2>
             
-            <!-- Example 1: GoFundMe Campaign -->
-            <div class="example-card">
-                <div class="image-container campaign-bg" onclick="openModal('campaign')">
-                    <div class="placeholder-image">
-                        Medical Emergency Campaign<br>
-                        <span style="font-size: 0.8em; opacity: 0.9;">Family Photo Here</span>
-                    </div>
-                    <div class="itab-button pulse">i</div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">GoFundMe Campaign</h3>
-                    <p class="card-description">Clean campaign photo with "i" button revealing the full story, budget breakdown, and urgency.</p>
-                </div>
+            <div class="form-group">
+                <label for="campaignUrl">📎 Campaign/Product URL:</label>
+                <input type="url" id="campaignUrl" value="https://www.birchal.com/company/bioanalytics" placeholder="https://www.birchal.com/company/your-campaign">
+                <small><span class="success-indicator">✅ Pre-filled with sample campaign</span> (change to your own URL if needed)</small>
             </div>
 
-            <!-- Example 2: Product Photo -->
-            <div class="example-card">
-                <div class="image-container product-bg" onclick="openModal('product')">
-                    <div class="placeholder-image">
-                        Premium Brake Pads<br>
-                        <span style="font-size: 0.8em; opacity: 0.9;">Product Photo Here</span>
-                    </div>
-                    <div class="itab-button pulse">i</div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Product Catalog</h3>
-                    <p class="card-description">Beautiful product shot with "i" revealing specifications, compatibility, and installation tips.</p>
-                </div>
+            <div class="form-group">
+                <label for="aiPrompt">🤖 AI Instructions:</label>
+                <textarea id="aiPrompt" class="prompt-area" placeholder="Tell AI how to write your content...">Read this page and extract the key information. Write 4 short sections (2-3 sentences each) in simple, clear language that anyone can understand. Focus on what it is, why it matters, how it works, and what makes it special.</textarea>
+                <small>✏️ Edit this to customize how AI writes your content</small>
             </div>
 
-            <!-- Example 3: Real Estate -->
-            <div class="example-card">
-                <div class="image-container realestate-bg" onclick="openModal('realestate')">
-                    <div class="placeholder-image">
-                        3-Bedroom Family Home<br>
-                        <span style="font-size: 0.8em; opacity: 0.9;">Property Photo Here</span>
-                    </div>
-                    <div class="itab-button pulse">i</div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Real Estate Listing</h3>
-                    <p class="card-description">Stunning property photo with "i" showing room sizes, renovations, and neighborhood details.</p>
-                </div>
+            <div class="form-group">
+                <label for="imageUpload">🖼️ Product/Campaign Image:</label>
+                <input type="file" id="imageUpload" accept="image/*">
+                <div id="uploadStatus" class="file-status">✓ Image uploaded successfully</div>
+                
+                <div class="or-divider">OR</div>
+                
+                <input type="url" id="imageUrl" value="https://i.ibb.co/391375nn/IMG-3599.jpg" placeholder="https://your-image-url.com/image.jpg">
+                <small><span class="success-indicator">✅ Pre-filled with sample image</span> (upload your own or paste a URL)</small>
             </div>
 
-            <!-- Example 4: Portfolio -->
-            <div class="example-card">
-                <div class="image-container portfolio-bg" onclick="openModal('portfolio')">
-                    <div class="placeholder-image">
-                        Mobile App Redesign<br>
-                        <span style="font-size: 0.8em; opacity: 0.9;">Design Mockup Here</span>
-                    </div>
-                    <div class="itab-button pulse">i</div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Portfolio Project</h3>
-                    <p class="card-description">Clean project visual with "i" revealing client brief, approach, and measurable results.</p>
-                </div>
+            <div class="form-group">
+                <label for="apiKey">🔑 Your Google API Key (FREE):</label>
+                <input type="password" id="apiKey" placeholder="Paste your FREE Google API key here">
+                <small>Get it instantly at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a> - No payment required!</small>
             </div>
 
+            <div class="button-group">
+                <button class="btn-ai-generate" id="aiGenerateBtn">✨ Generate with AI</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p id="loadingText">Reading campaign page...</p>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
         </div>
 
-        <!-- CTA Section -->
-        <div class="cta-section">
-            <h2>Create Your iTabs in 60 Seconds</h2>
-            <p>No coding. No complexity. Just beautiful images with hidden details.</p>
-            <a href="#" class="cta-button">Try It Free</a>
-        </div>
-    </div>
+        <!-- Manual Edit Section -->
+        <div class="form-section">
+            <h2>✍️ Review & Edit Content</h2>
+            <p style="color: #666; margin-bottom: 25px;">AI will fill these fields automatically, or you can write your own content</p>
+            
+            <div class="form-group">
+                <label for="overlayText">💬 Text Overlay (Optional):</label>
+                <input type="text" id="overlayText" placeholder="e.g., Click the i for more info" value="Click the i for more info">
+                <small>Short text that appears on the image (leave blank for no overlay)</small>
+            </div>
 
-    <!-- Modal: Campaign -->
-    <div id="campaign" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Medical Emergency Fund</h3>
-                <span class="close" onclick="closeModal('campaign')">&times;</span>
+            <div class="form-group">
+                <label for="overlayPosition">📍 Overlay Position:</label>
+                <select id="overlayPosition">
+                    <option value="top">Top</option>
+                    <option value="center" selected>Center</option>
+                    <option value="bottom">Bottom</option>
+                </select>
             </div>
-            <div class="modal-body">
-                <h4>💔 What Happened</h4>
-                <p>Sarah, a single mother of two, was diagnosed with a rare heart condition requiring immediate surgery. Without insurance, the medical bills are overwhelming.</p>
-                
-                <h4>👨‍👩‍👧‍👦 Who Needs Help</h4>
-                <p>Sarah (34) and her children Emma (8) and Jack (5). Sarah has been the sole provider for her family since her husband passed away three years ago.</p>
-                
-                <h4>💰 Where Your Money Goes</h4>
-                <div class="highlight-box">
-                    <p><strong>Surgery Costs:</strong> $45,000</p>
-                    <p><strong>Post-Op Care:</strong> $12,000</p>
-                    <p><strong>Medication (6 months):</strong> $8,000</p>
-                    <p><strong>Living Expenses During Recovery:</strong> $10,000</p>
-                    <p style="margin-top: 15px;"><strong>Total Goal: $75,000</strong></p>
-                </div>
-                
-                <h4>⏰ Why Now</h4>
-                <p>Surgery is scheduled for <span class="highlight">next month</span>. Without upfront payment, the hospital cannot proceed. Every day we wait increases the risk of complications.</p>
-                
-                <h4>✅ Verified Campaign</h4>
-                <p>Medical records verified. Hospital billing department confirmed. Direct payment to St. Mary's Medical Center.</p>
+            
+            <div class="form-group">
+                <label for="section1">❓ What is it?</label>
+                <textarea id="section1" placeholder="AI will fill this, or write it yourself..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="section2">💡 Why do I need it?</label>
+                <textarea id="section2" placeholder="AI will fill this, or write it yourself..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="section3">⚙️ How does it work?</label>
+                <textarea id="section3" placeholder="AI will fill this, or write it yourself..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="section4">⭐ What makes it different?</label>
+                <textarea id="section4" placeholder="AI will fill this, or write it yourself..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="buttonText">🔘 Button Text:</label>
+                <input type="text" id="buttonText" value="Learn More" placeholder="e.g., Learn More, Get Started, Donate Now">
+            </div>
+            
+            <div class="form-group">
+                <label for="buttonLink">🔗 Button Links To:</label>
+                <input type="url" id="buttonLink" placeholder="https://your-website.com">
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-generate" id="generateBtn">🎨 Generate iTabs Code</button>
+                <button class="btn-clear" id="clearBtn">🔄 Clear Form</button>
             </div>
         </div>
-    </div>
 
-    <!-- Modal: Product -->
-    <div id="product" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Premium Ceramic Brake Pads</h3>
-                <span class="close" onclick="closeModal('product')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <h4>🔧 What It Is</h4>
-                <p>High-performance ceramic brake pads designed for superior stopping power, reduced noise, and extended rotor life. Professional-grade quality at an affordable price.</p>
-                
-                <h4>📋 Technical Specifications</h4>
-                <ul>
-                    <li><strong>Material:</strong> Premium ceramic composite</li>
-                    <li><strong>Temperature Range:</strong> -40°F to 800°F</li>
-                    <li><strong>Noise Level:</strong> Ultra-quiet operation</li>
-                    <li><strong>Dust Production:</strong> Minimal (90% reduction vs. standard pads)</li>
-                    <li><strong>Lifespan:</strong> 50,000-70,000 miles</li>
-                    <li><strong>Warranty:</strong> 3 years / 36,000 miles</li>
-                </ul>
-                
-                <h4>🚗 Vehicle Compatibility</h4>
-                <div class="highlight-box">
-                    <p><strong>Fits:</strong> Toyota Camry (2018-2024), Toyota RAV4 (2019-2024), Toyota Highlander (2020-2024)</p>
-                    <p><strong>Part Number:</strong> NWP-B4C-TY</p>
-                    <p><strong>OEM Equivalent:</strong> Toyota 04465-06090</p>
+        <!-- Preview Section -->
+        <div class="preview-section" id="previewSection">
+            <h2>✨ Preview Your iTabs</h2>
+            <p class="preview-subtitle">Click the "i" button to test your popup!</p>
+            
+            <div class="example-card">
+                <div class="image-container" id="imageContainer">
+                    <img id="previewImage" class="preview-image" src="" alt="Product">
+                    <div id="previewOverlay" class="preview-overlay"></div>
+                    <div class="itabs-button" id="previewItabsBtn">i</div>
                 </div>
-                
-                <h4>🛠️ Installation Tips</h4>
-                <p>Professional installation recommended. DIY installation typically takes 1-2 hours per axle. Break-in period: 200-300 miles of normal driving.</p>
-                
-                <h4>💵 Pricing</h4>
-                <p style="font-size: 1.3em; font-weight: bold; color: #667eea;">$89.99 per axle set (4 pads)</p>
-                <p style="color: #718096;">Free shipping on orders over $100</p>
+                <div class="card-content">
+                    <h3 class="card-title">Your iTabs Preview</h3>
+                    <p class="card-description">This is how your interactive popup will look on your website</p>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <h3>📋 Your iTabs Code</h3>
+                <p class="code-instruction">Copy this code and paste it anywhere on your website:</p>
+                <div class="code-box" id="codeBox"></div>
+                <button class="btn-copy" id="copyBtn">📋 Copy Code to Clipboard</button>
+                <div class="success-message" id="successMessage">✅ Code copied to clipboard!</div>
             </div>
         </div>
     </div>
 
-    <!-- Modal: Real Estate -->
-    <div id="realestate" class="modal">
-        <div class="modal-content">
+    <!-- Popup Modal -->
+    <div class="itabs-popup" id="itabsPopup">
+        <div class="popup-content">
             <div class="modal-header">
-                <h3>Beautiful 3-Bedroom Family Home</h3>
-                <span class="close" onclick="closeModal('realestate')">&times;</span>
+                <h3 id="popupTitle">Your Product</h3>
+                <button class="close" id="closeBtn">&times;</button>
             </div>
             <div class="modal-body">
-                <h4>🏠 Property Overview</h4>
-                <p>Stunning single-family home in desirable Oak Ridge neighborhood. Move-in ready with recent upgrades throughout.</p>
+                <h4>What is it?</h4>
+                <p id="popupSection1"></p>
                 
-                <h4>📐 Room Dimensions</h4>
-                <ul>
-                    <li><strong>Master Bedroom:</strong> 16' x 14' with walk-in closet</li>
-                    <li><strong>Bedroom 2:</strong> 12' x 11'</li>
-                    <li><strong>Bedroom 3:</strong> 11' x 10'</li>
-                    <li><strong>Living Room:</strong> 20' x 16' with vaulted ceiling</li>
-                    <li><strong>Kitchen:</strong> 14' x 12' with island</li>
-                    <li><strong>Total Square Footage:</strong> 2,150 sq ft</li>
-                </ul>
+                <h4>Why do I need it?</h4>
+                <p id="popupSection2"></p>
                 
-                <h4>✨ Recent Renovations (2023-2024)</h4>
-                <div class="highlight-box">
-                    <p>• New HVAC system (2024)</p>
-                    <p>• Renovated kitchen with granite countertops</p>
-                    <p>• Updated bathrooms with modern fixtures</p>
-                    <p>• New hardwood floors throughout main level</p>
-                    <p>• Fresh exterior paint</p>
-                    <p>• New roof (2023)</p>
-                </div>
+                <h4>How does it work?</h4>
+                <p id="popupSection3"></p>
                 
-                <h4>💡 Energy Efficiency</h4>
-                <p><strong>Monthly Energy Costs:</strong> $120-150 average</p>
-                <p>LED lighting, Energy Star appliances, excellent insulation</p>
+                <h4>What makes it different?</h4>
+                <p id="popupSection4"></p>
                 
-                <h4>🏘️ Neighborhood Highlights</h4>
-                <ul>
-                    <li>Top-rated school district (Oak Ridge Elementary: 9/10)</li>
-                    <li>Walk to parks, shopping, and restaurants</li>
-                    <li>Low crime rate - one of safest neighborhoods in city</li>
-                    <li>15-minute commute to downtown</li>
-                </ul>
-                
-                <h4>💵 Price</h4>
-                <p style="font-size: 1.4em; font-weight: bold; color: #667eea;">$425,000</p>
-                <p style="color: #718096;">Comparable homes selling for $440K-460K</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: Portfolio -->
-    <div id="portfolio" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>FitTrack Mobile App Redesign</h3>
-                <span class="close" onclick="closeModal('portfolio')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <h4>📋 Client Brief</h4>
-                <p><strong>Client:</strong> FitTrack Health & Wellness</p>
-                <p><strong>Challenge:</strong> Mobile app had 2.8-star rating due to confusing navigation and outdated interface. User engagement dropped 40% over 6 months.</p>
-                <p><strong>Goal:</strong> Complete UX/UI overhaul to improve user retention and app store ratings.</p>
-                
-                <h4>💡 Solution Approach</h4>
-                <div class="highlight-box">
-                    <p><strong>1. User Research:</strong> Interviewed 50 users to identify pain points</p>
-                    <p><strong>2. Information Architecture:</strong> Simplified navigation from 6 tabs to 3</p>
-                    <p><strong>3. Visual Design:</strong> Modern, clean interface with improved readability</p>
-                    <p><strong>4. Prototype Testing:</strong> Iterated based on user feedback</p>
-                    <p><strong>5. Development Handoff:</strong> Detailed specs and design system</p>
-                </div>
-                
-                <h4>📊 Measurable Results</h4>
-                <ul>
-                    <li><span class="highlight">4.6-star rating</span> (up from 2.8) within 3 months of launch</li>
-                    <li><span class="highlight">67% increase</span> in daily active users</li>
-                    <li><span class="highlight">85% reduction</span> in customer support tickets</li>
-                    <li><span class="highlight">45% improvement</span> in user task completion rate</li>
-                    <li>Featured in App Store "Apps We Love" section</li>
-                </ul>
-                
-                <h4>🛠️ Technologies & Tools</h4>
-                <p>Figma (design), Maze (user testing), React Native (development), Google Analytics (tracking)</p>
-                
-                <h4>⏱️ Project Timeline</h4>
-                <p><strong>Duration:</strong> 12 weeks from kickoff to launch</p>
-                <p>Research (2 weeks) → Design (6 weeks) → Testing (2 weeks) → Handoff (2 weeks)</p>
-                
-                <h4>💬 Client Testimonial</h4>
-                <p style="font-style: italic; color: #4a5568; background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 15px;">
-                    "The redesign transformed our app from a liability into our strongest growth driver. User engagement exceeded all expectations, and our team finally has a design system we can scale with."
-                    <br><br>
-                    <strong>— Jennifer Martinez, CEO, FitTrack</strong>
-                </p>
+                <a href="#" id="popupButton" class="popup-button" target="_blank">Learn More</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Modal Functions
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modals = document.getElementsByClassName('modal');
-            for (let modal of modals) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
+        let uploadedImageData = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generateBtn');
+            const aiGenerateBtn = document.getElementById('aiGenerateBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const previewItabsBtn = document.getElementById('previewItabsBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const itabsPopup = document.getElementById('itabsPopup');
+            const imageUpload = document.getElementById('imageUpload');
+            const imageUrl = document.getElementById('imageUrl');
+            const uploadStatus = document.getElementById('uploadStatus');
+            const imageContainer = document.getElementById('imageContainer');
+            
+            generateBtn.addEventListener('click', generatePreview);
+            aiGenerateBtn.addEventListener('click', aiGenerate);
+            clearBtn.addEventListener('click', clearForm);
+            copyBtn.addEventListener('click', copyCode);
+            previewItabsBtn.addEventListener('click', openPopup);
+            closeBtn.addEventListener('click', closePopup);
+            imageContainer.addEventListener('click', openPopup);
+            
+            imageUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        uploadedImageData = event.target.result;
+                        uploadStatus.classList.add('show');
+                        document.getElementById('imageUrl').value = '';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Please select a valid image file');
+                    imageUpload.value = '';
                 }
-            }
-        }
-        
-        // Keyboard navigation (ESC to close)
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                const modals = document.getElementsByClassName('modal');
-                for (let modal of modals) {
-                    if (modal.style.display === 'block') {
-                        modal.style.display = 'none';
-                        document.body.style.overflow = 'auto';
-                    }
+            });
+
+            imageUrl.addEventListener('input', function() {
+                if (imageUrl.value.trim() !== '') {
+                    imageUpload.value = '';
+                    uploadedImageData = null;
+                    uploadStatus.classList.remove('show');
                 }
-            }
-        });
-        
-        // Remove pulse animation after first click on any example
-        document.querySelectorAll('.image-container').forEach(container => {
-            container.addEventListener('click', function() {
-                document.querySelectorAll('.itab-button').forEach(btn => {
-                    btn.classList.remove('pulse');
-                });
+            });
+            
+            itabsPopup.addEventListener('click', function(e) {
+                if (e.target === itabsPopup) {
+                    closePopup();
+                }
             });
         });
+
+        async function aiGenerate() {
+            const campaignUrl = document.getElementById('campaignUrl').value.trim();
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const aiPrompt = document.getElementById('aiPrompt').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            const loadingText = document.getElementById('loadingText');
+            const aiGenerateBtn = document.getElementById('aiGenerateBtn');
+
+            if (!campaignUrl) {
+                showError('Please enter a campaign URL');
+                return;
+            }
+
+            if (!apiKey) {
+                showError('Please enter your Google API key. Get it FREE at aistudio.google.com/app/apikey');
+                return;
+            }
+
+            errorMessage.classList.remove('active');
+            loading.classList.add('active');
+            aiGenerateBtn.disabled = true;
+
+            try {
+                // Step 1: Read URL with Jina
+                loadingText.textContent = '📖 Reading campaign page...';
+                const jinaUrl = `https://r.jina.ai/${campaignUrl}`;
+                const jinaResponse = await fetch(jinaUrl);
+                const pageContent = await jinaResponse.text();
+
+                // Step 2: Send to Gemini API
+                loadingText.textContent = '✨ AI is writing your iTabs content...';
+                
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+                
+                const fullPrompt = `${aiPrompt}
+
+Campaign Content:
+${pageContent.substring(0, 4000)}
+
+Please respond in this exact JSON format:
+{
+  "section1": "What is it? (simple explanation)",
+  "section2": "Why do I need it? (the problem it solves)",
+  "section3": "How does it work? (simple steps)",
+  "section4": "What makes it different? (unique value)",
+  "buttonText": "Short call-to-action (3-5 words)",
+  "buttonLink": "${campaignUrl}"
+}`;
+                
+                const geminiResponse = await fetch(geminiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: fullPrompt
+                            }]
+                        }]
+                    })
+                });
+
+                if (!geminiResponse.ok) {
+                    const errorData = await geminiResponse.json();
+                    throw new Error('Gemini API error: ' + (errorData.error?.message || geminiResponse.statusText));
+                }
+
+                const geminiData = await geminiResponse.json();
+                const responseText = geminiData.candidates[0].content.parts[0].text;
+                
+                // Extract JSON from response
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (!jsonMatch) {
+                    throw new Error('Could not parse AI response');
+                }
+                
+                const aiContent = JSON.parse(jsonMatch[0]);
+
+                // Fill in the form
+                document.getElementById('section1').value = aiContent.section1;
+                document.getElementById('section2').value = aiContent.section2;
+                document.getElementById('section3').value = aiContent.section3;
+                document.getElementById('section4').value = aiContent.section4;
+                document.getElementById('buttonText').value = aiContent.buttonText;
+                document.getElementById('buttonLink').value = aiContent.buttonLink;
+
+                loading.classList.remove('active');
+                aiGenerateBtn.disabled = false;
+                
+                document.getElementById('section1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                setTimeout(() => {
+                    alert('✨ AI generated your iTabs content! Review the sections below and click "Generate iTabs Code" when ready.');
+                }, 500);
+
+            } catch (error) {
+                loading.classList.remove('active');
+                aiGenerateBtn.disabled = false;
+                showError('Error: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.classList.add('active');
+        }
+        
+        function generatePreview() {
+            let imageSource = '';
+
+            if (uploadedImageData) {
+                imageSource = uploadedImageData;
+            } else if (document.getElementById('imageUrl').value.trim() !== '') {
+                imageSource = document.getElementById('imageUrl').value.trim();
+            } else {
+                alert('Please upload an image or enter an image URL');
+                return;
+            }
+
+            const overlayText = document.getElementById('overlayText').value;
+            const overlayPosition = document.getElementById('overlayPosition').value;
+            const section1 = document.getElementById('section1').value;
+            const section2 = document.getElementById('section2').value;
+            const section3 = document.getElementById('section3').value;
+            const section4 = document.getElementById('section4').value;
+            const buttonText = document.getElementById('buttonText').value;
+            const buttonLink = document.getElementById('buttonLink').value;
+
+            if (!section1 || !section2 || !section3 || !section4) {
+                alert('Please fill in all 4 sections or use AI to generate them');
+                return;
+            }
+            
+            const previewImg = document.getElementById('previewImage');
+            previewImg.src = imageSource;
+            
+            const previewOverlay = document.getElementById('previewOverlay');
+            
+            if (overlayText.trim() !== '') {
+                previewOverlay.textContent = overlayText;
+                previewOverlay.className = 'preview-overlay show ' + overlayPosition;
+            } else {
+                previewOverlay.className = 'preview-overlay';
+            }
+            
+            document.getElementById('popupSection1').textContent = section1;
+            document.getElementById('popupSection2').textContent = section2;
+            document.getElementById('popupSection3').textContent = section3;
+            document.getElementById('popupSection4').textContent = section4;
+            document.getElementById('popupButton').textContent = buttonText;
+            document.getElementById('popupButton').href = buttonLink || '#';
+            
+            let codeImageUrl = uploadedImageData ? 'YOUR-IMAGE-URL-HERE.jpg' : document.getElementById('imageUrl').value.trim();
+            const code = generateCode(codeImageUrl, overlayText, overlayPosition, section1, section2, section3, section4, buttonText, buttonLink);
+            document.getElementById('codeBox').textContent = code;
+            
+            document.getElementById('previewSection').classList.add('active');
+            document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function generateCode(imageUrl, overlayText, overlayPosition, s1, s2, s3, s4, btnText, btnLink) {
+            const positionStyles = {
+                'top': 'top: 10px;',
+                'center': 'top: 50%; transform: translate(-50%, -50%);',
+                'bottom': 'bottom: 10px;'
+            };
+            
+            const overlayCode = overlayText.trim() !== '' 
+                ? `    <div style="position: absolute; ${positionStyles[overlayPosition]} left: 50%; transform: translateX(-50%); color: white; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); padding: 10px; z-index: 10; text-align: center; width: 90%;">${overlayText}</div>\n`
+                : '';
+            
+            return `<!-- iTabs Code - Beautiful Interactive Popup -->
+<!-- Paste this code where you want your iTabs to appear -->
+
+<div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 500px; margin: 20px auto;">
+    <div style="position: relative; width: 100%; height: 350px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); cursor: pointer;" onclick="document.getElementById('itabsPopup').style.display='flex'">
+        <img src="${imageUrl}" alt="Product" style="width: 100%; height: 100%; object-fit: cover;">
+${overlayCode}        <div style="position: absolute; top: 20px; right: 20px; width: 45px; height: 45px; background: rgba(255,255,255,0.95); color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border: 3px solid white; z-index: 20;">i</div>
+    </div>
+    <div style="padding: 25px; text-align: center;">
+        <h3 style="font-size: 1.3em; color: #2d3748; margin-bottom: 10px; font-weight: 600;">Your Product</h3>
+        <p style="color: #718096; font-size: 1em; line-height: 1.6;">Click the "i" button to learn more</p>
+    </div>
+</div>
+
+<div id="itabsPopup" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px;">
+    <div style="position: relative; background-color: white; border-radius: 20px; width: 90%; max-width: 600px; max-height: 80vh; box-shadow: 0 20px 60px rgba(0,0,0,0.4); overflow: hidden;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0; font-size: 1.8em;">Your Product</h3>
+            <button onclick="document.getElementById('itabsPopup').style.display='none'" style="color: white; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</button>
+        </div>
+        <div style="padding: 35px; max-height: calc(80vh - 120px); overflow-y: auto;">
+            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px;">What is it?</h4>
+            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">${s1}</p>
+            
+            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">Why do I need it?</h4>
+            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">${s2}</p>
+            
+            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">How does it work?</h4>
+            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">${s3}</p>
+            
+            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">What makes it different?</h4>
+            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">${s4}</p>
+            
+            <a href="${btnLink || '#'}" target="_blank" style="display: block; margin: 25px 0; padding: 15px; background: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1em;">${btnText}</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('itabsPopup').addEventListener('click', function(e) {
+    if (e.target.id === 'itabsPopup') {
+        this.style.display = 'none';
+    }
+});
+</scr` + `ipt>`;
+        }
+        
+        function clearForm() {
+            document.getElementById('campaignUrl').value = 'https://www.birchal.com/company/bioanalytics';
+            document.getElementById('apiKey').value = '';
+            document.getElementById('aiPrompt').value = 'Read this page and extract the key information. Write 4 short sections (2-3 sentences each) in simple, clear language that anyone can understand. Focus on what it is, why it matters, how it works, and what makes it special.';
+            document.getElementById('imageUpload').value = '';
+            document.getElementById('imageUrl').value = 'https://i.ibb.co/391375nn/IMG-3599.jpg';
+            document.getElementById('overlayText').value = 'Click the i for more info';
+            document.getElementById('overlayPosition').value = 'center';
+            document.getElementById('section1').value = '';
+            document.getElementById('section2').value = '';
+            document.getElementById('section3').value = '';
+            document.getElementById('section4').value = '';
+            document.getElementById('buttonText').value = 'Learn More';
+            document.getElementById('buttonLink').value = '';
+            document.getElementById('previewSection').classList.remove('active');
+            document.getElementById('uploadStatus').classList.remove('show');
+            document.getElementById('errorMessage').classList.remove('active');
+            uploadedImageData = null;
+        }
+        
+        function openPopup() {
+            document.getElementById('itabsPopup').classList.add('active');
+        }
+        
+        function closePopup() {
+            document.getElementById('itabsPopup').classList.remove('active');
+        }
+        
+        function copyCode() {
+            const codeBox = document.getElementById('codeBox');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBox.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('active');
+            setTimeout(() => {
+                successMessage.classList.remove('active');
+            }, 3000);
+        }
     </script>
 </body>
 </html>
