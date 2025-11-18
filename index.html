@@ -366,30 +366,36 @@
         let touchStartX = 0;
 
         function handleMainImageUpload(e) {
-            const file = e.target.files[0];
-            if (!file || !file.type.startsWith('image/')) return alert('Invalid image');
-            const reader = new FileReader();
-            reader.onload = ev => {
-                uploadedImageData = ev.target.result;
-                const status = document.getElementById('uploadStatus');
-                status.classList.add('show');
-                const key = document.getElementById('imgbbKey').value.trim();
-                key ? uploadToImgBB(file, key, 'imageUrl', status) : status.textContent = 'Image ready (local only)';
-            };
-            reader.readAsDataURL(file);
-        }
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) return alert('Invalid image');
+    const reader = new FileReader();
+    reader.onload = ev => {
+        uploadedImageData = ev.target.result;
+        const status = document.getElementById('uploadStatus');
+        status.classList.add('show');
+        const key = document.getElementById('imgbbKey').value.trim();
+        key ? uploadToImgBB(file, key, 'imageUrl', status) : status.textContent = 'Image ready (local only)';
+    };
+    reader.readAsDataURL(file);
+}
 
-        async function uploadToImgBB(file, key, targetId, statusEl) {
-            statusEl.textContent = 'Uploading...';
-            try {
-                const form = new FormData();
-                form.append('image', file);
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${key}`, {method:'POST', body:form});
-                const data = await res.json();
-                if (data.success) {
-                    document.getElementById(targetId).value = data.data.url;
-                    statusEl.textContent = 'Uploaded to ImgBB!';
-                    statusEl.style.color = '#28a745';
+async function uploadToImgBB(file, key, targetId, statusEl) {
+    statusEl.textContent = 'Uploading...';
+    try {
+        const form = new FormData();
+        form.append('image', file);
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=${key}`, {method:'POST', body:form});
+        const data = await res.json();
+        if (data.success) {
+            document.getElementById(targetId).value = data.data.url;
+            statusEl.textContent = 'Uploaded to ImgBB!';
+            statusEl.style.color = '#28a745';
+        } else throw new Error();
+    } catch {
+        statusEl.textContent = 'Upload failed (using local)';
+        statusEl.style.color = '#ffc107';
+    }
+}
                 } else throw new Error();
             } catch {
                 statusEl.textContent = 'Upload failed (using local)';
