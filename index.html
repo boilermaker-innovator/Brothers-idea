@@ -533,42 +533,9 @@
         bottom: 10px;
     }
 
-    /* Carousel Navigation */
+    /* Carousel Navigation - Hidden for minimal design */
     .carousel-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(255, 255, 255, 0.9);
-        color: #667eea;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-size: 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 15;
-        transition: all 0.3s;
-        opacity: 0;
-    }
-
-    .image-container:hover .carousel-nav {
-        opacity: 1;
-    }
-
-    .carousel-nav:hover {
-        background: white;
-        transform: translateY(-50%) scale(1.1);
-    }
-
-    .carousel-nav.prev {
-        left: 15px;
-    }
-
-    .carousel-nav.next {
-        right: 15px;
+        display: none;
     }
 
     /* Carousel Indicators */
@@ -850,12 +817,6 @@
             height: 40px;
             font-size: 20px;
         }
-
-        .carousel-nav {
-            width: 35px;
-            height: 35px;
-            font-size: 18px;
-        }
     }
 </style>
 ```
@@ -1011,7 +972,7 @@
     <!-- Preview Section -->
     <div class="preview-section" id="previewSection">
         <h2>✨ Preview Your iTabs</h2>
-        <p class="preview-subtitle">Click the "i" button to test your popup! <span id="previewImageInfo"></span></p>
+        <p class="preview-subtitle">Click the "i" button to test your popup! <span id="previewImageInfo">Swipe to navigate between images.</span></p>
         
         <div class="example-card">
             <div class="image-container" id="imageContainer">
@@ -1019,9 +980,7 @@
                     <div class="carousel-track" id="carouselTrack"></div>
                 </div>
                 
-                <button class="carousel-nav prev" id="prevBtn">‹</button>
-                <button class="carousel-nav next" id="nextBtn">›</button>
-                
+                <!-- Minimal controls - just dots and counter -->
                 <div class="carousel-indicators" id="carouselIndicators"></div>
                 
                 <div class="image-counter" id="imageCounterDisplay">1/1</div>
@@ -1096,8 +1055,6 @@
         const imageUrl = document.getElementById('imageUrl');
         const uploadStatus = document.getElementById('uploadStatus');
         const addImageBtn = document.getElementById('addImageBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
         
         // Attach event listeners
         generateBtn.addEventListener('click', generatePreview);
@@ -1106,8 +1063,6 @@
         copyBtn.addEventListener('click', copyCode);
         previewItabsBtn.addEventListener('click', openPopup);
         closeBtn.addEventListener('click', closePopup);
-        prevBtn.addEventListener('click', () => moveCarousel(-1));
-        nextBtn.addEventListener('click', () => moveCarousel(1));
         
         // Add image button - this is the critical one!
         addImageBtn.addEventListener('click', function() {
@@ -1452,8 +1407,6 @@
         const track = document.getElementById('carouselTrack');
         const dots = document.querySelectorAll('.carousel-dot');
         const counter = document.getElementById('imageCounterDisplay');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
         
         track.style.transform = 'translateX(-' + (previewCarouselIndex * 100) + '%)';
         
@@ -1463,14 +1416,11 @@
         
         counter.textContent = (previewCarouselIndex + 1) + '/' + previewImages.length;
         
+        // Show/hide indicators based on image count
         if (previewImages.length <= 1) {
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
             document.getElementById('carouselIndicators').style.display = 'none';
             counter.style.display = 'none';
         } else {
-            prevBtn.style.display = 'flex';
-            nextBtn.style.display = 'flex';
             document.getElementById('carouselIndicators').style.display = 'flex';
             counter.style.display = 'block';
         }
@@ -1629,9 +1579,10 @@
         
         buildCarousel(images, overlayText, overlayPosition, overlayColor);
         
+        // Update preview info for multiple images
         const previewInfo = document.getElementById('previewImageInfo');
         if (images.length > 1) {
-            previewInfo.innerHTML = '<span style="color: #667eea; font-weight: bold;">Swipe or use arrows to view all ' + images.length + ' images!</span>';
+            previewInfo.innerHTML = '<span style="color: #667eea; font-weight: bold;">Swipe or tap dots to view all ' + images.length + ' images!</span>';
         } else {
             previewInfo.textContent = '';
         }
@@ -1671,9 +1622,9 @@
             dotsHTML += '        <div class="itabs-dot" data-slide="' + index + '" style="width: 10px; height: 10px; border-radius: 50%; background: ' + (index === 0 ? 'white' : 'rgba(255,255,255,0.5)') + '; cursor: pointer; transition: all 0.3s; border: 2px solid white;"></div>\n';
         });
 
-        const carouselControls = imageUrls.length > 1 ? '    <button onclick="itabsMoveCarousel(-1)" style="position: absolute; top: 50%; transform: translateY(-50%); left: 15px; background: rgba(255,255,255,0.9); color: #667eea; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 15;">‹</button>\n    <button onclick="itabsMoveCarousel(1)" style="position: absolute; top: 50%; transform: translateY(-50%); right: 15px; background: rgba(255,255,255,0.9); color: #667eea; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 15;">›</button>\n    <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 15;">\n' + dotsHTML + '    </div>\n    <div id="itabsCounter" style="position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; padding: 5px 12px; border-radius: 15px; font-size: 14px; font-weight: bold; z-index: 15;">1/' + imageUrls.length + '</div>' : '';
+        const carouselControls = imageUrls.length > 1 ? '    <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 15;">\n' + dotsHTML + '    </div>\n    <div id="itabsCounter" style="position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; padding: 5px 12px; border-radius: 15px; font-size: 14px; font-weight: bold; z-index: 15;">1/' + imageUrls.length + '</div>' : '';
 
-        return '<!-- iTabs Code - Beautiful Interactive Popup with Image Carousel -->\n<!-- Paste this code where you want your iTabs to appear -->\n\n<div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 500px; margin: 20px auto;">\n    <div style="position: relative; width: 100%; height: 350px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">\n        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">\n            <div id="itabsTrack" style="display: flex; transition: transform 0.4s ease; height: 100%;">\n' + slidesHTML + '            </div>\n        </div>\n' + carouselControls + '        <div style="position: absolute; top: 20px; right: 20px; width: 45px; height: 45px; background: rgba(255,255,255,0.95); color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border: 3px solid white; z-index: 20;" onclick="document.getElementById(\'itabsPopup\').style.display=\'flex\'">i</div>\n    </div>\n    <div style="padding: 25px; text-align: center;">\n        <h3 style="font-size: 1.3em; color: #2d3748; margin-bottom: 10px; font-weight: 600;">Your Product</h3>\n        <p style="color: #718096; font-size: 1em; line-height: 1.6;">' + (imageUrls.length > 1 ? 'Swipe to see more images!' : 'Click the "i" button to learn more') + '</p>\n    </div>\n</div>\n\n<div id="itabsPopup" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px;">\n    <div style="position: relative; background-color: white; border-radius: 20px; width: 90%; max-width: 600px; max-height: 80vh; box-shadow: 0 20px 60px rgba(0,0,0,0.4); overflow: hidden;">\n        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center;">\n            <h3 style="margin: 0; font-size: 1.8em;">Your Product</h3>\n            <button onclick="document.getElementById(\'itabsPopup\').style.display=\'none\'" style="color: white; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</button>\n        </div>\n        <div style="padding: 35px; max-height: calc(80vh - 120px); overflow-y: auto;">\n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px;">What is it?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s1 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">Why do I need it?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s2 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">How does it work?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s3 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">What makes it different?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s4 + '</p>\n            \n            <a href="' + (btnLink || '#') + '" target="_blank" style="display: block; margin: 25px 0; padding: 15px; background: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1em;">' + btnText + '</a>\n        </div>\n    </div>\n</div>\n\n<script>\nvar itabsCurrentSlide = 0;\nvar itabsTotalSlides = ' + imageUrls.length + ';\nvar itabsTouchStartX = 0;\nvar itabsTouchEndX = 0;\n\nfunction itabsMoveCarousel(direction) {\n    itabsCurrentSlide += direction;\n    if (itabsCurrentSlide < 0) itabsCurrentSlide = itabsTotalSlides - 1;\n    if (itabsCurrentSlide >= itabsTotalSlides) itabsCurrentSlide = 0;\n    itabsUpdateCarousel();\n}\n\nfunction itabsGoToSlide(index) {\n    itabsCurrentSlide = index;\n    itabsUpdateCarousel();\n}\n\nfunction itabsUpdateCarousel() {\n    var track = document.getElementById(\'itabsTrack\');\n    var counter = document.getElementById(\'itabsCounter\');\n    var dots = document.querySelectorAll(\'.itabs-dot\');\n    \n    track.style.transform = \'translateX(-\' + (itabsCurrentSlide * 100) + \'%)\';\n    if (counter) counter.textContent = (itabsCurrentSlide + 1) + \'/\' + itabsTotalSlides;\n    \n    dots.forEach(function(dot, index) {\n        dot.style.background = index === itabsCurrentSlide ? \'white\' : \'rgba(255,255,255,0.5)\';\n    });\n}\n\ndocument.getElementById(\'itabsTrack\').addEventListener(\'touchstart\', function(e) {\n    itabsTouchStartX = e.changedTouches[0].screenX;\n});\n\ndocument.getElementById(\'itabsTrack\').addEventListener(\'touchend\', function(e) {\n    itabsTouchEndX = e.changedTouches[0].screenX;\n    if (itabsTouchEndX < itabsTouchStartX - 50) itabsMoveCarousel(1);\n    if (itabsTouchEndX > itabsTouchStartX + 50) itabsMoveCarousel(-1);\n});\n\ndocument.querySelectorAll(\'.itabs-dot\').forEach(function(dot) {\n    dot.addEventListener(\'click\', function() {\n        itabsGoToSlide(parseInt(this.getAttribute(\'data-slide\')));\n    });\n});\n\ndocument.getElementById(\'itabsPopup\').addEventListener(\'click\', function(e) {\n    if (e.target.id === \'itabsPopup\') {\n        this.style.display = \'none\';\n    }\n});\n</scr' + 'ipt>';
+        return '<!-- iTabs Code - Beautiful Interactive Popup with Image Carousel -->\n<!-- Paste this code where you want your iTabs to appear -->\n\n<div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 500px; margin: 20px auto;">\n    <div style="position: relative; width: 100%; height: 350px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">\n        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">\n            <div id="itabsTrack" style="display: flex; transition: transform 0.4s ease; height: 100%;">\n' + slidesHTML + '            </div>\n        </div>\n' + carouselControls + '        <div style="position: absolute; top: 20px; right: 20px; width: 45px; height: 45px; background: rgba(255,255,255,0.95); color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border: 3px solid white; z-index: 20;" onclick="document.getElementById(\'itabsPopup\').style.display=\'flex\'">i</div>\n    </div>\n    <div style="padding: 25px; text-align: center;">\n        <h3 style="font-size: 1.3em; color: #2d3748; margin-bottom: 10px; font-weight: 600;">Your Product</h3>\n        <p style="color: #718096; font-size: 1em; line-height: 1.6;">' + (imageUrls.length > 1 ? 'Swipe to see more images!' : 'Click the "i" button to learn more') + '</p>\n    </div>\n</div>\n\n<div id="itabsPopup" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px;">\n    <div style="position: relative; background-color: white; border-radius: 20px; width: 90%; max-width: 600px; max-height: 80vh; box-shadow: 0 20px 60px rgba(0,0,0,0.4); overflow: hidden;">\n        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center;">\n            <h3 style="margin: 0; font-size: 1.8em;">Your Product</h3>\n            <button onclick="document.getElementById(\'itabsPopup\').style.display=\'none\'" style="color: white; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</button>\n        </div>\n        <div style="padding: 35px; max-height: calc(80vh - 120px); overflow-y: auto;">\n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px;">What is it?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s1 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">Why do I need it?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s2 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">How does it work?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s3 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">What makes it different?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s4 + '</p>\n            \n            <a href="' + (btnLink || '#') + '" target="_blank" style="display: block; margin: 25px 0; padding: 15px; background: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1em;">' + btnText + '</a>\n        </div>\n    </div>\n</div>\n\n<script>\nvar itabsCurrentSlide = 0;\nvar itabsTotalSlides = ' + imageUrls.length + ';\nvar itabsTouchStartX = 0;\nvar itabsTouchEndX = 0;\n\nfunction itabsGoToSlide(index) {\n    itabsCurrentSlide = index;\n    itabsUpdateCarousel();\n}\n\nfunction itabsUpdateCarousel() {\n    var track = document.getElementById(\'itabsTrack\');\n    var counter = document.getElementById(\'itabsCounter\');\n    var dots = document.querySelectorAll(\'.itabs-dot\');\n    \n    track.style.transform = \'translateX(-\' + (itabsCurrentSlide * 100) + \'%)\';\n    if (counter) counter.textContent = (itabsCurrentSlide + 1) + \'/\' + itabsTotalSlides;\n    \n    dots.forEach(function(dot, index) {\n        dot.style.background = index === itabsCurrentSlide ? \'white\' : \'rgba(255,255,255,0.5)\';\n    });\n}\n\n// Touch swipe navigation\nvar trackElement = document.getElementById(\'itabsTrack\');\nif (trackElement) {\n    trackElement.addEventListener(\'touchstart\', function(e) {\n        itabsTouchStartX = e.changedTouches[0].screenX;\n    });\n    \n    trackElement.addEventListener(\'touchend\', function(e) {\n        itabsTouchEndX = e.changedTouches[0].screenX;\n        if (itabsTouchEndX < itabsTouchStartX - 50) {\n            itabsCurrentSlide++;\n            if (itabsCurrentSlide >= itabsTotalSlides) itabsCurrentSlide = 0;\n            itabsUpdateCarousel();\n        }\n        if (itabsTouchEndX > itabsTouchStartX + 50) {\n            itabsCurrentSlide--;\n            if (itabsCurrentSlide < 0) itabsCurrentSlide = itabsTotalSlides - 1;\n            itabsUpdateCarousel();\n        }\n    });\n}\n\n// Dot click handlers\ndocument.querySelectorAll(\'.itabs-dot\').forEach(function(dot) {\n    dot.addEventListener(\'click\', function() {\n        itabsGoToSlide(parseInt(this.getAttribute(\'data-slide\')));\n    });\n});\n\n// Close popup on outside click\ndocument.getElementById(\'itabsPopup\').addEventListener(\'click\', function(e) {\n    if (e.target.id === \'itabsPopup\') {\n        this.style.display = \'none\';\n    }\n});\n</scr' + 'ipt>';
     }
     
     function clearForm() {
