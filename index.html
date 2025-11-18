@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>iTabs Generator 2025 - Fixed & Working</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background:#f8f9fa; line-height:1.6; }
+    .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; text-align:center; padding:60px 20px; }
+    .hero h1 { font-size:2.8em; margin-bottom:15px; }
+    .free { background:#4CAF50; padding:6px 14px; border-radius:30px; font-size:0.6em; vertical-align:middle; margin-left:10px; }
+    .container { max-width:950px; margin:0 auto; padding:20px; }
+    .box { background:white; border-radius:12px; padding:30px; margin-bottom:25px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+    h2 { color:#333; margin-bottom:25px; border-bottom:3px solid #667eea; padding-bottom:10px; }
+    label { display:block; margin:20px 0 8px; font-weight:600; color:#333; }
+    input, textarea, select { width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:15px; }
+    input:focus, textarea:focus { outline:none; border-color:#667eea; }
+    textarea { min-height:100px; resize:vertical; font-family: monospace; }
+    button { padding:14px 30px; margin:10px 8px 10px 0; border:none; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s; }
+    .btn-ai { background:#667eea; color:white; font-size:18px; }
+    .btn-gen { background:#4CAF50; color:white; }
+    .btn-clear { background:#f44336; color:white; }
+    .btn-copy { background:#2196F3; color:white; width:100%; margin-top:15px; }
+    .loading { text-align:center; padding:30px; display:none; }
+    .loading.active { display:block; }
+    .spinner { border:5px solid #f3f3f3; border-top:5px solid #667eea; border-radius:50%; width:50px; height:50px; animation:spin 1s linear infinite; margin:0 auto 15px; }
+    @keyframes spin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+    .error { background:#ffebee; color:#c62828; padding:15px; border-radius:8px; margin:15px 0; display:none; }
+    .error.show { display:block; }
+    .images-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:15px; margin-top:15px; }
+    .img-box { position:relative; border:2px dashed #ccc; border-radius:8px; height:150px; background:#fafafa; overflow:hidden; }
+    .img-box img { width:100%; height:100%; object-fit:cover; }
+    .remove-img { position:absolute; top:5px; right:5px; background:#f44336; color:white; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; }
+    .preview { margin-top:40px; border:1px solid #ddd; border-radius:12px; overflow:hidden; max-width:550px; }
+    .carousel { position:relative; height:350px; overflow:hidden; background:#667eea; }
+    .slides { display:flex; width:100%; height:100%; transition:transform 0.4s ease; }
+    .slide { min-width:100%; height:100%; position:relative; }
+    .slide img { width:100%; height:100%; object-fit:cover; }
+    .overlay { position:absolute; left:50%; transform:translateX(-50%); color:white; background:rgba(0,0,0,0.5); padding:8px 16px; border-radius:8px; font-weight:bold; }
+    .dots { position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
+    .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer; }
+    .dot.active { background:white; }
+    .itabs-btn { position:absolute; top:20px; right:20px; width:50px; height:50px; background:white; color:#667eea; border-radius:50%; font-size:28px; font-weight:bold; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:10; }
+    .popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:20px; }
+    .popup.active { display:flex; }
+    .popup-content { background:white; border-radius:20px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; }
+    .popup-header { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:25px; text-align:center; position:relative; }
+    .close { position:absolute; top:15px; right:20px; background:none; border:none; color:white; font-size:40px; cursor:pointer; }
+    .popup-body { padding:30px; }
+    .popup-body h4 { color:#667eea; margin:25px 0 10px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>iTabs Generator 2025 <span class="free">FREE</span></h1>
+    <p>Beautiful info popups with AI – fixed & working perfectly</p>
+</div>
+
+<div class="container">
+
+    <div class="box">
+        <label>Campaign / Product URL (for AI to read)</label>
+        <input type="url" id="url" placeholder="https://example.com/product" value="https://www.birchal.com/company/bioanalytics">
+        
+        <label style="margin-top:25px;">AI Instructions (you can edit)</label>
+        <textarea id="prompt">Read the page and write 4 short, clear sections (2–3 sentences each) answering:
+1. What is it?
+2. Why do I need it?
+3. How does it work?
+4. What makes it special/different?
+Return only plain text with clear paragraph breaks.</textarea>
+
+        <div style="margin-top:25px;">
+            <label>Images (up to 5) – drag & drop or click</label>
+            <div class="images-grid" id="imageGrid">
+                <div class="img-box" onclick="document.getElementById('file0').click()">
+                    <input type="file" id="file0" accept="image/*" style="display:none" onchange="loadImage(this,0)">
+                    <p style="text-align:center; padding-top:50px; color:#999;">Click or drop #1</p>
+                </div>
+            </div>
+            <button onclick="addImageSlot()" style="margin-top:15px; background:#667eea; color:white;">+ Add Another Image (max 5)</button>
+        </div>
+
+        <div style="margin-top:30px; text-align:center;">
+            <button class="btn-ai" onclick="runAI()">Generate Content with AI</button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Reading page & generating content...</p>
+        </div>
+        <div class="error" id="error"></div>
+    </div>
+
+    <div class="box">
+        <h2>2. Edit Text & Settings</h2>
+        <label>Overlay text on first image (optional)</label>
+        <input type="text" id="overlay" placeholder='e.g. "Click the i for more info"' value="Click the i for more info">
+
+        <label style="margin-top:20px;">What is it?</label>
+        <textarea id="s1"></textarea>
+
+        <label>Why do I need it?</label>
+        <textarea id="s2"></textarea>
+
+        <label>How does it work?</label>
+        <textarea id="s3"></textarea>
+
+        <label>What makes it different?</label>
+        <textarea id="s4"></textarea>
+
+        <label>Button text</label>
+        <input type="text" id="btntext" value="Invest Now">
+
+        <label>Button link</label>
+        <input type="url" id="btnlink" value="https://www.birchal.com/company/bioanalytics">
+
+        <div style="margin-top:30px; text-align:center;">
+            <button class="btn-gen" onclick="generate()">Generate iTabs Code</button>
+            <button class="btn-clear" onclick="location.reload()">Clear All</button>
+        </div>
+    </div>
+
+    <div class="box" id="result" style="display:none;">
+        <h2>3. Preview & Copy Code</h2>
+        <div class="preview" id="preview"></div>
+        <button class="btn-copy" onclick="copyCode()">Copy Full Code to Clipboard</button>
+        <pre style="background:#2d3748; color:#e2e8f0; padding:20px; border-radius:8px; margin-top:20px; overflow:auto; display:none;" id="codeblock"></pre>
+    </div>
+</div>
+
+<div class="popup" id="popup" onclick="this.classList.remove('active')">
+    <div class="popup-content" onclick="event.stopPropagation()">
+        <div class="popup-header">
+            <h3>Your Product</h3>
+            <button class="close" onclick="document.getElementById('popup').classList.remove('active')">×</button>
+        </div>
+        <div class="popup-body">
+            <h4>What is it?</h4><p id="p1"></p>
+            <h4>Why do I need it?</h4><p id="p2"></p>
+            <h4>How does it work?</h4><p id="p3"></p>
+            <h4>What makes it different?</h4><p id="p4"></p>
+            <a id="popbtn" href="#" target="_blank" style="display:block; margin-top:30px; padding:15px; background:#4CAF50; color:white; text-align:center; border-radius:8px; text-decoration:none; font-weight:bold;">Learn More</a>
+        </div>
+    </div>
+</div>
+
+<script>
+let images = [];
+
+function loadImage(input, index) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+        images[index] = e.target.result;
+        input.parentElement.innerHTML = `<img src="${e.target.result}"><button class="remove-img" onclick="removeImage(${index})">×</button>`;
+    };
+    reader.readAsDataURL(file);
+}
+
+function addImageSlot() {
+    if (images.length >= 5) return alert("Maximum 5 images");
+    const index = images.length;
+    images.push(null);
+    const box = document.createElement('div');
+    box.className = 'img-box';
+    box.innerHTML = `<input type="file" id="file${index}" accept="image/*" style="display:none" onchange="loadImage(this,${index})"><p style="text-align:center;padding-top:50px;color:#999;">Click or drop #${index+1}</p>`;
+    box.onclick = () => document.getElementById(`file${index}`).click();
+    document.getElementById('imageGrid').appendChild(box);
+}
+
+function removeImage(i) {
+    images.splice(i,1);
+    renderImages();
+}
+
+function renderImages() {
+    const grid = document.getElementById('imageGrid');
+    grid.innerHTML = '';
+    images.forEach((src, i) => {
+        const box = document.createElement('div');
+        box.className = 'img-box';
+        if (src) {
+            box.innerHTML = `<img src="${src}"><button class="remove-img" onclick="event.stopPropagation();removeImage(${i})">×</button>`;
+        } else {
+            box.innerHTML = `<input type="file" accept="image/*" style="display:none" onchange="loadImage(this,${i})"><p style="text-align:center;padding-top:50px;color:#999;">Click #${i+1}</p>`;
+            box.onclick = () => box.querySelector('input').click();
+        }
+        grid.appendChild(box);
+    });
+    if (images.length < 5) {
+        const add = document.createElement('div');
+        add.className = 'img-box';
+        add.innerHTML = '<p style="text-align:center;padding-top:50px;color:#667eea;cursor:pointer;">+ Add</p>';
+        add.onclick = addImageSlot;
+        grid.appendChild(add);
+    }
+}
+
+async function runAI() {
+    const url = document.getElementById('url').value.trim();
+    if (!url) return alert("Enter a URL first");
+    document.getElementById('loading').classList.add('active');
+    document.getElementById('error').classList.remove('show');
+
+    try {
+        const page = await fetch(`https://r.jina.ai/${url}`).then(r => r.text());
+        const prompt = document.getElementById('prompt').value + "\n\nPage content:\n" + page.substring(0,8000);
+
+        const res = await fetch('https://api.grokproxy.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                model: "grok-beta",
+                temperature: 0.7,
+                messages: [{role:"user", content: prompt}]
+            })
+        });
+        const data = await res.json();
+        const text = data.choices[0].message.content.trim();
+
+        const parts = text.split(/\n\s*\n/).filter(p => p.length > 10);
+        document.getElementById('s1').value = parts[0] || "";
+        document.getElementById('s2').value = parts[1] || "";
+        document.getElementById('s3').value = parts[2] || "";
+        document.getElementById('s4').value = parts[3] || "";
+        document.getElementById('btnlink').value = url;
+
+        document.getElementById('loading').classList.remove('active');
+        alert("AI content ready – now click Generate iTabs Code!");
+
+    } catch(e) {
+        document.getElementById('loading').classList.remove('active');
+        document.getElementById('error').textContent = "AI failed – try again or type manually. Error: " + e.message;
+        document.getElementById('error').classList.add('show');
+    }
+}
+
+function generate() {
+    const imgs = images.filter(Boolean);
+    if (imgs.length === 0) return alert("Add at least one image");
+    if (!document.getElementById('s1').value.trim()) return alert("Fill the text sections first");
+
+    const overlay = document.getElementById('overlay').value.trim();
+    const html = `
+<div style="max-width:550px;margin:30px auto;background:white;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.15);">
+    <div class="carousel" id="itabsCarousel">
+        <div class="slides" id="itabsSlides">
+            ${imgs.map((src,i) => `
+            <div class="slide">
+                <img src="${src}" alt="Slide ${i+1}">
+                ${i===0 && overlay ? `<div class="overlay" style="top:20px;">${overlay}</div>` : ''}
+            </div>`).join('')}
+        </div>
+        ${imgs.length>1 ? `
+        <div class="dots">
+            ${imgs.map((_,i) => `<div class="dot ${i===0?'active':''}" onclick="itabsGo(${i})"></div>`).join('')}
+        </div>` : ''}
+        <div class="itabs-btn" onclick="document.getElementById('itabsModal').classList.add('active')">i</div>
+    </div>
+</div>
+
+<div class="popup" id="itabsModal" onclick="this.classList.remove('active')">
+    <div class="popup-content" onclick="event.stopPropagation()">
+        <div class="popup-header"><h3>More Info</h3><button class="close" onclick="document.getElementById('itabsModal').classList.remove('active')">×</button></div>
+        <div class="popup-body">
+            <h4>What is it?</h4><p>${document.getElementById('s1').value.replace(/\n/g,'<br>')}</p>
+            <h4>Why do I need it?</h4><p>${document.getElementById('s2').value.replace(/\n/g,'<br>')}</p>
+            <h4>How does it work?</h4><p>${document.getElementById('s3').value.replace(/\n/g,'<br>')}</p>
+            <h4>What makes it different?</h4><p>${document.getElementById('s4').value.replace(/\n/g,'<br>')}</p>
+            <a href="${document.getElementById('btnlink').value}" target="_blank" style="display:block;margin:30px 0;padding:16px;background:#4CAF50;color:white;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;">
+                ${document.getElementById('btntext').value}
+            </a>
+        </div>
+    </div>
+</div>
+
+${imgs.length>1 ? `
+<script>
+let itabsIdx=0;
+function itabsGo(n){ itabsIdx=n; document.getElementById('itabsSlides').style.transform='translateX(-'+(n*100)+'%)'; 
+document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===n)); }
+</script>` : ''}
+`;
+
+    document.getElementById('preview').innerHTML = html;
+    document.getElementById('codeblock').textContent = html;
+    document.getElementById('codeblock').style.display = 'block';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').scrollIntoView({behavior:'smooth'});
+
+    document.getElementById('p1').innerHTML = document.getElementById('s1').value.replace(/\n/g,'<br>');
+    document.getElementById('p2').innerHTML = document.getElementById('s2').value.replace(/\n/g,'<br>');
+    document.getElementById('p3').innerHTML = document.getElementById('s3').value.replace(/\n/g,'<br>');
+    document.getElementById('p4').innerHTML = document.getElementById('s4').value.replace(/\n/g,'<br>');
+    document.getElementById('popbtn').textContent = document.getElementById('btntext').value;
+    document.getElementById('popbtn').href = document.getElementById('btnlink').value;
+}
+
+function copyCode() {
+    navigator.clipboard.writeText(document.getElementById('codeblock').textContent);
+    alert("Code copied to clipboard!");
+}
+</script>
+</body>
+</html>
