@@ -1,309 +1,1732 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>iTabs Generator 2025 - Fixed & Working</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background:#f8f9fa; line-height:1.6; }
-    .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; text-align:center; padding:60px 20px; }
-    .hero h1 { font-size:2.8em; margin-bottom:15px; }
-    .free { background:#4CAF50; padding:6px 14px; border-radius:30px; font-size:0.6em; vertical-align:middle; margin-left:10px; }
-    .container { max-width:950px; margin:0 auto; padding:20px; }
-    .box { background:white; border-radius:12px; padding:30px; margin-bottom:25px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
-    h2 { color:#333; margin-bottom:25px; border-bottom:3px solid #667eea; padding-bottom:10px; }
-    label { display:block; margin:20px 0 8px; font-weight:600; color:#333; }
-    input, textarea, select { width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:15px; }
-    input:focus, textarea:focus { outline:none; border-color:#667eea; }
-    textarea { min-height:100px; resize:vertical; font-family: monospace; }
-    button { padding:14px 30px; margin:10px 8px 10px 0; border:none; border-radius:8px; cursor:pointer; font-weight:bold; transition:all 0.3s; }
-    .btn-ai { background:#667eea; color:white; font-size:18px; }
-    .btn-gen { background:#4CAF50; color:white; }
-    .btn-clear { background:#f44336; color:white; }
-    .btn-copy { background:#2196F3; color:white; width:100%; margin-top:15px; }
-    .loading { text-align:center; padding:30px; display:none; }
-    .loading.active { display:block; }
-    .spinner { border:5px solid #f3f3f3; border-top:5px solid #667eea; border-radius:50%; width:50px; height:50px; animation:spin 1s linear infinite; margin:0 auto 15px; }
-    @keyframes spin { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
-    .error { background:#ffebee; color:#c62828; padding:15px; border-radius:8px; margin:15px 0; display:none; }
-    .error.show { display:block; }
-    .images-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:15px; margin-top:15px; }
-    .img-box { position:relative; border:2px dashed #ccc; border-radius:8px; height:150px; background:#fafafa; overflow:hidden; }
-    .img-box img { width:100%; height:100%; object-fit:cover; }
-    .remove-img { position:absolute; top:5px; right:5px; background:#f44336; color:white; border:none; width:28px; height:28px; border-radius:50%; cursor:pointer; }
-    .preview { margin-top:40px; border:1px solid #ddd; border-radius:12px; overflow:hidden; max-width:550px; }
-    .carousel { position:relative; height:350px; overflow:hidden; background:#667eea; }
-    .slides { display:flex; width:100%; height:100%; transition:transform 0.4s ease; }
-    .slide { min-width:100%; height:100%; position:relative; }
-    .slide img { width:100%; height:100%; object-fit:cover; }
-    .overlay { position:absolute; left:50%; transform:translateX(-50%); color:white; background:rgba(0,0,0,0.5); padding:8px 16px; border-radius:8px; font-weight:bold; }
-    .dots { position:absolute; bottom:15px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
-    .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.5); cursor:pointer; }
-    .dot.active { background:white; }
-    .itabs-btn { position:absolute; top:20px; right:20px; width:50px; height:50px; background:white; color:#667eea; border-radius:50%; font-size:28px; font-weight:bold; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:10; }
-    .popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:20px; }
-    .popup.active { display:flex; }
-    .popup-content { background:white; border-radius:20px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; }
-    .popup-header { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:25px; text-align:center; position:relative; }
-    .close { position:absolute; top:15px; right:20px; background:none; border:none; color:white; font-size:40px; cursor:pointer; }
-    .popup-body { padding:30px; }
-    .popup-body h4 { color:#667eea; margin:25px 0 10px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs Generator - Create Your Interactive Popup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+        background: #f8f9fa;
+        line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+        padding: 60px 20px 40px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+    
+    .hero p {
+        font-size: 1.3em;
+        opacity: 0.95;
+    }
+
+    .free-badge {
+        background: #4CAF50;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.5em;
+        font-weight: bold;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    /* Container */
+    .container {
+        max-width: 900px;
+        margin: -20px auto 40px auto;
+        padding: 0 20px;
+    }
+
+    /* Instruction Box */
+    .instruction-box {
+        background: white;
+        border-left: 4px solid #4285F4;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .instruction-box h3 {
+        color: #4285F4;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+    }
+
+    .instruction-box ol {
+        margin-left: 20px;
+        color: #333;
+    }
+
+    .instruction-box li {
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+
+    .instruction-box a {
+        color: #4285F4;
+        font-weight: bold;
+    }
+
+    /* Form Section */
+    .form-section {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .form-section h2 {
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+    }
+
+    .ai-section {
+        background: linear-gradient(135deg, #E8F0FE 0%, #F8E8FF 100%);
+        border: 2px solid #667eea;
+    }
+
+    .ai-section h2 {
+        color: #667eea;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 1.05em;
+    }
+    
+    input[type="text"],
+    input[type="url"],
+    input[type="file"],
+    input[type="password"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        font-size: 15px;
+        font-family: Arial, sans-serif;
+        transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="url"]:focus,
+    input[type="password"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    
+    input[type="file"] {
+        padding: 10px;
+        background: white;
+    }
+    
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    textarea.prompt-area {
+        min-height: 80px;
+        background: #f8f9fa;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+    }
+    
+    small {
+        color: #666;
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .success-indicator {
+        color: #28a745;
+        font-weight: 600;
+    }
+
+    .file-status {
+        color: #28a745;
+        font-size: 13px;
+        margin-top: 8px;
+        display: none;
+        font-weight: 600;
+    }
+
+    .file-status.show {
+        display: block;
+    }
+    
+    .or-divider {
+        text-align: center;
+        margin: 20px 0;
+        color: #999;
+        font-style: italic;
+        font-weight: 600;
+        position: relative;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: #ddd;
+    }
+
+    .or-divider::before {
+        left: 0;
+    }
+
+    .or-divider::after {
+        right: 0;
+    }
+
+    /* Additional Images Section */
+    .additional-images {
+        margin-top: 20px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 2px dashed #ddd;
+    }
+
+    .additional-images h4 {
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+    }
+
+    .image-input-group {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
+        position: relative;
+    }
+
+    .image-input-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #667eea;
+        font-size: 1em;
+    }
+
+    .btn-remove-image {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .btn-remove-image:hover {
+        background: #da190b;
+    }
+
+    .btn-add-image {
+        width: 100%;
+        padding: 12px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-add-image:hover {
+        background: #5568d3;
+    }
+
+    .btn-add-image:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .image-count {
+        text-align: center;
+        color: #667eea;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    
+    /* Buttons */
+    .button-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+    }
+    
+    button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+    
+    .btn-ai-generate {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex: 1;
+        font-size: 18px;
+    }
+
+    .btn-ai-generate:hover:not(:disabled) {
+        background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+    }
+    
+    .btn-generate {
+        background: #4CAF50;
+        color: white;
+        flex: 1;
+    }
+    
+    .btn-generate:hover:not(:disabled) {
+        background: #45a049;
+    }
+    
+    .btn-clear {
+        background: #f44336;
+        color: white;
+    }
+    
+    .btn-clear:hover {
+        background: #da190b;
+    }
+    
+    .btn-copy {
+        background: #2196F3;
+        color: white;
+        width: 100%;
+    }
+    
+    .btn-copy:hover {
+        background: #0b7dda;
+    }
+
+    /* Loading State */
+    .loading {
+        display: none;
+        text-align: center;
+        padding: 25px;
+        color: #666;
+    }
+
+    .loading.active {
+        display: block;
+    }
+
+    .loading-spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #667eea;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Messages */
+    .error-message {
+        background: #f8d7da;
+        border: 2px solid #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+        display: none;
+    }
+
+    .error-message.active {
+        display: block;
+    }
+
+    .success-message {
+        display: none;
+        background: #4CAF50;
+        color: white;
+        padding: 12px;
+        border-radius: 6px;
+        margin-top: 15px;
+        text-align: center;
+        font-weight: 600;
+    }
+    
+    .success-message.active {
+        display: block;
+    }
+
+    /* Preview Section */
+    .preview-section {
+        display: none;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .preview-section.active {
+        display: block;
+    }
+
+    .preview-section h2 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.8em;
+    }
+
+    .preview-subtitle {
+        color: #666;
+        margin-bottom: 25px;
+        font-size: 1.1em;
+    }
+
+    /* Example Card Style */
+    .example-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        max-width: 500px;
+        margin: 0 auto 30px auto;
+    }
+
+    .example-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    }
+
+    /* Carousel Styles */
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: 350px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        cursor: pointer;
+    }
+
+    .carousel-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .carousel-track {
+        display: flex;
+        transition: transform 0.4s ease;
+        height: 100%;
+    }
+
+    .carousel-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .preview-overlay {
+        position: absolute;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        padding: 10px;
+        z-index: 10;
+        display: none;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 90%;
+    }
+    
+    .preview-overlay.show {
+        display: block;
+    }
+    
+    .preview-overlay.top {
+        top: 10px;
+    }
+    
+    .preview-overlay.center {
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .preview-overlay.bottom {
+        bottom: 10px;
+    }
+
+    /* Carousel Navigation */
+    .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        color: #667eea;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+        transition: all 0.3s;
+        opacity: 0;
+    }
+
+    .image-container:hover .carousel-nav {
+        opacity: 1;
+    }
+
+    .carousel-nav:hover {
+        background: white;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-nav.prev {
+        left: 15px;
+    }
+
+    .carousel-nav.next {
+        right: 15px;
+    }
+
+    /* Carousel Indicators */
+    .carousel-indicators {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 15;
+    }
+
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 2px solid white;
+    }
+
+    .carousel-dot.active {
+        background: white;
+        width: 12px;
+        height: 12px;
+    }
+
+    /* Image Counter */
+    .image-counter {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 15;
+    }
+
+    .itabs-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.95);
+        color: #667eea;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+        border: 3px solid white;
+        z-index: 20;
+    }
+    
+    .itabs-button:hover {
+        transform: scale(1.15);
+        box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
+        background: white;
+    }
+
+    .card-content {
+        padding: 25px;
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 1.3em;
+        color: #2d3748;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .card-description {
+        color: #718096;
+        font-size: 1em;
+        line-height: 1.6;
+    }
+
+    /* Modal Popup */
+    .itabs-popup {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        animation: fadeIn 0.3s ease;
+    }
+
+    .itabs-popup.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .popup-content {
+        position: relative;
+        background-color: white;
+        padding: 0;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        animation: slideIn 0.3s ease;
+        overflow: hidden;
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    .modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .modal-header h3 {
+        margin: 0;
+        font-size: 1.8em;
+    }
+    
+    .close {
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        line-height: 1;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+    
+    .close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+    }
+    
+    .modal-body {
+        padding: 35px;
+        max-height: calc(80vh - 120px);
+        overflow-y: auto;
+    }
+    
+    .modal-body h4 {
+        color: #667eea;
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        margin-top: 25px;
+    }
+    
+    .modal-body h4:first-child {
+        margin-top: 0;
+    }
+    
+    .modal-body p {
+        color: #4a5568;
+        font-size: 1.05em;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    .popup-button {
+        display: block;
+        margin: 25px 35px;
+        padding: 15px;
+        background: #4CAF50;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition: all 0.3s;
+    }
+    
+    .popup-button:hover {
+        background: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    }
+
+    /* Code Section */
+    .code-section {
+        margin-top: 30px;
+    }
+
+    .code-section h3 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 1.5em;
+    }
+
+    .code-instruction {
+        color: #666;
+        margin-bottom: 15px;
+        font-size: 1.05em;
+    }
+    
+    .code-box {
+        background: #2d3748;
+        color: #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 15px;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        line-height: 1.5;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2em;
+        }
+        
+        .hero p {
+            font-size: 1.1em;
+        }
+
+        .form-section {
+            padding: 20px;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        .image-container {
+            height: 280px;
+        }
+
+        .itabs-button {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+
+        .carousel-nav {
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
+        }
+    }
 </style>
+```
+
 </head>
 <body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>iTabs Generator<span class="free-badge">100% FREE</span></h1>
+        <p>Create beautiful information popups in 60 seconds with AI</p>
+    </div>
 
-<div class="hero">
-    <h1>iTabs Generator 2025 <span class="free">FREE</span></h1>
-    <p>Beautiful info popups with AI – fixed & working perfectly</p>
-</div>
-
+```
+<!-- Main Container -->
 <div class="container">
+    <!-- Instructions -->
+    <div class="instruction-box">
+        <h3>🚀 How It Works:</h3>
+        <ol>
+            <li>Get your <strong>FREE</strong> Google API key from <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a> (no credit card needed!)</li>
+            <li>Paste your campaign/product URL below</li>
+            <li>Upload your image(s) or use URLs - add up to 5 images!</li>
+            <li>Click "Generate with AI" and wait 30 seconds</li>
+            <li>Review AI-generated content and click "Generate iTabs Code"</li>
+            <li>Copy the code and paste it on your website!</li>
+        </ol>
+    </div>
 
-    <div class="box">
-        <label>Campaign / Product URL (for AI to read)</label>
-        <input type="url" id="url" placeholder="https://example.com/product" value="https://www.birchal.com/company/bioanalytics">
+    <!-- AI Generation Section -->
+    <div class="form-section ai-section">
+        <h2>✨ AI-Powered iTabs Generator</h2>
         
-        <label style="margin-top:25px;">AI Instructions (you can edit)</label>
-        <textarea id="prompt">Read the page and write 4 short, clear sections (2–3 sentences each) answering:
-1. What is it?
-2. Why do I need it?
-3. How does it work?
-4. What makes it special/different?
-Return only plain text with clear paragraph breaks.</textarea>
-
-        <div style="margin-top:25px;">
-            <label>Images (up to 5) – drag & drop or click</label>
-            <div class="images-grid" id="imageGrid">
-                <div class="img-box" onclick="document.getElementById('file0').click()">
-                    <input type="file" id="file0" accept="image/*" style="display:none" onchange="loadImage(this,0)">
-                    <p style="text-align:center; padding-top:50px; color:#999;">Click or drop #1</p>
-                </div>
-            </div>
-            <button onclick="addImageSlot()" style="margin-top:15px; background:#667eea; color:white;">+ Add Another Image (max 5)</button>
+        <div class="form-group">
+            <label for="campaignUrl">📎 Campaign/Product URL:</label>
+            <input type="url" id="campaignUrl" value="https://www.birchal.com/company/bioanalytics" placeholder="https://www.birchal.com/company/your-campaign">
+            <small><span class="success-indicator">✅ Pre-filled with sample campaign</span> (change to your own URL if needed)</small>
         </div>
 
-        <div style="margin-top:30px; text-align:center;">
-            <button class="btn-ai" onclick="runAI()">Generate Content with AI</button>
+        <div class="form-group">
+            <label for="aiPrompt">🤖 AI Instructions:</label>
+            <textarea id="aiPrompt" class="prompt-area" placeholder="Tell AI how to write your content...">Read this page and extract the key information. Write 4 short sections (2-3 sentences each) in simple, clear language that anyone can understand. Focus on what it is, why it matters, how it works, and what makes it special.</textarea>
+            <small>✏️ Edit this to customize how AI writes your content</small>
+        </div>
+
+        <div class="form-group">
+            <label for="imageUpload">🖼️ Product/Campaign Images (Image #1):</label>
+            <input type="file" id="imageUpload" accept="image/*">
+            <div id="uploadStatus" class="file-status">✓ Image uploaded successfully</div>
+            
+            <div class="or-divider">OR</div>
+            
+            <input type="url" id="imageUrl" value="https://i.ibb.co/391375nn/IMG-3599.jpg" placeholder="https://your-image-url.com/image.jpg">
+            <small><span class="success-indicator">✅ Pre-filled with sample image</span> (upload your own or paste a URL)</small>
+
+            <!-- Additional Images Section -->
+            <div class="additional-images">
+                <h4>➕ Additional Images (Optional - Show Multiple Views)</h4>
+                <small style="color: #667eea; margin-bottom: 15px; display: block;">Add up to 4 more images to create a swipeable carousel! Perfect for showing different angles, features, or team photos.</small>
+                <div id="additionalImagesContainer"></div>
+                <button type="button" class="btn-add-image" id="addImageBtn">+ Add Another Image</button>
+                <div class="image-count" id="imageCount"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="apiKey">🔑 Your Google API Key (FREE):</label>
+            <input type="password" id="apiKey" placeholder="Paste your FREE Google API key here">
+            <small>Get it instantly at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a> - No payment required!</small>
+        </div>
+
+        <div class="form-group">
+            <label for="imgbbKey">🖼️ Your ImgBB API Key (FREE - Optional):</label>
+            <input type="password" id="imgbbKey" value="59cd5b2935b5b01bc744b5b0a1d26ee0" placeholder="Paste your FREE ImgBB API key here (optional)">
+            <small>Get it from <a href="https://api.imgbb.com/" target="_blank">api.imgbb.com</a> - Allows automatic image hosting so your code works anywhere!</small>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-ai-generate" id="aiGenerateBtn">✨ Generate with AI</button>
         </div>
 
         <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Reading page & generating content...</p>
+            <div class="loading-spinner"></div>
+            <p id="loadingText">Reading campaign page...</p>
         </div>
-        <div class="error" id="error"></div>
+
+        <div class="error-message" id="errorMessage"></div>
     </div>
 
-    <div class="box">
-        <h2>2. Edit Text & Settings</h2>
-        <label>Overlay text on first image (optional)</label>
-        <input type="text" id="overlay" placeholder='e.g. "Click the i for more info"' value="Click the i for more info">
+    <!-- Manual Edit Section -->
+    <div class="form-section">
+        <h2>✍️ Review & Edit Content</h2>
+        <p style="color: #666; margin-bottom: 25px;">AI will fill these fields automatically, or you can write your own content</p>
+        
+        <div class="form-group">
+            <label for="overlayText">💬 Text Overlay (Optional):</label>
+            <input type="text" id="overlayText" placeholder="e.g., Click the i for more info" value="Click the i for more info">
+            <small>Short text that appears on the image (leave blank for no overlay)</small>
+        </div>
 
-        <label style="margin-top:20px;">What is it?</label>
-        <textarea id="s1"></textarea>
+        <div class="form-group">
+            <label for="overlayColor">🎨 Overlay Text Color:</label>
+            <select id="overlayColor">
+                <option value="white" selected>White</option>
+                <option value="black">Black</option>
+            </select>
+        </div>
 
-        <label>Why do I need it?</label>
-        <textarea id="s2"></textarea>
-
-        <label>How does it work?</label>
-        <textarea id="s3"></textarea>
-
-        <label>What makes it different?</label>
-        <textarea id="s4"></textarea>
-
-        <label>Button text</label>
-        <input type="text" id="btntext" value="Invest Now">
-
-        <label>Button link</label>
-        <input type="url" id="btnlink" value="https://www.birchal.com/company/bioanalytics">
-
-        <div style="margin-top:30px; text-align:center;">
-            <button class="btn-gen" onclick="generate()">Generate iTabs Code</button>
-            <button class="btn-clear" onclick="location.reload()">Clear All</button>
+        <div class="form-group">
+            <label for="overlayPosition">📍 Overlay Position:</label>
+            <select id="overlayPosition">
+                <option value="top">Top</option>
+                <option value="center" selected>Center</option>
+                <option value="bottom">Bottom</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="section1">❓ What is it?</label>
+            <textarea id="section1" placeholder="AI will fill this, or write it yourself..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="section2">💡 Why do I need it?</label>
+            <textarea id="section2" placeholder="AI will fill this, or write it yourself..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="section3">⚙️ How does it work?</label>
+            <textarea id="section3" placeholder="AI will fill this, or write it yourself..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="section4">⭐ What makes it different?</label>
+            <textarea id="section4" placeholder="AI will fill this, or write it yourself..."></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="buttonText">🔘 Button Text:</label>
+            <input type="text" id="buttonText" value="Learn More" placeholder="e.g., Learn More, Get Started, Donate Now">
+        </div>
+        
+        <div class="form-group">
+            <label for="buttonLink">🔗 Button Links To:</label>
+            <input type="url" id="buttonLink" placeholder="https://your-website.com">
+        </div>
+        
+        <div class="button-group">
+            <button class="btn-generate" id="generateBtn">🎨 Generate iTabs Code</button>
+            <button class="btn-clear" id="clearBtn">🔄 Clear Form</button>
         </div>
     </div>
 
-    <div class="box" id="result" style="display:none;">
-        <h2>3. Preview & Copy Code</h2>
-        <div class="preview" id="preview"></div>
-        <button class="btn-copy" onclick="copyCode()">Copy Full Code to Clipboard</button>
-        <pre style="background:#2d3748; color:#e2e8f0; padding:20px; border-radius:8px; margin-top:20px; overflow:auto; display:none;" id="codeblock"></pre>
+    <!-- Preview Section -->
+    <div class="preview-section" id="previewSection">
+        <h2>✨ Preview Your iTabs</h2>
+        <p class="preview-subtitle">Click the "i" button to test your popup! <span id="previewImageInfo"></span></p>
+        
+        <div class="example-card">
+            <div class="image-container" id="imageContainer">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack"></div>
+                </div>
+                
+                <button class="carousel-nav prev" id="prevBtn">‹</button>
+                <button class="carousel-nav next" id="nextBtn">›</button>
+                
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+                
+                <div class="image-counter" id="imageCounterDisplay">1/1</div>
+                
+                <div class="itabs-button" id="previewItabsBtn">i</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Your iTabs Preview</h3>
+                <p class="card-description">This is how your interactive popup will look on your website</p>
+            </div>
+        </div>
+        
+        <div class="code-section">
+            <h3>📋 Your iTabs Code</h3>
+            <p class="code-instruction">Copy this code and paste it anywhere on your website:</p>
+            <div class="code-box" id="codeBox"></div>
+            <button class="btn-copy" id="copyBtn">📋 Copy Code to Clipboard</button>
+            <div class="success-message" id="successMessage">✅ Code copied to clipboard!</div>
+        </div>
     </div>
 </div>
 
-<div class="popup" id="popup" onclick="this.classList.remove('active')">
-    <div class="popup-content" onclick="event.stopPropagation()">
-        <div class="popup-header">
-            <h3>Your Product</h3>
-            <button class="close" onclick="document.getElementById('popup').classList.remove('active')">×</button>
+<!-- Popup Modal -->
+<div class="itabs-popup" id="itabsPopup">
+    <div class="popup-content">
+        <div class="modal-header">
+            <h3 id="popupTitle">Your Product</h3>
+            <button class="close" id="closeBtn">&times;</button>
         </div>
-        <div class="popup-body">
-            <h4>What is it?</h4><p id="p1"></p>
-            <h4>Why do I need it?</h4><p id="p2"></p>
-            <h4>How does it work?</h4><p id="p3"></p>
-            <h4>What makes it different?</h4><p id="p4"></p>
-            <a id="popbtn" href="#" target="_blank" style="display:block; margin-top:30px; padding:15px; background:#4CAF50; color:white; text-align:center; border-radius:8px; text-decoration:none; font-weight:bold;">Learn More</a>
+        <div class="modal-body">
+            <h4>What is it?</h4>
+            <p id="popupSection1"></p>
+            
+            <h4>Why do I need it?</h4>
+            <p id="popupSection2"></p>
+            
+            <h4>How does it work?</h4>
+            <p id="popupSection3"></p>
+            
+            <h4>What makes it different?</h4>
+            <p id="popupSection4"></p>
+            
+            <a href="#" id="popupButton" class="popup-button" target="_blank">Learn More</a>
         </div>
     </div>
 </div>
 
 <script>
-let images = [];
+    // Global variables
+    let uploadedImageData = null;
+    let additionalImageCount = 0;
+    const MAX_IMAGES = 5;
+    let previewCarouselIndex = 0;
+    let previewImages = [];
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let additionalUploadedImages = {};
 
-function loadImage(input, index) {
-    const file = input.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-        images[index] = e.target.result;
-        input.parentElement.innerHTML = `<img src="${e.target.result}"><button class="remove-img" onclick="removeImage(${index})">×</button>`;
-    };
-    reader.readAsDataURL(file);
-}
-
-function addImageSlot() {
-    if (images.length >= 5) return alert("Maximum 5 images");
-    const index = images.length;
-    images.push(null);
-    const box = document.createElement('div');
-    box.className = 'img-box';
-    box.innerHTML = `<input type="file" id="file${index}" accept="image/*" style="display:none" onchange="loadImage(this,${index})"><p style="text-align:center;padding-top:50px;color:#999;">Click or drop #${index+1}</p>`;
-    box.onclick = () => document.getElementById(`file${index}`).click();
-    document.getElementById('imageGrid').appendChild(box);
-}
-
-function removeImage(i) {
-    images.splice(i,1);
-    renderImages();
-}
-
-function renderImages() {
-    const grid = document.getElementById('imageGrid');
-    grid.innerHTML = '';
-    images.forEach((src, i) => {
-        const box = document.createElement('div');
-        box.className = 'img-box';
-        if (src) {
-            box.innerHTML = `<img src="${src}"><button class="remove-img" onclick="event.stopPropagation();removeImage(${i})">×</button>`;
-        } else {
-            box.innerHTML = `<input type="file" accept="image/*" style="display:none" onchange="loadImage(this,${i})"><p style="text-align:center;padding-top:50px;color:#999;">Click #${i+1}</p>`;
-            box.onclick = () => box.querySelector('input').click();
-        }
-        grid.appendChild(box);
-    });
-    if (images.length < 5) {
-        const add = document.createElement('div');
-        add.className = 'img-box';
-        add.innerHTML = '<p style="text-align:center;padding-top:50px;color:#667eea;cursor:pointer;">+ Add</p>';
-        add.onclick = addImageSlot;
-        grid.appendChild(add);
-    }
-}
-
-async function runAI() {
-    const url = document.getElementById('url').value.trim();
-    if (!url) return alert("Enter a URL first");
-    document.getElementById('loading').classList.add('active');
-    document.getElementById('error').classList.remove('show');
-
-    try {
-        const page = await fetch(`https://r.jina.ai/${url}`).then(r => r.text());
-        const prompt = document.getElementById('prompt').value + "\n\nPage content:\n" + page.substring(0,8000);
-
-        const res = await fetch('https://api.grokproxy.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                model: "grok-beta",
-                temperature: 0.7,
-                messages: [{role:"user", content: prompt}]
-            })
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('iTabs Generator loaded');
+        
+        // Get all elements
+        const generateBtn = document.getElementById('generateBtn');
+        const aiGenerateBtn = document.getElementById('aiGenerateBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const previewItabsBtn = document.getElementById('previewItabsBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const itabsPopup = document.getElementById('itabsPopup');
+        const imageUpload = document.getElementById('imageUpload');
+        const imageUrl = document.getElementById('imageUrl');
+        const uploadStatus = document.getElementById('uploadStatus');
+        const addImageBtn = document.getElementById('addImageBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        // Attach event listeners
+        generateBtn.addEventListener('click', generatePreview);
+        aiGenerateBtn.addEventListener('click', aiGenerate);
+        clearBtn.addEventListener('click', clearForm);
+        copyBtn.addEventListener('click', copyCode);
+        previewItabsBtn.addEventListener('click', openPopup);
+        closeBtn.addEventListener('click', closePopup);
+        prevBtn.addEventListener('click', () => moveCarousel(-1));
+        nextBtn.addEventListener('click', () => moveCarousel(1));
+        
+        // Add image button - this is the critical one!
+        addImageBtn.addEventListener('click', function() {
+            console.log('Add Image button clicked, count:', additionalImageCount);
+            addImage();
         });
-        const data = await res.json();
-        const text = data.choices[0].message.content.trim();
+        
+        // Touch swipe support
+        const carouselWrapper = document.querySelector('.carousel-wrapper');
+        carouselWrapper.addEventListener('touchstart', handleTouchStart, false);
+        carouselWrapper.addEventListener('touchend', handleTouchEnd, false);
+        
+        // Primary image upload
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedImageData = event.target.result;
+                    uploadStatus.textContent = '⏳ Uploading image to ImgBB...';
+                    uploadStatus.classList.add('show');
+                    
+                    const imgbbKey = document.getElementById('imgbbKey').value.trim();
+                    if (imgbbKey) {
+                        uploadToImgBB(file, imgbbKey);
+                    } else {
+                        uploadStatus.textContent = '✓ Image loaded (will work in preview only - add ImgBB API key to host online)';
+                        uploadStatus.style.color = '#ffc107';
+                    }
+                    
+                    document.getElementById('imageUrl').value = '';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select a valid image file');
+                imageUpload.value = '';
+            }
+        });
 
-        const parts = text.split(/\n\s*\n/).filter(p => p.length > 10);
-        document.getElementById('s1').value = parts[0] || "";
-        document.getElementById('s2').value = parts[1] || "";
-        document.getElementById('s3').value = parts[2] || "";
-        document.getElementById('s4').value = parts[3] || "";
-        document.getElementById('btnlink').value = url;
+        // Clear URL when file is uploaded
+        imageUrl.addEventListener('input', function() {
+            if (imageUrl.value.trim() !== '') {
+                imageUpload.value = '';
+                uploadedImageData = null;
+                uploadStatus.classList.remove('show');
+            }
+        });
+        
+        // Click outside popup to close
+        itabsPopup.addEventListener('click', function(e) {
+            if (e.target === itabsPopup) {
+                closePopup();
+            }
+        });
 
-        document.getElementById('loading').classList.remove('active');
-        alert("AI content ready – now click Generate iTabs Code!");
+        updateImageCount();
+    });
 
-    } catch(e) {
-        document.getElementById('loading').classList.remove('active');
-        document.getElementById('error').textContent = "AI failed – try again or type manually. Error: " + e.message;
-        document.getElementById('error').classList.add('show');
+    // Touch handlers
+    function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
     }
-}
 
-function generate() {
-    const imgs = images.filter(Boolean);
-    if (imgs.length === 0) return alert("Add at least one image");
-    if (!document.getElementById('s1').value.trim()) return alert("Fill the text sections first");
+    function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }
 
-    const overlay = document.getElementById('overlay').value.trim();
-    const html = `
-<div style="max-width:550px;margin:30px auto;background:white;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.15);">
-    <div class="carousel" id="itabsCarousel">
-        <div class="slides" id="itabsSlides">
-            ${imgs.map((src,i) => `
-            <div class="slide">
-                <img src="${src}" alt="Slide ${i+1}">
-                ${i===0 && overlay ? `<div class="overlay" style="top:20px;">${overlay}</div>` : ''}
-            </div>`).join('')}
-        </div>
-        ${imgs.length>1 ? `
-        <div class="dots">
-            ${imgs.map((_,i) => `<div class="dot ${i===0?'active':''}" onclick="itabsGo(${i})"></div>`).join('')}
-        </div>` : ''}
-        <div class="itabs-btn" onclick="document.getElementById('itabsModal').classList.add('active')">i</div>
-    </div>
-</div>
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            moveCarousel(1);
+        }
+        if (touchEndX > touchStartX + 50) {
+            moveCarousel(-1);
+        }
+    }
 
-<div class="popup" id="itabsModal" onclick="this.classList.remove('active')">
-    <div class="popup-content" onclick="event.stopPropagation()">
-        <div class="popup-header"><h3>More Info</h3><button class="close" onclick="document.getElementById('itabsModal').classList.remove('active')">×</button></div>
-        <div class="popup-body">
-            <h4>What is it?</h4><p>${document.getElementById('s1').value.replace(/\n/g,'<br>')}</p>
-            <h4>Why do I need it?</h4><p>${document.getElementById('s2').value.replace(/\n/g,'<br>')}</p>
-            <h4>How does it work?</h4><p>${document.getElementById('s3').value.replace(/\n/g,'<br>')}</p>
-            <h4>What makes it different?</h4><p>${document.getElementById('s4').value.replace(/\n/g,'<br>')}</p>
-            <a href="${document.getElementById('btnlink').value}" target="_blank" style="display:block;margin:30px 0;padding:16px;background:#4CAF50;color:white;text-align:center;border-radius:8px;text-decoration:none;font-weight:bold;">
-                ${document.getElementById('btntext').value}
-            </a>
-        </div>
-    </div>
-</div>
+    // Add image function
+    function addImage() {
+        if (additionalImageCount >= MAX_IMAGES - 1) {
+            alert('Maximum ' + MAX_IMAGES + ' images allowed');
+            return;
+        }
 
-${imgs.length>1 ? `
-<script>
-let itabsIdx=0;
-function itabsGo(n){ itabsIdx=n; document.getElementById('itabsSlides').style.transform='translateX(-'+(n*100)+'%)'; 
-document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===n)); }
-</script>` : ''}
-`;
+        additionalImageCount++;
+        const imageNum = additionalImageCount + 1;
+        console.log('Adding image #' + imageNum);
+        
+        const container = document.getElementById('additionalImagesContainer');
+        
+        const div = document.createElement('div');
+        div.className = 'image-input-group';
+        div.setAttribute('data-image-number', imageNum);
+        div.innerHTML = `
+            <button type="button" class="btn-remove-image">✕ Remove</button>
+            <label>🖼️ Image #${imageNum}:</label>
+            <input type="file" 
+                   class="additional-image-upload" 
+                   accept="image/*"
+                   data-image-number="${imageNum}">
+            <div class="file-status" id="uploadStatus${imageNum}"></div>
+            
+            <div class="or-divider">OR</div>
+            
+            <input type="url" 
+                   class="additional-image-url" 
+                   placeholder="https://your-image-url.com/image${imageNum}.jpg"
+                   data-image-number="${imageNum}">
+        `;
+        
+        container.appendChild(div);
+        
+        // Attach event listeners to new elements
+        const removeBtn = div.querySelector('.btn-remove-image');
+        removeBtn.addEventListener('click', function() {
+            removeImage(this, imageNum);
+        });
+        
+        const fileInput = div.querySelector('.additional-image-upload');
+        fileInput.addEventListener('change', function() {
+            handleAdditionalImageUpload(this);
+        });
+        
+        const urlInput = div.querySelector('.additional-image-url');
+        urlInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                fileInput.value = '';
+                const statusDiv = div.querySelector('.file-status');
+                statusDiv.classList.remove('show');
+                delete additionalUploadedImages[imageNum];
+            }
+        });
+        
+        updateImageCount();
+        updateAddButtonState();
+    }
 
-    document.getElementById('preview').innerHTML = html;
-    document.getElementById('codeblock').textContent = html;
-    document.getElementById('codeblock').style.display = 'block';
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('result').scrollIntoView({behavior:'smooth'});
+    function removeImage(button, num) {
+        console.log('Removing image #' + num);
+        const inputGroup = button.parentElement;
+        delete additionalUploadedImages[num];
+        inputGroup.remove();
+        additionalImageCount--;
+        updateImageCount();
+        updateAddButtonState();
+        renumberImages();
+    }
 
-    document.getElementById('p1').innerHTML = document.getElementById('s1').value.replace(/\n/g,'<br>');
-    document.getElementById('p2').innerHTML = document.getElementById('s2').value.replace(/\n/g,'<br>');
-    document.getElementById('p3').innerHTML = document.getElementById('s3').value.replace(/\n/g,'<br>');
-    document.getElementById('p4').innerHTML = document.getElementById('s4').value.replace(/\n/g,'<br>');
-    document.getElementById('popbtn').textContent = document.getElementById('btntext').value;
-    document.getElementById('popbtn').href = document.getElementById('btnlink').value;
-}
+    function handleAdditionalImageUpload(input) {
+        const file = input.files[0];
+        const imageNum = input.getAttribute('data-image-number');
+        const statusDiv = document.getElementById('uploadStatus' + imageNum);
+        const inputGroup = input.closest('.image-input-group');
+        const urlInput = inputGroup.querySelector('.additional-image-url');
+        
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                additionalUploadedImages[imageNum] = event.target.result;
+                statusDiv.textContent = '⏳ Uploading image to ImgBB...';
+                statusDiv.classList.add('show');
+                
+                const imgbbKey = document.getElementById('imgbbKey').value.trim();
+                if (imgbbKey) {
+                    uploadAdditionalToImgBB(file, imgbbKey, imageNum, statusDiv, urlInput);
+                } else {
+                    statusDiv.textContent = '✓ Image loaded (add ImgBB API key to host online)';
+                    statusDiv.style.color = '#ffc107';
+                }
+                
+                urlInput.value = '';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please select a valid image file');
+            input.value = '';
+        }
+    }
 
-function copyCode() {
-    navigator.clipboard.writeText(document.getElementById('codeblock').textContent);
-    alert("Code copied to clipboard!");
-}
+    async function uploadAdditionalToImgBB(file, apiKey, imageNum, statusDiv, urlInput) {
+        try {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            const response = await fetch('https://api.imgbb.com/1/upload?key=' + apiKey, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!response.ok) {
+                throw new Error('ImgBB upload failed');
+            }
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                const imageUrl = data.data.url;
+                urlInput.value = imageUrl;
+                delete additionalUploadedImages[imageNum];
+                statusDiv.textContent = '✓ Image uploaded to ImgBB successfully!';
+                statusDiv.style.color = '#28a745';
+            } else {
+                throw new Error('ImgBB API returned error');
+            }
+        } catch (error) {
+            console.error('ImgBB upload error:', error);
+            statusDiv.textContent = '⚠️ Image loaded locally (add valid ImgBB API key to host online)';
+            statusDiv.style.color = '#ffc107';
+        }
+    }
+
+    function renumberImages() {
+        const groups = document.querySelectorAll('.image-input-group');
+        groups.forEach((group, index) => {
+            const imageNum = index + 2;
+            group.setAttribute('data-image-number', imageNum);
+            
+            const label = group.querySelector('label');
+            if (label) label.textContent = '🖼️ Image #' + imageNum + ':';
+            
+            const fileInput = group.querySelector('.additional-image-upload');
+            if (fileInput) fileInput.setAttribute('data-image-number', imageNum);
+            
+            const urlInput = group.querySelector('.additional-image-url');
+            if (urlInput) {
+                urlInput.setAttribute('data-image-number', imageNum);
+                urlInput.placeholder = 'https://your-image-url.com/image' + imageNum + '.jpg';
+            }
+            
+            const statusDiv = group.querySelector('.file-status');
+            if (statusDiv) statusDiv.id = 'uploadStatus' + imageNum;
+        });
+    }
+
+    function updateImageCount() {
+        const countDiv = document.getElementById('imageCount');
+        const totalImages = additionalImageCount + 1;
+        if (additionalImageCount > 0) {
+            countDiv.textContent = '📸 Total: ' + totalImages + ' image' + (totalImages > 1 ? 's' : '');
+        } else {
+            countDiv.textContent = '';
+        }
+    }
+
+    function updateAddButtonState() {
+        const addBtn = document.getElementById('addImageBtn');
+        if (additionalImageCount >= MAX_IMAGES - 1) {
+            addBtn.disabled = true;
+            addBtn.textContent = '✓ Maximum ' + MAX_IMAGES + ' Images Added';
+        } else {
+            addBtn.disabled = false;
+            addBtn.textContent = '+ Add Another Image';
+        }
+    }
+
+    function getAllImageUrls() {
+        const images = [];
+        
+        // Get primary image
+        const imageUrlInput = document.getElementById('imageUrl');
+        if (imageUrlInput.value.trim() !== '') {
+            images.push(imageUrlInput.value.trim());
+        } else if (uploadedImageData) {
+            images.push(uploadedImageData);
+        }
+        
+        // Get additional images
+        const additionalGroups = document.querySelectorAll('.image-input-group');
+        additionalGroups.forEach(group => {
+            const imageNum = group.getAttribute('data-image-number');
+            const urlInput = group.querySelector('.additional-image-url');
+            
+            if (urlInput.value.trim() !== '') {
+                images.push(urlInput.value.trim());
+            } else if (additionalUploadedImages[imageNum]) {
+                images.push(additionalUploadedImages[imageNum]);
+            }
+        });
+        
+        return images;
+    }
+
+    function buildCarousel(images, overlayText, overlayPosition, overlayColor) {
+        const track = document.getElementById('carouselTrack');
+        const indicators = document.getElementById('carouselIndicators');
+        
+        track.innerHTML = '';
+        indicators.innerHTML = '';
+        
+        images.forEach((imgSrc, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            
+            const img = document.createElement('img');
+            img.className = 'preview-image';
+            img.src = imgSrc;
+            img.alt = 'Product ' + (index + 1);
+            
+            slide.appendChild(img);
+            
+            if (index === 0 && overlayText.trim() !== '') {
+                const overlay = document.createElement('div');
+                overlay.className = 'preview-overlay show ' + overlayPosition;
+                overlay.style.color = overlayColor;
+                overlay.textContent = overlayText;
+                slide.appendChild(overlay);
+            }
+            
+            track.appendChild(slide);
+            
+            const dot = document.createElement('div');
+            dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(index));
+            indicators.appendChild(dot);
+        });
+        
+        previewImages = images;
+        previewCarouselIndex = 0;
+        updateCarouselDisplay();
+    }
+
+    function moveCarousel(direction) {
+        if (previewImages.length <= 1) return;
+        
+        previewCarouselIndex += direction;
+        
+        if (previewCarouselIndex < 0) {
+            previewCarouselIndex = previewImages.length - 1;
+        } else if (previewCarouselIndex >= previewImages.length) {
+            previewCarouselIndex = 0;
+        }
+        
+        updateCarouselDisplay();
+    }
+
+    function goToSlide(index) {
+        previewCarouselIndex = index;
+        updateCarouselDisplay();
+    }
+
+    function updateCarouselDisplay() {
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const counter = document.getElementById('imageCounterDisplay');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        track.style.transform = 'translateX(-' + (previewCarouselIndex * 100) + '%)';
+        
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === previewCarouselIndex);
+        });
+        
+        counter.textContent = (previewCarouselIndex + 1) + '/' + previewImages.length;
+        
+        if (previewImages.length <= 1) {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            document.getElementById('carouselIndicators').style.display = 'none';
+            counter.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'flex';
+            nextBtn.style.display = 'flex';
+            document.getElementById('carouselIndicators').style.display = 'flex';
+            counter.style.display = 'block';
+        }
+    }
+
+    async function uploadToImgBB(file, apiKey) {
+        const uploadStatus = document.getElementById('uploadStatus');
+        
+        try {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            const response = await fetch('https://api.imgbb.com/1/upload?key=' + apiKey, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!response.ok) {
+                throw new Error('ImgBB upload failed');
+            }
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                const imageUrl = data.data.url;
+                document.getElementById('imageUrl').value = imageUrl;
+                uploadedImageData = null;
+                uploadStatus.textContent = '✓ Image uploaded to ImgBB successfully!';
+                uploadStatus.style.color = '#28a745';
+            } else {
+                throw new Error('ImgBB API returned error');
+            }
+        } catch (error) {
+            console.error('ImgBB upload error:', error);
+            uploadStatus.textContent = '⚠️ Image loaded locally (add valid ImgBB API key to host online)';
+            uploadStatus.style.color = '#ffc107';
+        }
+    }
+
+    async function aiGenerate() {
+        const campaignUrl = document.getElementById('campaignUrl').value.trim();
+        const apiKey = document.getElementById('apiKey').value.trim();
+        const aiPrompt = document.getElementById('aiPrompt').value.trim();
+        const errorMessage = document.getElementById('errorMessage');
+        const loading = document.getElementById('loading');
+        const loadingText = document.getElementById('loadingText');
+        const aiGenerateBtn = document.getElementById('aiGenerateBtn');
+
+        if (!campaignUrl) {
+            showError('Please enter a campaign URL');
+            return;
+        }
+
+        if (!apiKey) {
+            showError('Please enter your Google API key. Get it FREE at aistudio.google.com/app/apikey');
+            return;
+        }
+
+        errorMessage.classList.remove('active');
+        loading.classList.add('active');
+        aiGenerateBtn.disabled = true;
+
+        try {
+            loadingText.textContent = '📖 Reading campaign page...';
+            const jinaUrl = 'https://r.jina.ai/' + campaignUrl;
+            const jinaResponse = await fetch(jinaUrl);
+            const pageContent = await jinaResponse.text();
+
+            loadingText.textContent = '✨ AI is writing your iTabs content...';
+            
+            const geminiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
+            
+            const fullPrompt = aiPrompt + '\n\nCampaign Content:\n' + pageContent.substring(0, 4000) + '\n\nPlease respond in this exact JSON format:\n{\n  "section1": "What is it? (simple explanation)",\n  "section2": "Why do I need it? (the problem it solves)",\n  "section3": "How does it work? (simple steps)",\n  "section4": "What makes it different? (unique value)",\n  "buttonText": "Short call-to-action (3-5 words)",\n  "buttonLink": "' + campaignUrl + '"\n}';
+            
+            const geminiResponse = await fetch(geminiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: fullPrompt
+                        }]
+                    }]
+                })
+            });
+
+            if (!geminiResponse.ok) {
+                const errorData = await geminiResponse.json();
+                throw new Error('Gemini API error: ' + (errorData.error?.message || geminiResponse.statusText));
+            }
+
+            const geminiData = await geminiResponse.json();
+            const responseText = geminiData.candidates[0].content.parts[0].text;
+            
+            const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+            if (!jsonMatch) {
+                throw new Error('Could not parse AI response');
+            }
+            
+            const aiContent = JSON.parse(jsonMatch[0]);
+
+            document.getElementById('section1').value = aiContent.section1;
+            document.getElementById('section2').value = aiContent.section2;
+            document.getElementById('section3').value = aiContent.section3;
+            document.getElementById('section4').value = aiContent.section4;
+            document.getElementById('buttonText').value = aiContent.buttonText;
+            document.getElementById('buttonLink').value = aiContent.buttonLink;
+
+            loading.classList.remove('active');
+            aiGenerateBtn.disabled = false;
+            
+            document.getElementById('section1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setTimeout(() => {
+                alert('✨ AI generated your iTabs content! Review the sections below and click "Generate iTabs Code" when ready.');
+            }, 500);
+
+        } catch (error) {
+            loading.classList.remove('active');
+            aiGenerateBtn.disabled = false;
+            showError('Error: ' + error.message);
+            console.error(error);
+        }
+    }
+
+    function showError(message) {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.textContent = message;
+        errorMessage.classList.add('active');
+    }
+    
+    function generatePreview() {
+        const images = getAllImageUrls();
+
+        if (images.length === 0) {
+            alert('Please upload an image or enter at least one image URL');
+            return;
+        }
+
+        const overlayText = document.getElementById('overlayText').value;
+        const overlayPosition = document.getElementById('overlayPosition').value;
+        const overlayColor = document.getElementById('overlayColor').value;
+        const section1 = document.getElementById('section1').value;
+        const section2 = document.getElementById('section2').value;
+        const section3 = document.getElementById('section3').value;
+        const section4 = document.getElementById('section4').value;
+        const buttonText = document.getElementById('buttonText').value;
+        const buttonLink = document.getElementById('buttonLink').value;
+
+        if (!section1 || !section2 || !section3 || !section4) {
+            alert('Please fill in all 4 sections or use AI to generate them');
+            return;
+        }
+        
+        buildCarousel(images, overlayText, overlayPosition, overlayColor);
+        
+        const previewInfo = document.getElementById('previewImageInfo');
+        if (images.length > 1) {
+            previewInfo.innerHTML = '<span style="color: #667eea; font-weight: bold;">Swipe or use arrows to view all ' + images.length + ' images!</span>';
+        } else {
+            previewInfo.textContent = '';
+        }
+        
+        document.getElementById('popupSection1').textContent = section1;
+        document.getElementById('popupSection2').textContent = section2;
+        document.getElementById('popupSection3').textContent = section3;
+        document.getElementById('popupSection4').textContent = section4;
+        document.getElementById('popupButton').textContent = buttonText;
+        document.getElementById('popupButton').href = buttonLink || '#';
+        
+        const code = generateCode(images, overlayText, overlayPosition, overlayColor, section1, section2, section3, section4, buttonText, buttonLink);
+        document.getElementById('codeBox').textContent = code;
+        
+        document.getElementById('previewSection').classList.add('active');
+        document.getElementById('previewSection').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function generateCode(imageUrls, overlayText, overlayPosition, overlayColor, s1, s2, s3, s4, btnText, btnLink) {
+        const positionStyles = {
+            'top': 'top: 10px;',
+            'center': 'top: 50%; transform: translate(-50%, -50%);',
+            'bottom': 'bottom: 10px;'
+        };
+        
+        let slidesHTML = '';
+        imageUrls.forEach((url, index) => {
+            const overlayHTML = (index === 0 && overlayText.trim() !== '') 
+                ? '        <div style="position: absolute; ' + positionStyles[overlayPosition] + ' left: 50%; transform: translateX(-50%); color: ' + overlayColor + '; font-weight: bold; font-size: 18px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); padding: 10px; z-index: 10; text-align: center; width: 90%;">' + overlayText + '</div>\n'
+                : '';
+            
+            slidesHTML += '        <div style="min-width: 100%; height: 100%;">\n            <img src="' + url + '" alt="Product ' + (index + 1) + '" style="width: 100%; height: 100%; object-fit: cover;">\n' + overlayHTML + '        </div>\n';
+        });
+
+        let dotsHTML = '';
+        imageUrls.forEach((_, index) => {
+            dotsHTML += '        <div class="itabs-dot" data-slide="' + index + '" style="width: 10px; height: 10px; border-radius: 50%; background: ' + (index === 0 ? 'white' : 'rgba(255,255,255,0.5)') + '; cursor: pointer; transition: all 0.3s; border: 2px solid white;"></div>\n';
+        });
+
+        const carouselControls = imageUrls.length > 1 ? '    <button onclick="itabsMoveCarousel(-1)" style="position: absolute; top: 50%; transform: translateY(-50%); left: 15px; background: rgba(255,255,255,0.9); color: #667eea; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 15;">‹</button>\n    <button onclick="itabsMoveCarousel(1)" style="position: absolute; top: 50%; transform: translateY(-50%); right: 15px; background: rgba(255,255,255,0.9); color: #667eea; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 15;">›</button>\n    <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 15;">\n' + dotsHTML + '    </div>\n    <div id="itabsCounter" style="position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.6); color: white; padding: 5px 12px; border-radius: 15px; font-size: 14px; font-weight: bold; z-index: 15;">1/' + imageUrls.length + '</div>' : '';
+
+        return '<!-- iTabs Code - Beautiful Interactive Popup with Image Carousel -->\n<!-- Paste this code where you want your iTabs to appear -->\n\n<div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 500px; margin: 20px auto;">\n    <div style="position: relative; width: 100%; height: 350px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">\n        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">\n            <div id="itabsTrack" style="display: flex; transition: transform 0.4s ease; height: 100%;">\n' + slidesHTML + '            </div>\n        </div>\n' + carouselControls + '        <div style="position: absolute; top: 20px; right: 20px; width: 45px; height: 45px; background: rgba(255,255,255,0.95); color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border: 3px solid white; z-index: 20;" onclick="document.getElementById(\'itabsPopup\').style.display=\'flex\'">i</div>\n    </div>\n    <div style="padding: 25px; text-align: center;">\n        <h3 style="font-size: 1.3em; color: #2d3748; margin-bottom: 10px; font-weight: 600;">Your Product</h3>\n        <p style="color: #718096; font-size: 1em; line-height: 1.6;">' + (imageUrls.length > 1 ? 'Swipe to see more images!' : 'Click the "i" button to learn more') + '</p>\n    </div>\n</div>\n\n<div id="itabsPopup" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px;">\n    <div style="position: relative; background-color: white; border-radius: 20px; width: 90%; max-width: 600px; max-height: 80vh; box-shadow: 0 20px 60px rgba(0,0,0,0.4); overflow: hidden;">\n        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: center;">\n            <h3 style="margin: 0; font-size: 1.8em;">Your Product</h3>\n            <button onclick="document.getElementById(\'itabsPopup\').style.display=\'none\'" style="color: white; font-size: 40px; font-weight: bold; cursor: pointer; background: none; border: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</button>\n        </div>\n        <div style="padding: 35px; max-height: calc(80vh - 120px); overflow-y: auto;">\n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px;">What is it?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s1 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">Why do I need it?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s2 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">How does it work?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s3 + '</p>\n            \n            <h4 style="color: #667eea; font-size: 1.4em; margin-bottom: 15px; margin-top: 25px;">What makes it different?</h4>\n            <p style="color: #4a5568; font-size: 1.05em; line-height: 1.8; margin-bottom: 15px;">' + s4 + '</p>\n            \n            <a href="' + (btnLink || '#') + '" target="_blank" style="display: block; margin: 25px 0; padding: 15px; background: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1em;">' + btnText + '</a>\n        </div>\n    </div>\n</div>\n\n<script>\nvar itabsCurrentSlide = 0;\nvar itabsTotalSlides = ' + imageUrls.length + ';\nvar itabsTouchStartX = 0;\nvar itabsTouchEndX = 0;\n\nfunction itabsMoveCarousel(direction) {\n    itabsCurrentSlide += direction;\n    if (itabsCurrentSlide < 0) itabsCurrentSlide = itabsTotalSlides - 1;\n    if (itabsCurrentSlide >= itabsTotalSlides) itabsCurrentSlide = 0;\n    itabsUpdateCarousel();\n}\n\nfunction itabsGoToSlide(index) {\n    itabsCurrentSlide = index;\n    itabsUpdateCarousel();\n}\n\nfunction itabsUpdateCarousel() {\n    var track = document.getElementById(\'itabsTrack\');\n    var counter = document.getElementById(\'itabsCounter\');\n    var dots = document.querySelectorAll(\'.itabs-dot\');\n    \n    track.style.transform = \'translateX(-\' + (itabsCurrentSlide * 100) + \'%)\';\n    if (counter) counter.textContent = (itabsCurrentSlide + 1) + \'/\' + itabsTotalSlides;\n    \n    dots.forEach(function(dot, index) {\n        dot.style.background = index === itabsCurrentSlide ? \'white\' : \'rgba(255,255,255,0.5)\';\n    });\n}\n\ndocument.getElementById(\'itabsTrack\').addEventListener(\'touchstart\', function(e) {\n    itabsTouchStartX = e.changedTouches[0].screenX;\n});\n\ndocument.getElementById(\'itabsTrack\').addEventListener(\'touchend\', function(e) {\n    itabsTouchEndX = e.changedTouches[0].screenX;\n    if (itabsTouchEndX < itabsTouchStartX - 50) itabsMoveCarousel(1);\n    if (itabsTouchEndX > itabsTouchStartX + 50) itabsMoveCarousel(-1);\n});\n\ndocument.querySelectorAll(\'.itabs-dot\').forEach(function(dot) {\n    dot.addEventListener(\'click\', function() {\n        itabsGoToSlide(parseInt(this.getAttribute(\'data-slide\')));\n    });\n});\n\ndocument.getElementById(\'itabsPopup\').addEventListener(\'click\', function(e) {\n    if (e.target.id === \'itabsPopup\') {\n        this.style.display = \'none\';\n    }\n});\n</scr' + 'ipt>';
+    }
+    
+    function clearForm() {
+        document.getElementById('campaignUrl').value = 'https://www.birchal.com/company/bioanalytics';
+        document.getElementById('apiKey').value = '';
+        document.getElementById('aiPrompt').value = 'Read this page and extract the key information. Write 4 short sections (2-3 sentences each) in simple, clear language that anyone can understand. Focus on what it is, why it matters, how it works, and what makes it special.';
+        document.getElementById('imageUpload').value = '';
+        document.getElementById('imageUrl').value = 'https://i.ibb.co/391375nn/IMG-3599.jpg';
+        document.getElementById('overlayText').value = 'Click the i for more info';
+        document.getElementById('overlayPosition').value = 'center';
+        document.getElementById('overlayColor').value = 'white';
+        document.getElementById('section1').value = '';
+        document.getElementById('section2').value = '';
+        document.getElementById('section3').value = '';
+        document.getElementById('section4').value = '';
+        document.getElementById('buttonText').value = 'Learn More';
+        document.getElementById('buttonLink').value = '';
+        document.getElementById('previewSection').classList.remove('active');
+        document.getElementById('uploadStatus').classList.remove('show');
+        document.getElementById('errorMessage').classList.remove('active');
+        document.getElementById('additionalImagesContainer').innerHTML = '';
+        additionalImageCount = 0;
+        additionalUploadedImages = {};
+        updateImageCount();
+        updateAddButtonState();
+        uploadedImageData = null;
+    }
+    
+    function openPopup() {
+        document.getElementById('itabsPopup').classList.add('active');
+    }
+    
+    function closePopup() {
+        document.getElementById('itabsPopup').classList.remove('active');
+    }
+    
+    function copyCode() {
+        const codeBox = document.getElementById('codeBox');
+        const textArea = document.createElement('textarea');
+        textArea.value = codeBox.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.add('active');
+        setTimeout(() => {
+            successMessage.classList.remove('active');
+        }, 3000);
+    }
 </script>
+```
+
 </body>
 </html>
