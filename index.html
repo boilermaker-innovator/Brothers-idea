@@ -1040,16 +1040,22 @@
     }
     
     function updateImageStatus(num, status, url) {
-        const statusEl = document.getElementById('status' + num);
-        statusEl.className = 'image-status ' + status;
-        if (status === 'loaded') {
-            statusEl.textContent = '✓';
+        // Update thumbnail instead of old status elements
+        const thumb = document.getElementById('thumb' + num);
+        if (!thumb) return;
+        
+        if (status === 'loaded' && url) {
+            thumb.innerHTML = `<img src="${url}" alt="Photo ${num}">`;
+            thumb.classList.add('filled');
+            thumb.classList.remove('empty');
         } else if (status === 'error') {
-            statusEl.textContent = '✗';
-        } else if (status === 'loading') {
-            statusEl.textContent = '...';
-        } else {
-            statusEl.textContent = '-';
+            thumb.innerHTML = `<span>!</span>`;
+            thumb.classList.remove('filled');
+            thumb.classList.add('empty');
+        } else if (status === 'empty') {
+            thumb.innerHTML = `<span>${num}</span>`;
+            thumb.classList.remove('filled');
+            thumb.classList.add('empty');
         }
     }
     
