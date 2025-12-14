@@ -8,8 +8,6 @@
 
 ```
 <!-- CHANGE THESE FOR YOUR LINK PREVIEW -->
-<!-- This is what shows when you share on WhatsApp, Messenger, LinkedIn, etc -->
-
 <meta property="og:title" content="iTabs - See How It Works">
 <meta property="og:description" content="Tap the i button and watch the magic. Try it with your own photos.">
 <meta property="og:image" content="https://i.ibb.co/CHANGE-THIS/your-preview-image.jpg">
@@ -24,6 +22,7 @@
 
 <!-- General description for search engines -->
 <meta name="description" content="iTabs makes complex information simple. Tap the i button to see instant explanations. Try it yourself with your own photos.">
+
 <style>
     * {
         margin: 0;
@@ -462,6 +461,52 @@
         transform: translateX(22px);
     }
     
+    /* Hint text styles */
+    .hint {
+        font-size: 0.78em;
+        color: #888;
+        margin-top: 6px;
+        line-height: 1.4;
+    }
+    
+    .hint a {
+        color: #05CE78;
+        text-decoration: none;
+    }
+    
+    .hint a:hover {
+        text-decoration: underline;
+    }
+    
+    .hint-icon {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        background: #e2e8f0;
+        color: #666;
+        border-radius: 50%;
+        font-size: 0.7em;
+        text-align: center;
+        line-height: 14px;
+        margin-left: 4px;
+        cursor: help;
+    }
+    
+    /* Pro tip callout */
+    .pro-tip {
+        background: linear-gradient(135deg, #f0fff4 0%, #e6fffa 100%);
+        border-left: 3px solid #05CE78;
+        padding: 12px 14px;
+        border-radius: 0 10px 10px 0;
+        margin: 15px 0;
+        font-size: 0.85em;
+        color: #2d3748;
+    }
+    
+    .pro-tip strong {
+        color: #05CE78;
+    }
+    
     /* Footer */
     .footer {
         text-align: center;
@@ -669,6 +714,35 @@
         outline: none;
         border-color: #05CE78;
     }
+    
+    /* URL options styling */
+    .url-options-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.85em;
+        color: #05CE78;
+        cursor: pointer;
+        padding: 8px 0;
+    }
+    
+    .url-options-header:hover {
+        color: #00A862;
+    }
+    
+    .url-hint-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+        font-size: 0.8em;
+        color: #666;
+    }
+    
+    .url-hint-box a {
+        color: #05CE78;
+        text-decoration: none;
+    }
 </style>
 ```
 
@@ -710,6 +784,7 @@
         <button class="template-btn" onclick="loadTemplate('gofundme')">GoFundMe</button>
         <button class="template-btn" onclick="loadTemplate('blank')">Start Blank</button>
     </div>
+    <p class="hint">See how iTabs works across different use cases</p>
 </div>
 
 <!-- The Form -->
@@ -729,7 +804,7 @@
         <button type="button" class="select-photos-btn" onclick="document.getElementById('photosPicker').click()">
             📱 Select Photos from Phone
         </button>
-        <p style="font-size: 0.8em; color: #888; margin-top: 8px; text-align: center;">Choose up to 5 photos</p>
+        <p class="hint" style="text-align: center;">Choose up to 5 photos - they stay on your device</p>
         
         <!-- Hidden multi-file input -->
         <input type="file" id="photosPicker" accept="image/*" multiple style="display:none" onchange="handleMultipleFiles(this)">
@@ -752,8 +827,12 @@
         
         <!-- Optional URL paste (collapsed) -->
         <details style="margin-top: 15px;">
-            <summary style="font-size: 0.85em; color: #05CE78; cursor: pointer;">Or paste image URLs instead</summary>
+            <summary class="url-options-header">Or paste image URLs instead ▾</summary>
             <div style="margin-top: 10px;">
+                <div class="url-hint-box">
+                    💡 Get free image URLs from <a href="https://imgbb.com" target="_blank">imgbb.com</a> or <a href="https://imgur.com" target="_blank">imgur.com</a><br>
+                    Or right-click any image online → "Copy image address"
+                </div>
                 <input type="url" class="url-input" placeholder="Image 1 URL..." oninput="handleUrlInput(1, this.value)">
                 <input type="url" class="url-input" placeholder="Image 2 URL..." oninput="handleUrlInput(2, this.value)">
                 <input type="url" class="url-input" placeholder="Image 3 URL..." oninput="handleUrlInput(3, this.value)">
@@ -792,6 +871,10 @@
         <textarea id="section4" placeholder="What's different about this?" oninput="updatePreview()"></textarea>
     </div>
     
+    <div class="pro-tip">
+        <strong>✨ Pro tip:</strong> The full iTabs Generator can pull images and info automatically from any URL - just paste a link and it does the rest.
+    </div>
+    
     <div class="form-group">
         <label>Button Text</label>
         <input type="text" id="buttonText" placeholder="e.g. Back This Project" oninput="updatePreview()">
@@ -800,12 +883,13 @@
     <div class="form-group">
         <label>Button Link</label>
         <input type="url" id="buttonLink" placeholder="https://..." oninput="updatePreview()">
+        <p class="hint">Works with any link - Kickstarter, GoFundMe, your website, anywhere</p>
     </div>
 </div>
 
 <!-- Footer -->
 <div class="footer">
-    <p>Want to create iTabs for your business?</p>
+    <p>Want iTabs that build themselves from any URL?</p>
     <a href="https://itabsgenerator.gumroad.com/l/kickstarter" target="_blank">Get the iTabs Generator →</a>
 </div>
 
@@ -915,7 +999,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         loadTemplate('kickstarter');
         setupTouchEvents();
-        // Start autoplay on page load
         if (document.getElementById('autoplayToggle').checked) {
             startAutoplay();
         }
@@ -965,14 +1048,12 @@
         currentSlide = 0;
         updatePreview();
         
-        // Restart autoplay when loading a new template (if toggle is on)
         if (document.getElementById('autoplayToggle').checked) {
             startAutoplay();
         }
     }
     
     function updatePreview() {
-        // Get values
         const productName = document.getElementById('productName').value || 'Your Product Name';
         const images = [
             document.getElementById('image1').value,
@@ -988,11 +1069,9 @@
         const buttonText = document.getElementById('buttonText').value || 'Learn More';
         const buttonLink = document.getElementById('buttonLink').value || '#';
         
-        // Update title
         document.getElementById('previewTitle').textContent = productName;
         document.getElementById('popupTitle').textContent = productName;
         
-        // Build slides
         const slidesTrack = document.getElementById('slidesTrack');
         const dotsContainer = document.getElementById('dotsContainer');
         
@@ -1014,11 +1093,8 @@
         
         slidesTrack.innerHTML = slidesHTML;
         dotsContainer.innerHTML = dotsHTML;
-        
-        // Position slides
         slidesTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
         
-        // Check image loading for status indicators
         images.forEach((url, index) => {
             if (url && url.trim()) {
                 const img = new Image();
@@ -1028,7 +1104,6 @@
             }
         });
         
-        // Update popup
         document.getElementById('popupText1').textContent = section1 || 'Add content in the form below.';
         document.getElementById('popupText2').textContent = section2 || 'Explain the benefits here.';
         document.getElementById('popupText3').textContent = section3 || 'Describe how it works.';
@@ -1036,7 +1111,6 @@
         document.getElementById('popupButton').textContent = buttonText;
         document.getElementById('popupButton').href = buttonLink;
         
-        // Show/hide sections
         document.getElementById('popupSection1').style.display = section1 ? 'block' : 'none';
         document.getElementById('popupSection2').style.display = section2 ? 'block' : 'none';
         document.getElementById('popupSection3').style.display = section3 ? 'block' : 'none';
@@ -1044,7 +1118,6 @@
     }
     
     function updateImageStatus(num, status, url) {
-        // Update thumbnail instead of old status elements
         const thumb = document.getElementById('thumb' + num);
         if (!thumb) return;
         
@@ -1068,7 +1141,6 @@
         const slidesTrack = document.getElementById('slidesTrack');
         slidesTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
         
-        // Update dots
         document.querySelectorAll('.dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === currentSlide);
         });
@@ -1108,7 +1180,6 @@
         }
     }
     
-    // Touch/swipe support
     function setupTouchEvents() {
         const slideshow = document.getElementById('slideshow');
         
@@ -1136,7 +1207,7 @@
     function openPopup() {
         document.getElementById('popup').classList.add('active');
         document.body.style.overflow = 'hidden';
-        stopAutoplay(); // Pause when popup opens
+        stopAutoplay();
     }
     
     function closePopup(event) {
@@ -1149,14 +1220,19 @@
         }
     }
     
-    // Close on escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closePopup();
     });
     
-    // Handle multiple file selection from phone
+    // Auto-close popup when user leaves the page (clicks a link, switches tabs)
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            closePopup();
+        }
+    });
+    
     function handleMultipleFiles(input) {
-        const files = Array.from(input.files).slice(0, 5); // Max 5 files
+        const files = Array.from(input.files).slice(0, 5);
         
         files.forEach((file, index) => {
             const reader = new FileReader();
@@ -1164,29 +1240,24 @@
                 const imageData = e.target.result;
                 const num = index + 1;
                 
-                // Store the data
                 document.getElementById('image' + num).value = imageData;
                 
-                // Update thumbnail
                 const thumb = document.getElementById('thumb' + num);
                 thumb.innerHTML = `<img src="${imageData}" alt="Photo ${num}">`;
                 thumb.classList.add('filled');
                 thumb.classList.remove('empty');
                 
-                // Update preview
                 updatePreview();
             };
             reader.readAsDataURL(file);
         });
     }
     
-    // Handle URL input
     function handleUrlInput(num, url) {
         document.getElementById('image' + num).value = url;
         
         const thumb = document.getElementById('thumb' + num);
         if (url && url.trim()) {
-            // Test if image loads
             const img = new Image();
             img.onload = function() {
                 thumb.innerHTML = `<img src="${url}" alt="Photo ${num}">`;
