@@ -849,11 +849,11 @@
         kickstarter: {
             name: "Smart Travel Mug",
             images: [
-                "https://picsum.photos/seed/coffee1/600/400",
-                "https://picsum.photos/seed/coffee2/600/400",
-                "https://picsum.photos/seed/coffee3/600/400",
-                "https://picsum.photos/seed/coffee4/600/400",
-                "https://picsum.photos/seed/coffee5/600/400"
+                "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600",
+                "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=600",
+                "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600",
+                "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600",
+                "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=600"
             ],
             section1: "A smart travel mug that keeps your drink at the perfect temperature all day. Built-in sensors monitor heat levels and the app lets you set your ideal temperature.",
             section2: "No more burnt tongues or cold coffee. Whether you're commuting, hiking, or at your desk, your drink stays exactly how you like it - hot drinks stay hot, cold drinks stay cold.",
@@ -865,11 +865,11 @@
         product: {
             name: "Premium Brake Pads",
             images: [
-                "https://picsum.photos/seed/car1/600/400",
-                "https://picsum.photos/seed/car2/600/400",
-                "https://picsum.photos/seed/car3/600/400",
-                "https://picsum.photos/seed/car4/600/400",
-                "https://picsum.photos/seed/car5/600/400"
+                "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600",
+                "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600",
+                "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600",
+                "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600",
+                "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600"
             ],
             section1: "NWP-B4C Premium Ceramic Brake Pads for Toyota Camry (2018-2024). Direct OEM replacement - fits perfectly without modifications.",
             section2: "Your family's safety depends on reliable brakes. These premium pads provide shorter stopping distances and last 40% longer than standard pads - saving you money on replacements.",
@@ -881,11 +881,11 @@
         gofundme: {
             name: "Help Rebuild The Community Garden",
             images: [
-                "https://picsum.photos/seed/garden1/600/400",
-                "https://picsum.photos/seed/garden2/600/400",
-                "https://picsum.photos/seed/garden3/600/400",
-                "https://picsum.photos/seed/garden4/600/400",
-                "https://picsum.photos/seed/garden5/600/400"
+                "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600",
+                "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600",
+                "https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=600",
+                "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=600",
+                "https://images.unsplash.com/photo-1445052520430-32c8b69f6249?w=600"
             ],
             section1: "Our beloved Riverside Community Garden was destroyed by last month's storms. We're raising funds to rebuild the raised beds, replace tools, and restore this neighborhood gathering place.",
             section2: "This garden feeds 23 local families and teaches kids where food comes from. It's where neighbors meet, share recipes, and build community. Without it, we've lost more than vegetables.",
@@ -915,6 +915,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         loadTemplate('kickstarter');
         setupTouchEvents();
+        // Start autoplay on page load
+        if (document.getElementById('autoplayToggle').checked) {
+            startAutoplay();
+        }
     });
     
     function loadTemplate(templateName) {
@@ -960,6 +964,11 @@
         
         currentSlide = 0;
         updatePreview();
+        
+        // Restart autoplay when loading a new template (if toggle is on)
+        if (document.getElementById('autoplayToggle').checked) {
+            startAutoplay();
+        }
     }
     
     function updatePreview() {
@@ -1032,11 +1041,6 @@
         document.getElementById('popupSection2').style.display = section2 ? 'block' : 'none';
         document.getElementById('popupSection3').style.display = section3 ? 'block' : 'none';
         document.getElementById('popupSection4').style.display = section4 ? 'block' : 'none';
-        
-        // Restart autoplay if enabled
-        if (document.getElementById('autoplayToggle').checked) {
-            startAutoplay();
-        }
     }
     
     function updateImageStatus(num, status, url) {
