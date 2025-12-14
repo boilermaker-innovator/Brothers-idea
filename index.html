@@ -943,6 +943,21 @@
         document.getElementById('buttonText').value = template.buttonText;
         document.getElementById('buttonLink').value = template.buttonLink;
         
+        // Update thumbnails
+        template.images.forEach((url, index) => {
+            const num = index + 1;
+            const thumb = document.getElementById('thumb' + num);
+            if (url && url.trim()) {
+                thumb.innerHTML = `<img src="${url}" alt="Photo ${num}">`;
+                thumb.classList.add('filled');
+                thumb.classList.remove('empty');
+            } else {
+                thumb.innerHTML = `<span>${num}</span>`;
+                thumb.classList.remove('filled');
+                thumb.classList.add('empty');
+            }
+        });
+        
         currentSlide = 0;
         updatePreview();
     }
