@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Timestamps Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 { font-size: 1.3rem; margin-bottom: 5px; }
+        .sub { color: #888; font-size: 0.85rem; margin-bottom: 15px; }
+        .video-wrap {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        .video-wrap iframe {
+            position: absolute;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .current {
+            background: #1a1a2e;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+            margin-bottom: 15px;
+        }
+        .current h2 { font-size: 1rem; color: #3b82f6; }
+        .current p { font-size: 0.8rem; color: #888; }
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .qr-btn {
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .qr-btn:hover { border-color: #3b82f6; }
+        .qr-btn.active { border-color: #3b82f6; background: #1e3a5f; }
+        .qr-btn .qr-wrap { position: relative; display: inline-block; }
+        .qr-btn canvas { width: 80px !important; height: 80px !important; }
+        .qr-btn .num { 
+            position: absolute; 
+            top: 50%; left: 50%; 
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #000;
+        }
+        .qr-btn p { font-size: 0.7rem; color: #aaa; margin-top: 5px; }
+        .qr-btn.active p { color: #fff; }
+        .info {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.5;
+        }
+        .info h3 { color: #3b82f6; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <h1>6 Ways to Use ClaudeBot</h1>
+    <p class="sub">Tap a QR code to jump to that section</p>
+
+    <div class="video-wrap">
+        <iframe id="player" src="https://www.youtube.com/embed/b-l9sGh1-UY?enablejsapi=1&start=0" allowfullscreen></iframe>
+    </div>
+
+    <div class="current" id="current">
+        <h2>Section 1: Intro</h2>
+        <p>0:00</p>
+    </div>
+
+    <div class="qr-grid" id="qr-grid"></div>
+
+    <div class="info">
+        <h3>How it works</h3>
+        <p>Each QR code links to a specific timestamp in the video. Scan one with your phone, or tap it here to jump directly. The number in the center = the section you'll land on.</p>
+    </div>
+
+    <script>
+        const sections = [
+            { num: 1, title: "Intro", time: 0 },
+            { num: 2, title: "Morning Report", time: 27 },
+            { num: 3, title: "Proactive Coder", time: 218 },
+            { num: 4, title: "2nd Brain", time: 358 },
+            { num: 5, title: "Daily Research", time: 518 },
+            { num: 6, title: "Last30Days", time: 740 }
+        ];
+
+        const videoId = "b-l9sGh1-UY";
+        const baseUrl = window.location.href.split('#')[0];
+        const grid = document.getElementById('qr-grid');
+
+        // Build QR buttons
+        sections.forEach(s => {
+            const btn = document.createElement('div');
+            btn.className = 'qr-btn' + (s.num === 1 ? ' active' : '');
+            btn.id = 'btn-' + s.num;
+            btn.innerHTML = `<div class="qr-wrap"><div id="qr-${s.num}"></div><span class="num">${s.num}</span></div><p>${s.title}</p>`;
+            btn.onclick = () => jumpTo(s.num);
+            grid.appendChild(btn);
+
+            // Generate QR
+            new QRCode(document.getElementById('qr-' + s.num), {
+                text: baseUrl + '#' + s.num,
+                width: 80,
+                height: 80,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+
+        function jumpTo(num) {
+            const s = sections.find(x => x.num === num);
+            // Update video
+            document.getElementById('player').src = 
+                `https://www.youtube.com/embed/${videoId}?enablejsapi=1&start=${s.time}&autoplay=1`;
+            // Update current display
+            document.getElementById('current').innerHTML = 
+                `<h2>Section ${s.num}: ${s.title}</h2><p>${formatTime(s.time)}</p>`;
+            // Update active button
+            document.querySelectorAll('.qr-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + num).classList.add('active');
+            // Update URL
+            history.replaceState(null, '', '#' + num);
+        }
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        // Handle hash on load
+        const hash = parseInt(window.location.hash.replace('#', ''));
+        if (hash >= 1 && hash <= 6) jumpTo(hash);
+    </script>
+</body>
+</html>
