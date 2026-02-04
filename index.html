@@ -3,164 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Timestamps Demo</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>iTabs | What is iTabs?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --i-button: #f59e0b;
+            --i-button-hover: #d97706;
+            --success: #22c55e;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #111;
-            color: #fff;
-            padding: 20px;
-            max-width: 600px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 500px;
             margin: 0 auto;
         }
-        h1 { font-size: 1.3rem; margin-bottom: 5px; }
-        .sub { color: #888; font-size: 0.85rem; margin-bottom: 15px; }
-        .video-wrap {
-            position: relative;
-            padding-bottom: 56.25%;
-            background: #000;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 15px;
-        }
-        .video-wrap iframe {
-            position: absolute;
-            width: 100%; height: 100%;
-            border: none;
-        }
-        .current {
-            background: #1a1a2e;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid #3b82f6;
-            margin-bottom: 15px;
-        }
-        .current h2 { font-size: 1rem; color: #3b82f6; }
-        .current p { font-size: 0.8rem; color: #888; }
-        .qr-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .qr-btn {
-            background: #1a1a2e;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
+
+        /* Header */
+        .header {
             text-align: center;
+            padding: 24px 0 32px;
         }
-        .qr-btn:hover { border-color: #3b82f6; }
-        .qr-btn.active { border-color: #3b82f6; background: #1e3a5f; }
-        .qr-btn .qr-wrap { position: relative; display: inline-block; }
-        .qr-btn canvas { width: 80px !important; height: 80px !important; }
-        .qr-btn .num { 
-            position: absolute; 
-            top: 50%; left: 50%; 
-            transform: translate(-50%, -50%);
-            background: #fff;
-            color: #000;
-            font-weight: bold;
-            font-size: 1.2rem;
-            width: 26px; height: 26px;
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .logo span {
+            color: var(--i-button);
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Sections */
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .section-header:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .section-arrow {
+            font-size: 12px;
+            color: var(--text-secondary);
+            transition: transform 0.2s;
+            width: 16px;
+        }
+
+        .section.open .section-arrow {
+            transform: rotate(90deg);
+        }
+
+        .section-title {
+            flex: 1;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .section-content {
+            display: none;
+            padding: 0 16px 16px;
+            padding-left: 44px;
+        }
+
+        .section.open .section-content {
+            display: block;
+        }
+
+        .section-content p {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content strong {
+            color: var(--text-primary);
+        }
+
+        /* i-Buttons */
+        .i-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .i-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-tertiary);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .i-button:hover {
+            background: var(--i-button-hover);
+        }
+
+        .i-icon {
+            width: 18px;
+            height: 18px;
+            background: var(--i-button);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #000;
+            font-size: 11px;
+            font-weight: 700;
+            font-style: italic;
+            color: #000;
         }
-        .qr-btn p { font-size: 0.7rem; color: #aaa; margin-top: 5px; }
-        .qr-btn.active p { color: #fff; }
-        .info {
-            background: #1a1a2e;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            color: #888;
-            line-height: 1.5;
+
+        /* Highlight box */
+        .highlight {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--i-button);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
         }
-        .info h3 { color: #3b82f6; margin-bottom: 8px; }
+
+        .highlight p {
+            margin: 0 !important;
+            color: var(--text-primary) !important;
+        }
+
+        /* List */
+        .check-list {
+            list-style: none;
+            margin: 12px 0;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .check-list li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Use cases */
+        .use-case {
+            background: var(--bg-tertiary);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+
+        .use-case-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .use-case-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 16px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 500px;
+            max-height: 70vh;
+            background: var(--bg-secondary);
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .modal-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-title span:first-child {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .type-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--i-button);
+            color: #000;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: none;
+            color: var(--text-primary);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        /* Try it prompt */
+        .try-it {
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 24px 0 16px;
+        }
+
+        .try-it-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .try-it-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
-    <h1>6 Ways to Use ClaudeBot</h1>
-    <p class="sub">Tap a QR code to jump to that section</p>
+    <div class="container">
+        <div class="header">
+            <div class="logo">i<span>Tabs</span></div>
+            <div class="tagline">Hide until you need it.</div>
+        </div>
 
-    <div class="video-wrap">
-        <iframe id="player" src="https://www.youtube.com/embed/b-l9sGh1-UY?enablejsapi=1&start=0" allowfullscreen></iframe>
+        <!-- Section: What is iTabs -->
+        <div class="section open">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-arrow">▶</span>
+                <span class="section-title">What is iTabs?</span>
+            </div>
+            <div class="section-content">
+                <p>iTabs turns any content into a <strong>quick-reference guide</strong> you can actually use later.</p>
+                <p>Videos, courses, manuals, articles — they all become tappable guides where you see everything at a glance and expand only what you need.</p>
+                <div class="i-buttons">
+                    <button class="i-button" onclick="openModal('Progressive Disclosure', 'definition', 'A UX technique (from IBM, 1983) that shows users just enough to orient themselves, then reveals detail on demand. Most apps use it for settings and menus — iTabs applies it to learning content.')">
+                        <span class="i-icon">i</span>
+                        Progressive Disclosure
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: The Problem -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-arrow">▶</span>
+                <span class="section-title">The Problem iTabs Solves</span>
+            </div>
+            <div class="section-content">
+                <p>You watch a video. You take a course. You read the manual.</p>
+                <p><strong>Then you forget everything.</strong></p>
+                <p>Six months later you need that info and you're stuck re-watching, re-reading, or calling someone for help.</p>
+                <div class="highlight">
+                    <p>The information exists. You just can't find it when you need it.</p>
+                </div>
+                <div class="i-buttons">
+                    <button class="i-button" onclick="openModal('Why We Forget', 'context', 'Research shows we forget 90% of learned information within a week. The problem isn\'t learning — it\'s retrieval. Information needs to be organised for finding, not just for teaching.')">
+                        <span class="i-icon">i</span>
+                        Why We Forget
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: How It Works -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-arrow">▶</span>
+                <span class="section-title">How iTabs Works</span>
+            </div>
+            <div class="section-content">
+                <p>Two principles working together:</p>
+                <ul class="check-list">
+                    <li><strong>Organise</strong> — so you can find it</li>
+                    <li><strong>Hide</strong> — so you're not overwhelmed</li>
+                </ul>
+                <p>You see all section headings at once. Tap the one you need. Detail expands. Done.</p>
+                <div class="i-buttons">
+                    <button class="i-button" onclick="openModal('The 30-Second Test', 'why-it-matters', 'Every iTabs guide must pass this test: If someone opens it 6 months from now, can they take action within 30 seconds? If not, it needs to be simpler.')">
+                        <span class="i-icon">i</span>
+                        The 30-Second Test
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: What It's For -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-arrow">▶</span>
+                <span class="section-title">What iTabs Is For</span>
+            </div>
+            <div class="section-content">
+                <div class="use-case">
+                    <div class="use-case-title">📺 YouTube Videos</div>
+                    <div class="use-case-desc">Turn tutorials into reference guides you'll actually use</div>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-title">🎓 Training Courses</div>
+                    <div class="use-case-desc">RSA, White Card, safety certs — study aids that work</div>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-title">🏗️ Site Inductions</div>
+                    <div class="use-case-desc">Workers can check the rules on site, not just watch once and forget</div>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-title">📖 Manuals & Docs</div>
+                    <div class="use-case-desc">Any "wall of text" becomes scannable and tappable</div>
+                </div>
+                <div class="i-buttons">
+                    <button class="i-button" onclick="openModal('Open Format', 'context', 'iTabs is free to use. Anyone can create iTabs-style guides using the SKILL.md file with AI tools like Claude. The format spreading is the goal.')">
+                        <span class="i-icon">i</span>
+                        Open Format
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: The i-Button -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-arrow">▶</span>
+                <span class="section-title">What's the "i" Button?</span>
+            </div>
+            <div class="section-content">
+                <p>The little <span style="display:inline-flex;align-items:center;gap:4px;"><span class="i-icon" style="width:16px;height:16px;font-size:10px;">i</span></span> buttons give you <strong>extra context</strong> without cluttering the main content.</p>
+                <p>Tap one to see definitions, background info, or why something matters. Close it and keep going.</p>
+                <p>You're using them right now. 👆</p>
+                <div class="i-buttons">
+                    <button class="i-button" onclick="openModal('Definition', 'definition', 'Explains a term or concept in plain language. Used when jargon might confuse someone.')">
+                        <span class="i-icon">i</span>
+                        Definition
+                    </button>
+                    <button class="i-button" onclick="openModal('Context', 'context', 'Background info about a person, company, event, or situation. Helps you understand why something matters.')">
+                        <span class="i-icon">i</span>
+                        Context
+                    </button>
+                    <button class="i-button" onclick="openModal('Why It Matters', 'why-it-matters', 'Explains the significance. Answers: So what? Why should I care? What happens if I ignore this?')">
+                        <span class="i-icon">i</span>
+                        Why It Matters
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Who Made This -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <span class="section-arrow">▶</span>
+                <span class="section-title">Who Made iTabs?</span>
+            </div>
+            <div class="section-content">
+                <p>Built by <strong>Jon</strong>, a boilermaker from Perth, Australia.</p>
+                <p>No coding background — just a bloke who kept forgetting what he learned and got frustrated enough to build something about it.</p>
+                <div class="i-buttons">
+                    <button class="i-button" onclick="openModal('Vibe Coding', 'definition', 'Describing what you want to AI and letting it write the code. Jon builds iTabs this way — focusing on the problem, not the programming.')">
+                        <span class="i-icon">i</span>
+                        Vibe Coding
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="try-it">
+            <div class="try-it-title">You just used iTabs</div>
+            <div class="try-it-desc">See how easy it was to find what you needed?</div>
+        </div>
+
+        <div class="footer">
+            <p>iTabs — Hide until you need it.</p>
+        </div>
     </div>
 
-    <div class="current" id="current">
-        <h2>Section 1: Intro</h2>
-        <p>0:00</p>
-    </div>
-
-    <div class="qr-grid" id="qr-grid"></div>
-
-    <div class="info">
-        <h3>How it works</h3>
-        <p>Each QR code links to a specific timestamp in the video. Scan one with your phone, or tap it here to jump directly. The number in the center = the section you'll land on.</p>
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span id="modalTerm"></span>
+                    <span class="type-badge" id="modalType"></span>
+                </div>
+                <button class="modal-close" id="modalClose" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content" id="modalContent"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const sections = [
-            { num: 1, title: "Intro", time: 0 },
-            { num: 2, title: "Morning Report", time: 27 },
-            { num: 3, title: "Proactive Coder", time: 218 },
-            { num: 4, title: "2nd Brain", time: 358 },
-            { num: 5, title: "Daily Research", time: 518 },
-            { num: 6, title: "Last30Days", time: 740 }
-        ];
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('open');
+        }
 
-        const videoId = "b-l9sGh1-UY";
-        const baseUrl = window.location.href.split('#')[0];
-        const grid = document.getElementById('qr-grid');
+        function openModal(term, type, content) {
+            document.getElementById('modalTerm').textContent = term;
+            document.getElementById('modalType').textContent = type.replace('-', ' ');
+            document.getElementById('modalContent').textContent = content;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
 
-        // Build QR buttons
-        sections.forEach(s => {
-            const btn = document.createElement('div');
-            btn.className = 'qr-btn' + (s.num === 1 ? ' active' : '');
-            btn.id = 'btn-' + s.num;
-            btn.innerHTML = `<div class="qr-wrap"><div id="qr-${s.num}"></div><span class="num">${s.num}</span></div><p>${s.title}</p>`;
-            btn.onclick = () => jumpTo(s.num);
-            grid.appendChild(btn);
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
 
-            // Generate QR
-            new QRCode(document.getElementById('qr-' + s.num), {
-                text: baseUrl + '#' + s.num,
-                width: 80,
-                height: 80,
-                correctLevel: QRCode.CorrectLevel.H
-            });
+        // Close modal on overlay click
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
         });
 
-        function jumpTo(num) {
-            const s = sections.find(x => x.num === num);
-            // Update video
-            document.getElementById('player').src = 
-                `https://www.youtube.com/embed/${videoId}?enablejsapi=1&start=${s.time}&autoplay=1`;
-            // Update current display
-            document.getElementById('current').innerHTML = 
-                `<h2>Section ${s.num}: ${s.title}</h2><p>${formatTime(s.time)}</p>`;
-            // Update active button
-            document.querySelectorAll('.qr-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + num).classList.add('active');
-            // Update URL
-            history.replaceState(null, '', '#' + num);
-        }
-
-        function formatTime(sec) {
-            const m = Math.floor(sec / 60);
-            const s = sec % 60;
-            return m + ':' + (s < 10 ? '0' : '') + s;
-        }
-
-        // Handle hash on load
-        const hash = parseInt(window.location.hash.replace('#', ''));
-        if (hash >= 1 && hash <= 6) jumpTo(hash);
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 </body>
 </html>
