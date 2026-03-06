@@ -1,8 +1,3 @@
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,7 +255,7 @@
     </div>
 
     <!-- STEP 3: GITHUB -->
-    <div id="section-github" class="hidden" style="margin-top:20px;">
+    <div id="section-github" style="margin-top:20px;">
       <div class="step-header">
         <div class="step-badge active">3</div>
         <span class="step-label">Push to GitHub</span>
@@ -268,7 +263,11 @@
       <div class="card">
 
         <div class="field-group">
-          <label class="field-label">GitHub Token</label>
+          <label class="field-label" style="display:flex;align-items:center;gap:8px;">
+            GitHub Token
+            <span id="tokenSavedBadge" style="display:none;align-items:center;gap:4px;background:#166534aa;border:1px solid #22c55e44;color:#86efac;border-radius:20px;padding:1px 8px;font-size:0.65rem;font-weight:600;">✓ saved</span>
+            <button onclick="clearToken()" style="margin-left:auto;background:none;border:none;color:#4a5568;font-size:0.68rem;font-family:var(--sans);cursor:pointer;text-decoration:underline;">clear</button>
+          </label>
           <div class="token-wrap">
             <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
             <button class="token-toggle" id="btnToggleToken">show</button>
@@ -328,6 +327,33 @@
     var ghCommit      = document.getElementById('ghCommit');
     var btnPush       = document.getElementById('btnPush');
     var pushStatus    = document.getElementById('pushStatus');
+
+    // Load saved values from localStorage
+    var savedToken = localStorage.getItem('itabs_gh_token');
+    var savedRepo  = localStorage.getItem('itabs_gh_repo');
+    var savedPath  = localStorage.getItem('itabs_gh_path');
+    if (savedToken) { ghToken.value = savedToken; showSavedBadge(); }
+    if (savedRepo)  { ghRepo.value  = savedRepo; }
+    if (savedPath)  { ghFilePath.value = savedPath; }
+
+    // Save token when user finishes typing it
+    ghToken.addEventListener('change', function() {
+      if (ghToken.value.trim()) {
+        localStorage.setItem('itabs_gh_token', ghToken.value.trim());
+        showSavedBadge();
+      }
+    });
+    ghRepo.addEventListener('change', function() {
+      if (ghRepo.value.trim()) localStorage.setItem('itabs_gh_repo', ghRepo.value.trim());
+    });
+    ghFilePath.addEventListener('change', function() {
+      if (ghFilePath.value.trim()) localStorage.setItem('itabs_gh_path', ghFilePath.value.trim());
+    });
+
+    function showSavedBadge() {
+      var badge = document.getElementById('tokenSavedBadge');
+      if (badge) badge.style.display = 'inline-flex';
+    }
 
     // Watch raw input
     rawInput.addEventListener('input', function() {
@@ -456,6 +482,13 @@
 
       resetBtn();
     });
+
+    window.clearToken = function() {
+      localStorage.removeItem('itabs_gh_token');
+      ghToken.value = '';
+      var badge = document.getElementById('tokenSavedBadge');
+      if (badge) badge.style.display = 'none';
+    };
 
     function showStatus(type, msg) {
       pushStatus.className = 'status status-' + type;
