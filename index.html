@@ -16,7 +16,7 @@
         }
         html, body { min-height: 100%; background: var(--bg-primary); font-family: 'Inter', -apple-system, sans-serif; color: var(--text-primary); }
         .container { max-width: 480px; margin: 0 auto; padding: 24px 20px 48px; }
-        .header { text-align: center; padding: 32px 0 28px; }
+        .header { text-align: center; padding: 32px 0 24px; }
         .logo { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
         .logo-mark { width: 36px; height: 36px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: white; }
         .logo-text { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #a78bfa, #67e8f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -25,11 +25,29 @@
         .header p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
         .price-badge { display: inline-block; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); color: #a78bfa; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-top: 14px; }
 
-        /* Test button */
-        .test-bar { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .test-bar p { font-size: 13px; color: #fcd34d; }
-        .test-fill-btn { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.5); color: #fcd34d; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; padding: 8px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; }
-        .test-fill-btn:hover { background: rgba(245,158,11,0.3); }
+        /* Test bar */
+        .test-bar { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+        .test-bar-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fcd34d; margin-bottom: 12px; }
+        .trade-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+        .trade-btn {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            padding: 10px 6px; border-radius: 10px;
+            border: 2px solid rgba(245,158,11,0.2);
+            background: rgba(245,158,11,0.05);
+            cursor: pointer; transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .trade-btn:hover { border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.1); }
+        .trade-btn.selected { border-color: #f59e0b; background: rgba(245,158,11,0.15); }
+        .trade-btn .trade-emoji { font-size: 20px; }
+        .trade-btn .trade-name { font-size: 11px; font-weight: 600; color: #fcd34d; text-transform: uppercase; letter-spacing: 0.05em; }
+        .fill-btn {
+            width: 100%; padding: 11px; background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(245,158,11,0.15));
+            border: 1px solid rgba(245,158,11,0.4); border-radius: 10px;
+            color: #fcd34d; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .fill-btn:hover { background: linear-gradient(135deg, rgba(245,158,11,0.4), rgba(245,158,11,0.25)); }
 
         .form-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; margin-bottom: 16px; }
         .form-card h2 { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 18px; }
@@ -87,14 +105,23 @@
 
     <div id="formWrapper">
 
-        <!-- Test bar -->
+        <!-- Test bar with trade selector -->
         <div class="test-bar">
-            <p>🧪 Testing mode</p>
-            <button class="test-fill-btn" onclick="fillTestData()">⚡ Fill Test Data</button>
+            <div class="test-bar-title">🧪 Test Mode — Pick a trade to pre-fill</div>
+            <div class="trade-grid">
+                <button class="trade-btn" data-trade="plumber"><span class="trade-emoji">🔧</span><span class="trade-name">Plumber</span></button>
+                <button class="trade-btn" data-trade="electrician"><span class="trade-emoji">⚡</span><span class="trade-name">Electrician</span></button>
+                <button class="trade-btn" data-trade="fencer"><span class="trade-emoji">🏗️</span><span class="trade-name">Fencer</span></button>
+                <button class="trade-btn" data-trade="painter"><span class="trade-emoji">🎨</span><span class="trade-name">Painter</span></button>
+                <button class="trade-btn" data-trade="landscaper"><span class="trade-emoji">🌿</span><span class="trade-name">Landscaper</span></button>
+                <button class="trade-btn" data-trade="roofer"><span class="trade-emoji">🏠</span><span class="trade-name">Roofer</span></button>
+            </div>
+            <button class="fill-btn" id="fillBtn">⚡ Fill Selected Trade →</button>
         </div>
 
         <form id="itabsForm">
             <input type="hidden" name="access_key" value="99a11c15-5c61-4765-99c5-673adec64b16">
+            <input type="hidden" name="to" value="build@itabs.ai">
             <input type="hidden" name="subject" id="formSubject" value="iTabs Widget Brief">
             <input type="hidden" name="from_name" value="iTabs Start Form">
             <input type="hidden" name="message" id="compiledBrief" value="">
@@ -136,7 +163,7 @@
                 <h2>🔧 Your Services</h2>
                 <div class="field-group">
                     <label>Main Services <span class="required">*</span> <span style="font-weight:400;color:var(--text-secondary)">(3–5, comma separated)</span></label>
-                    <textarea id="services" placeholder="e.g. Blocked drains, Hot water systems, Gas leaks, Burst pipes" required></textarea>
+                    <textarea id="services" placeholder="e.g. Blocked drains, Hot water systems, Gas leaks" required></textarea>
                 </div>
             </div>
 
@@ -197,6 +224,88 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const tradeData = {
+        plumber: {
+            business: 'Perth Pro Plumbing', trade: 'Plumber', suburb: 'Joondalup',
+            phone: '0412 555 333', email: 'jgwynne7@gmail.com',
+            services: 'Blocked drains, Hot water systems, Gas leaks, Burst pipes, Bathroom renovations',
+            colour: 'col-blue', tone: 'tone-friendly',
+            notes: 'Family owned since 2008. No job too big or too small.'
+        },
+        electrician: {
+            business: "Sparky's Electrical", trade: 'Electrician', suburb: 'Scarborough',
+            phone: '0423 111 222', email: 'jgwynne7@gmail.com',
+            services: 'Power points and switches, Safety switch installation, Smoke alarm installation, LED downlight upgrades, Switchboard upgrades',
+            colour: 'col-orange', tone: 'tone-friendly',
+            notes: 'Licensed electricians serving all Perth northern suburbs. Tagline: Bright ideas, quality work.'
+        },
+        fencer: {
+            business: 'Perth Fencing Co', trade: 'Fencer', suburb: 'Osborne Park',
+            phone: '0411 777 888', email: 'jgwynne7@gmail.com',
+            services: 'Colorbond fencing, Timber fencing, Pool fencing, Retaining walls, Gate installation',
+            colour: 'col-green', tone: 'tone-professional',
+            notes: 'Over 15 years experience. All work guaranteed. Free measure and quote. Tagline: Built to last.'
+        },
+        painter: {
+            business: 'Top Cut Painting', trade: 'Painter', suburb: 'Fremantle',
+            phone: '0455 333 444', email: 'jgwynne7@gmail.com',
+            services: 'Interior painting, Exterior painting, Roof painting, Deck and fence staining, Commercial painting',
+            colour: 'col-yellow', tone: 'tone-friendly',
+            notes: '20 years experience. Fully insured. Free colour consultation. Tagline: We paint Perth beautiful.'
+        },
+        landscaper: {
+            business: "Rick's Lawn Care", trade: 'Landscaper', suburb: 'Baldivis',
+            phone: '0412 999 888', email: 'jgwynne7@gmail.com',
+            services: 'Lawn mowing, Reticulation, Garden cleanup, Turf laying, Mulching',
+            colour: 'col-green', tone: 'tone-friendly',
+            notes: 'Servicing all southern suburbs. Weekly, fortnightly and one-off services available.'
+        },
+        roofer: {
+            business: 'Apex Roofing Perth', trade: 'Roofer', suburb: 'Midland',
+            phone: '0433 222 111', email: 'jgwynne7@gmail.com',
+            services: 'Roof repairs, Roof replacement, Guttering, Downpipes, Roof inspections',
+            colour: 'col-grey', tone: 'tone-professional',
+            notes: 'Fully licensed and insured. Emergency repairs available 7 days. Tagline: We keep Perth dry.'
+        }
+    };
+
+    let selectedTrade = null;
+
+    // Trade button selection
+    document.querySelectorAll('.trade-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.trade-btn').forEach(function(b) { b.classList.remove('selected'); });
+            btn.classList.add('selected');
+            selectedTrade = btn.getAttribute('data-trade');
+        });
+    });
+
+    // Fill button
+    document.getElementById('fillBtn').addEventListener('click', function() {
+        if (!selectedTrade) {
+            alert('Please select a trade first!');
+            return;
+        }
+        const d = tradeData[selectedTrade];
+        document.getElementById('businessName').value = d.business;
+        document.getElementById('trade').value = d.trade;
+        document.getElementById('suburb').value = d.suburb;
+        document.getElementById('phone').value = d.phone;
+        document.getElementById('email').value = d.email;
+        document.getElementById('services').value = d.services;
+        document.getElementById('notes').value = d.notes;
+        document.getElementById(d.colour).checked = true;
+        document.getElementById(d.tone).checked = true;
+        document.getElementById('formSubject').value = 'iTabs Widget Brief — ' + d.business;
+        window.scrollTo({ top: 300, behavior: 'smooth' });
+    });
+
+    document.getElementById('businessName').addEventListener('input', function() {
+        document.getElementById('formSubject').value = this.value.trim() ? 'iTabs Widget Brief — ' + this.value.trim() : 'iTabs Widget Brief';
+    });
+
     function slugify(text) {
         return text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
     }
@@ -204,25 +313,6 @@
         const el = document.querySelector('input[name="' + name + '"]:checked');
         return el ? el.value : '';
     }
-
-    function fillTestData() {
-        document.getElementById('businessName').value = 'Perth Pro Plumbing';
-        document.getElementById('trade').value = 'Plumber';
-        document.getElementById('suburb').value = 'Joondalup';
-        document.getElementById('phone').value = '0412 555 333';
-        document.getElementById('email').value = 'jgwynne7@gmail.com';
-        document.getElementById('services').value = 'Blocked drains, Hot water systems, Gas leaks, Burst pipes, Bathroom renovations';
-        document.getElementById('notes').value = 'Family owned since 2008. No job too big or too small.';
-        document.getElementById('col-blue').checked = true;
-        document.getElementById('tone-friendly').checked = true;
-        document.getElementById('formSubject').value = 'iTabs Widget Brief — Perth Pro Plumbing';
-        // Trigger input event for subject update
-        document.getElementById('businessName').dispatchEvent(new Event('input'));
-    }
-
-    document.getElementById('businessName').addEventListener('input', function() {
-        document.getElementById('formSubject').value = this.value.trim() ? 'iTabs Widget Brief — ' + this.value.trim() : 'iTabs Widget Brief';
-    });
 
     document.getElementById('itabsForm').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -239,16 +329,11 @@
         const widgetUrl = 'https://boilermaker-innovator.github.io/itabs-quotes/' + slugify(name) + '/';
 
         const lines = [
-            'iTabs Widget Brief',
-            '==================',
-            'Business: ' + name,
-            'Trade: ' + trade,
-            'Suburb: ' + suburb + ' Perth WA',
-            'Phone: ' + phone,
-            'Email: ' + email,
-            'Services: ' + services,
-            'Brand Colour: ' + colour,
-            'Tone: ' + tone
+            'iTabs Widget Brief', '==================',
+            'Business: ' + name, 'Trade: ' + trade,
+            'Suburb: ' + suburb + ' Perth WA', 'Phone: ' + phone,
+            'Email: ' + email, 'Services: ' + services,
+            'Brand Colour: ' + colour, 'Tone: ' + tone
         ];
         if (notes) lines.push('Notes: ' + notes);
         lines.push('Widget URL: ' + widgetUrl);
@@ -261,8 +346,7 @@
 
         try {
             const res = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: new FormData(this)
+                method: 'POST', body: new FormData(this)
             });
             const data = await res.json();
             if (data.success) {
@@ -279,6 +363,8 @@
             alert('Something went wrong. Please try again or email build@itabs.ai directly.');
         }
     });
+
+}); // end DOMContentLoaded
 </script>
 </body>
 </html>
