@@ -1,513 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="iTabs Deploy">
-  <meta name="theme-color" content="#0e1117">
-  <title>iTabs Deployer</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0e1117;
-      --surface: #161b27;
-      --border: #2d3748;
-      --text: #e2e8f0;
-      --muted: #718096;
-      --dim: #4a5568;
-      --amber: #f59e0b;
-      --amber-dark: #d97706;
-      --green: #22c55e;
-      --green-dark: #16a34a;
-      --radius: 10px;
-      --mono: 'JetBrains Mono', 'Courier New', monospace;
-      --sans: 'DM Sans', system-ui, sans-serif;
-    }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      min-height: 100vh;
-      padding-bottom: 40px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs | Get Your Widget Built</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-tertiary: #1e1e2e;
+            --text-primary: #ffffff; --text-secondary: #9090b0;
+            --accent: #7c3aed; --accent2: #06b6d4; --border: rgba(255,255,255,0.1); --radius: 12px;
+        }
+        html, body { min-height: 100%; background: var(--bg-primary); font-family: 'Inter', -apple-system, sans-serif; color: var(--text-primary); }
+        .container { max-width: 480px; margin: 0 auto; padding: 24px 20px 48px; }
+        .header { text-align: center; padding: 32px 0 28px; }
+        .logo { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        .logo-mark { width: 36px; height: 36px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: white; }
+        .logo-text { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #a78bfa, #67e8f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header h1 { font-size: 26px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; }
+        .header h1 em { font-style: normal; color: #a78bfa; }
+        .header p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+        .price-badge { display: inline-block; background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); color: #a78bfa; font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-top: 14px; }
 
-    /* HEADER */
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .header-icon {
-      background: linear-gradient(135deg, var(--amber), var(--amber-dark));
-      border-radius: 8px;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-    .header-title { font-weight: 700; font-size: 1rem; color: #f7fafc; }
-    .header-sub { font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
-    .header-owner { margin-left: auto; font-size: 0.65rem; color: var(--dim); font-family: var(--mono); }
+        /* Test button */
+        .test-bar { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .test-bar p { font-size: 13px; color: #fcd34d; }
+        .test-fill-btn { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.5); color: #fcd34d; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; padding: 8px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap; transition: all 0.2s ease; }
+        .test-fill-btn:hover { background: rgba(245,158,11,0.3); }
 
-    /* CONTENT */
-    .container { max-width: 600px; margin: 0 auto; padding: 20px 16px; }
-
-    /* STEP HEADER */
-    .step-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-    .step-badge {
-      width: 26px; height: 26px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.78rem; flex-shrink: 0;
-    }
-    .step-badge.inactive { background: var(--border); color: var(--muted); }
-    .step-badge.active { background: linear-gradient(135deg, var(--amber), var(--amber-dark)); color: #0e1117; }
-    .step-label { font-weight: 600; font-size: 0.9rem; }
-    .step-tag {
-      margin-left: auto;
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 0.68rem;
-      font-family: var(--mono);
-    }
-
-    /* CARD */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 20px;
-    }
-
-    /* TEXTAREA */
-    textarea {
-      width: 100%;
-      min-height: 160px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      padding: 12px;
-      resize: vertical;
-      outline: none;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-    textarea::placeholder { color: var(--dim); }
-
-    /* INPUT */
-    input[type="text"], input[type="password"] {
-      width: 100%;
-      padding: 10px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      outline: none;
-    }
-    input::placeholder { color: var(--dim); }
-
-    /* LABEL */
-    .field-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-      display: block;
-    }
-    .field-group { margin-bottom: 14px; }
-
-    /* BUTTONS */
-    .btn-primary {
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 8px;
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .btn-primary:disabled { cursor: default; opacity: 0.5; }
-    .btn-amber { background: linear-gradient(135deg, var(--amber), var(--amber-dark)); color: #0e1117; }
-    .btn-green { background: linear-gradient(135deg, var(--green), var(--green-dark)); color: white; }
-    .btn-row { display: flex; gap: 8px; margin-top: 10px; }
-    .btn-secondary {
-      flex: 1;
-      padding: 10px;
-      background: #1a2332;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: #a0aec0;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 0.82rem;
-      cursor: pointer;
-    }
-
-    /* PREVIEW */
-    .code-preview {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px;
-      max-height: 160px;
-      overflow-y: auto;
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      color: #a0aec0;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-all;
-      margin-bottom: 10px;
-    }
-
-    /* STATUS */
-    .status {
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      margin-top: 12px;
-    }
-    .status-info { background: #1e3a5f; border: 1px solid #3b82f655; color: #93c5fd; }
-    .status-success { background: #166534aa; border: 1px solid #22c55e55; color: #86efac; }
-    .status-error { background: #7f1d1daa; border: 1px solid #ef444455; color: #fca5a5; }
-
-    /* TOKEN ROW */
-    .token-wrap { position: relative; }
-    .token-toggle {
-      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; color: var(--muted); cursor: pointer;
-      font-size: 0.72rem; font-family: var(--sans);
-    }
-
-    /* REPO ROW */
-    .repo-row { display: flex; align-items: center; gap: 6px; }
-    .repo-prefix { color: var(--dim); font-size: 0.75rem; white-space: nowrap; font-family: var(--mono); }
-    .repo-row input { flex: 1; }
-
-    /* HINT */
-    .hint { font-size: 0.68rem; color: var(--dim); margin-top: 10px; line-height: 1.5; }
-
-    /* LIVE LINK */
-    .live-link { display: block; margin-top: 8px; color: #34d399; font-size: 0.82rem; text-decoration: underline; }
-
-    /* HIDDEN */
-    .hidden { display: none; }
-  </style>
+        .form-card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; margin-bottom: 16px; }
+        .form-card h2 { font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 18px; }
+        .field-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+        label span.required { color: #f59e0b; margin-left: 2px; }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; font-size: 15px; font-family: 'Inter', sans-serif; color: var(--text-primary); outline: none; transition: border-color 0.2s ease; -webkit-appearance: none; appearance: none; }
+        input::placeholder, textarea::placeholder { color: rgba(144,144,176,0.5); }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+        select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239090b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+        select option { background: #1e1e2e; }
+        textarea { resize: vertical; min-height: 80px; }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .colour-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .colour-option { display: none; }
+        .colour-label { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; padding: 8px 4px; border-radius: 10px; border: 2px solid transparent; transition: all 0.2s ease; }
+        .colour-swatch { width: 32px; height: 32px; border-radius: 50%; }
+        .colour-name { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+        .colour-option:checked + .colour-label { border-color: var(--accent); background: rgba(124,58,237,0.15); }
+        .colour-option:checked + .colour-label .colour-name { color: #a78bfa; }
+        .tone-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .tone-option { display: none; }
+        .tone-label { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 8px; border-radius: 10px; border: 2px solid var(--border); cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .tone-emoji { font-size: 20px; }
+        .tone-text { font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .tone-option:checked + .tone-label { border-color: var(--accent2); background: rgba(6,182,212,0.1); }
+        .tone-option:checked + .tone-label .tone-text { color: #67e8f9; }
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #7c3aed, #4f46e5); border: none; border-radius: var(--radius); color: white; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s ease, transform 0.1s ease; margin-top: 4px; }
+        .submit-btn:hover { opacity: 0.9; } .submit-btn:active { transform: scale(0.98); } .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .next-steps { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-top: 16px; }
+        .next-steps h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 14px; }
+        .step-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+        .step-item:last-child { margin-bottom: 0; }
+        .step-num { width: 22px; height: 22px; min-width: 22px; border-radius: 50%; background: rgba(124,58,237,0.3); color: #a78bfa; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+        .step-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+        .step-text strong { color: var(--text-primary); }
+        .success-screen { display: none; text-align: center; padding: 40px 20px; }
+        .success-screen.show { display: block; }
+        .success-icon { font-size: 56px; margin-bottom: 20px; }
+        .success-screen h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .success-screen p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+        .url-preview { background: var(--bg-tertiary); border: 1px solid rgba(6,182,212,0.3); border-radius: 10px; padding: 14px 16px; margin: 20px 0; text-align: left; }
+        .url-preview-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #67e8f9; margin-bottom: 6px; }
+        .url-preview-value { font-size: 13px; color: var(--text-primary); word-break: break-all; font-family: monospace; }
+    </style>
 </head>
 <body>
-
-  <div class="header">
-    <div class="header-icon">⚡</div>
-    <div>
-      <div class="header-title">iTabs Deployer</div>
-      <div class="header-sub">Paste → Clean → Push to GitHub</div>
-    </div>
-    <div class="header-owner">boilermaker-innovator</div>
-  </div>
-
-  <div class="container">
-
-    <!-- STEP 1: PASTE -->
-    <div id="section-paste">
-      <div class="step-header">
-        <div class="step-badge active" id="badge1">1</div>
-        <span class="step-label">Paste your HTML</span>
-        <span class="step-tag hidden" id="ellipsis-tag" style="background:#7c3aed22;border:1px solid #7c3aed66;color:#a78bfa;"></span>
-      </div>
-      <textarea id="rawInput" placeholder="Paste your HTML code from Claude here..."></textarea>
-      <button class="btn-primary btn-amber" id="btnClean" disabled>Clean Code →</button>
+<div class="container">
+    <div class="header">
+        <div class="logo"><div class="logo-mark">i</div><div class="logo-text">iTabs</div></div>
+        <h1>Get your <em>tradie widget</em> built</h1>
+        <p>Fill in the brief below. We'll build your branded quote estimator and send you the live link.</p>
+        <div class="price-badge">💳 $290 one-off · No subscriptions · Yours forever</div>
     </div>
 
-    <!-- STEP 2: CLEANED -->
-    <div id="section-cleaned" class="hidden" style="margin-top:20px;">
-      <div class="step-header">
-        <div class="step-badge active">2</div>
-        <span class="step-label">Cleaned code</span>
-        <span class="step-tag" id="clean-tag" style="background:#166534aa;border:1px solid #22c55e55;color:#86efac;"></span>
-      </div>
-      <div class="code-preview" id="codePreview"></div>
-      <div class="btn-row">
-        <button class="btn-secondary" id="btnCopy">Copy</button>
-        <button class="btn-secondary" id="btnDownload">↓ Download .html</button>
-      </div>
+    <div id="formWrapper">
+
+        <!-- Test bar -->
+        <div class="test-bar">
+            <p>🧪 Testing mode</p>
+            <button class="test-fill-btn" onclick="fillTestData()">⚡ Fill Test Data</button>
+        </div>
+
+        <form id="itabsForm">
+            <input type="hidden" name="access_key" value="99a11c15-5c61-4765-99c5-673adec64b16">
+            <input type="hidden" name="subject" id="formSubject" value="iTabs Widget Brief">
+            <input type="hidden" name="from_name" value="iTabs Start Form">
+            <input type="hidden" name="message" id="compiledBrief" value="">
+            <input type="checkbox" name="botcheck" style="display:none">
+
+            <div class="form-card">
+                <h2>🏢 Your Business</h2>
+                <div class="field-group">
+                    <label>Business Name <span class="required">*</span></label>
+                    <input type="text" id="businessName" placeholder="e.g. Mike's Plumbing" required>
+                </div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Trade <span class="required">*</span></label>
+                        <select id="trade" required>
+                            <option value="" disabled selected>Select...</option>
+                            <option>Plumber</option><option>Electrician</option><option>Builder</option>
+                            <option>Fencer</option><option>Painter</option><option>Roofer</option>
+                            <option>Tiler</option><option>Landscaper</option><option>Concretor</option>
+                            <option>Carpenter</option><option>Air Con</option><option>Other</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label>Suburb <span class="required">*</span></label>
+                        <input type="text" id="suburb" placeholder="e.g. Joondalup" required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>Phone <span class="required">*</span></label>
+                    <input type="tel" id="phone" placeholder="0400 000 000" required>
+                </div>
+                <div class="field-group">
+                    <label>Your Email <span class="required">*</span></label>
+                    <input type="email" id="email" placeholder="you@yourbusiness.com.au" required>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h2>🔧 Your Services</h2>
+                <div class="field-group">
+                    <label>Main Services <span class="required">*</span> <span style="font-weight:400;color:var(--text-secondary)">(3–5, comma separated)</span></label>
+                    <textarea id="services" placeholder="e.g. Blocked drains, Hot water systems, Gas leaks, Burst pipes" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h2>🎨 Brand & Vibe</h2>
+                <div class="field-group">
+                    <label>Brand Colour</label>
+                    <div class="colour-grid">
+                        <div><input type="radio" name="colour_pick" id="col-blue" value="Blue" class="colour-option" checked><label class="colour-label" for="col-blue"><div class="colour-swatch" style="background:linear-gradient(135deg,#1d4ed8,#06b6d4)"></div><span class="colour-name">Blue</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-green" value="Green" class="colour-option"><label class="colour-label" for="col-green"><div class="colour-swatch" style="background:linear-gradient(135deg,#059669,#10b981)"></div><span class="colour-name">Green</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-orange" value="Orange" class="colour-option"><label class="colour-label" for="col-orange"><div class="colour-swatch" style="background:linear-gradient(135deg,#ea580c,#f59e0b)"></div><span class="colour-name">Orange</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-red" value="Red" class="colour-option"><label class="colour-label" for="col-red"><div class="colour-swatch" style="background:linear-gradient(135deg,#dc2626,#ef4444)"></div><span class="colour-name">Red</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-purple" value="Purple" class="colour-option"><label class="colour-label" for="col-purple"><div class="colour-swatch" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)"></div><span class="colour-name">Purple</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-yellow" value="Yellow" class="colour-option"><label class="colour-label" for="col-yellow"><div class="colour-swatch" style="background:linear-gradient(135deg,#ca8a04,#fcd34d)"></div><span class="colour-name">Yellow</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-grey" value="Grey" class="colour-option"><label class="colour-label" for="col-grey"><div class="colour-swatch" style="background:linear-gradient(135deg,#475569,#94a3b8)"></div><span class="colour-name">Grey</span></label></div>
+                        <div><input type="radio" name="colour_pick" id="col-black" value="Black" class="colour-option"><label class="colour-label" for="col-black"><div class="colour-swatch" style="background:linear-gradient(135deg,#1e293b,#334155)"></div><span class="colour-name">Black</span></label></div>
+                    </div>
+                </div>
+                <div class="field-group" style="margin-top:20px">
+                    <label>Widget Tone</label>
+                    <div class="tone-row">
+                        <div><input type="radio" name="tone_pick" id="tone-professional" value="Professional" class="tone-option" checked><label class="tone-label" for="tone-professional"><span class="tone-emoji">👔</span><span class="tone-text">Professional</span></label></div>
+                        <div><input type="radio" name="tone_pick" id="tone-friendly" value="Friendly" class="tone-option"><label class="tone-label" for="tone-friendly"><span class="tone-emoji">😊</span><span class="tone-text">Friendly</span></label></div>
+                        <div><input type="radio" name="tone_pick" id="tone-nofrills" value="No Frills" class="tone-option"><label class="tone-label" for="tone-nofrills"><span class="tone-emoji">🔨</span><span class="tone-text">No Frills</span></label></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h2>💬 Anything Else?</h2>
+                <div class="field-group">
+                    <label>Extra notes <span style="font-weight:400;color:var(--text-secondary)">(optional)</span></label>
+                    <textarea id="notes" placeholder="e.g. We specialise in heritage homes. Our tagline is 'Done right, first time.'"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">⚡ Send My Brief →</button>
+        </form>
+
+        <div class="next-steps">
+            <h3>What happens next</h3>
+            <div class="step-item"><div class="step-num">1</div><div class="step-text">Your brief hits our inbox at <strong>build@itabs.ai</strong></div></div>
+            <div class="step-item"><div class="step-num">2</div><div class="step-text">We <strong>build your branded widget</strong> — usually within a few hours</div></div>
+            <div class="step-item"><div class="step-num">3</div><div class="step-text">You get the <strong>live link</strong> straight to your inbox — share it anywhere</div></div>
+        </div>
     </div>
 
-    <!-- STEP 3: GITHUB -->
-    <div id="section-github" style="margin-top:20px;">
-      <div class="step-header">
-        <div class="step-badge active">3</div>
-        <span class="step-label">Push to GitHub</span>
-      </div>
-      <div class="card">
-
-        <div class="field-group">
-          <label class="field-label" style="display:flex;align-items:center;gap:8px;">
-            GitHub Token
-            <span id="tokenSavedBadge" style="display:none;align-items:center;gap:4px;background:#166534aa;border:1px solid #22c55e44;color:#86efac;border-radius:20px;padding:1px 8px;font-size:0.65rem;font-weight:600;">✓ saved</span>
-            <button onclick="clearToken()" style="margin-left:auto;background:none;border:none;color:#4a5568;font-size:0.68rem;font-family:var(--sans);cursor:pointer;text-decoration:underline;">clear</button>
-          </label>
-          <div class="token-wrap">
-            <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx">
-            <button class="token-toggle" id="btnToggleToken">show</button>
-          </div>
+    <div class="success-screen" id="successScreen">
+        <div class="success-icon">🎉</div>
+        <h2>Brief sent!</h2>
+        <p>We've got your brief and we're on it. Your widget will be built and sent to your email — keep an eye on your inbox.</p>
+        <div class="url-preview">
+            <div class="url-preview-label">📍 Your widget will be live at</div>
+            <div class="url-preview-value" id="predictedUrl"></div>
         </div>
-
-        <div class="field-group">
-          <label class="field-label">Repo name</label>
-          <div class="repo-row">
-            <span class="repo-prefix">boilermaker-innovator /</span>
-            <input type="text" id="ghRepo" placeholder="business-name-estimator">
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">File path</label>
-          <input type="text" id="ghFilePath" value="index.html">
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Commit message</label>
-          <input type="text" id="ghCommit" value="Deploy widget via iTabs Deployer">
-        </div>
-
-        <button class="btn-primary btn-green" id="btnPush">Push to GitHub →</button>
-
-        <div id="pushStatus" class="hidden"></div>
-
-        <div class="hint">
-          Token needs Contents: Read &amp; write. Never stored — only used for this one API call.
-          <br><a href="https://github.com/settings/tokens/new" target="_blank" style="color:#4a9eff;">Get a token →</a>
-        </div>
-      </div>
+        <p style="font-size:13px;color:var(--text-secondary)">Questions? Email us at <strong style="color:white">build@itabs.ai</strong></p>
     </div>
+</div>
 
-  </div>
-
-  <script>
-  (function() {
-    var OWNER = 'boilermaker-innovator';
-    var ELLIPSIS = '\u2026'; // …
-    var cleaned = '';
-
-    var rawInput      = document.getElementById('rawInput');
-    var btnClean      = document.getElementById('btnClean');
-    var ellipsisTag   = document.getElementById('ellipsis-tag');
-    var sectionCleaned = document.getElementById('section-cleaned');
-    var sectionGithub  = document.getElementById('section-github');
-    var codePreview   = document.getElementById('codePreview');
-    var cleanTag      = document.getElementById('clean-tag');
-    var btnCopy       = document.getElementById('btnCopy');
-    var btnDownload   = document.getElementById('btnDownload');
-    var ghToken       = document.getElementById('ghToken');
-    var btnToggleToken = document.getElementById('btnToggleToken');
-    var ghRepo        = document.getElementById('ghRepo');
-    var ghFilePath    = document.getElementById('ghFilePath');
-    var ghCommit      = document.getElementById('ghCommit');
-    var btnPush       = document.getElementById('btnPush');
-    var pushStatus    = document.getElementById('pushStatus');
-
-    // Load saved values from localStorage
-    var savedToken = localStorage.getItem('itabs_gh_token');
-    var savedRepo  = localStorage.getItem('itabs_gh_repo');
-    var savedPath  = localStorage.getItem('itabs_gh_path');
-    if (savedToken) { ghToken.value = savedToken; showSavedBadge(); }
-    if (savedRepo)  { ghRepo.value  = savedRepo; }
-    if (savedPath)  { ghFilePath.value = savedPath; }
-
-    // Save token when user finishes typing it
-    ghToken.addEventListener('change', function() {
-      if (ghToken.value.trim()) {
-        localStorage.setItem('itabs_gh_token', ghToken.value.trim());
-        showSavedBadge();
-      }
-    });
-    ghRepo.addEventListener('change', function() {
-      if (ghRepo.value.trim()) localStorage.setItem('itabs_gh_repo', ghRepo.value.trim());
-    });
-    ghFilePath.addEventListener('change', function() {
-      if (ghFilePath.value.trim()) localStorage.setItem('itabs_gh_path', ghFilePath.value.trim());
-    });
-
-    function showSavedBadge() {
-      var badge = document.getElementById('tokenSavedBadge');
-      if (badge) badge.style.display = 'inline-flex';
+<script>
+    function slugify(text) {
+        return text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
+    }
+    function getRadio(name) {
+        const el = document.querySelector('input[name="' + name + '"]:checked');
+        return el ? el.value : '';
     }
 
-    // Watch raw input
-    rawInput.addEventListener('input', function() {
-      var val = rawInput.value;
-      btnClean.disabled = !val.trim();
-      var count = (val.match(new RegExp(ELLIPSIS, 'g')) || []).length;
-      if (count > 0) {
-        ellipsisTag.textContent = count + ' \u2026 found';
-        ellipsisTag.classList.remove('hidden');
-      } else {
-        ellipsisTag.classList.add('hidden');
-      }
+    function fillTestData() {
+        document.getElementById('businessName').value = 'Perth Pro Plumbing';
+        document.getElementById('trade').value = 'Plumber';
+        document.getElementById('suburb').value = 'Joondalup';
+        document.getElementById('phone').value = '0412 555 333';
+        document.getElementById('email').value = 'jgwynne7@gmail.com';
+        document.getElementById('services').value = 'Blocked drains, Hot water systems, Gas leaks, Burst pipes, Bathroom renovations';
+        document.getElementById('notes').value = 'Family owned since 2008. No job too big or too small.';
+        document.getElementById('col-blue').checked = true;
+        document.getElementById('tone-friendly').checked = true;
+        document.getElementById('formSubject').value = 'iTabs Widget Brief — Perth Pro Plumbing';
+        // Trigger input event for subject update
+        document.getElementById('businessName').dispatchEvent(new Event('input'));
+    }
+
+    document.getElementById('businessName').addEventListener('input', function() {
+        document.getElementById('formSubject').value = this.value.trim() ? 'iTabs Widget Brief — ' + this.value.trim() : 'iTabs Widget Brief';
     });
 
-    // Clean
-    btnClean.addEventListener('click', function() {
-      var raw = rawInput.value;
-      var count = (raw.match(new RegExp(ELLIPSIS, 'g')) || []).length;
-      cleaned = raw.split(ELLIPSIS).join('');
+    document.getElementById('itabsForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const name = document.getElementById('businessName').value.trim();
+        const trade = document.getElementById('trade').value;
+        const suburb = document.getElementById('suburb').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const services = document.getElementById('services').value.trim();
+        const colour = getRadio('colour_pick');
+        const tone = getRadio('tone_pick');
+        const notes = document.getElementById('notes').value.trim();
+        const widgetUrl = 'https://boilermaker-innovator.github.io/itabs-quotes/' + slugify(name) + '/';
 
-      // Show preview
-      var preview = cleaned.substring(0, 800);
-      if (cleaned.length > 800) preview += '\n\n... (' + cleaned.length + ' chars total)';
-      codePreview.textContent = preview;
+        const lines = [
+            'iTabs Widget Brief',
+            '==================',
+            'Business: ' + name,
+            'Trade: ' + trade,
+            'Suburb: ' + suburb + ' Perth WA',
+            'Phone: ' + phone,
+            'Email: ' + email,
+            'Services: ' + services,
+            'Brand Colour: ' + colour,
+            'Tone: ' + tone
+        ];
+        if (notes) lines.push('Notes: ' + notes);
+        lines.push('Widget URL: ' + widgetUrl);
 
-      // Tag
-      cleanTag.textContent = count > 0 ? 'Removed ' + count + ' ellipsis' : 'No ellipsis found — clean';
+        document.getElementById('compiledBrief').value = lines.join('\n');
+        document.getElementById('formSubject').value = 'iTabs Widget Brief — ' + name;
 
-      sectionCleaned.classList.remove('hidden');
-      sectionGithub.classList.remove('hidden');
-      resetPushStatus();
-    });
+        btn.disabled = true;
+        btn.textContent = 'Sending brief...';
 
-    // Copy
-    btnCopy.addEventListener('click', function() {
-      navigator.clipboard.writeText(cleaned).then(function() {
-        btnCopy.textContent = '✓ Copied!';
-        setTimeout(function() { btnCopy.textContent = 'Copy'; }, 2000);
-      });
-    });
-
-    // Download
-    btnDownload.addEventListener('click', function() {
-      var filename = ghFilePath.value || 'widget.html';
-      var blob = new Blob([cleaned], { type: 'text/html' });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = filename.split('/').pop();
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
-    // Token toggle
-    btnToggleToken.addEventListener('click', function() {
-      var isPassword = ghToken.type === 'password';
-      ghToken.type = isPassword ? 'text' : 'password';
-      btnToggleToken.textContent = isPassword ? 'hide' : 'show';
-    });
-
-    // Push
-    btnPush.addEventListener('click', async function() {
-      var token = ghToken.value.trim();
-      var repo = ghRepo.value.trim();
-      var filePath = ghFilePath.value.trim() || 'index.html';
-      var commitMsg = ghCommit.value.trim() || 'Deploy widget via iTabs Deployer';
-
-      if (!token) { showStatus('error', 'Enter your GitHub token first'); return; }
-      if (!repo) { showStatus('error', 'Enter the repo name'); return; }
-      if (!cleaned) { showStatus('error', 'Clean your code first'); return; }
-
-      btnPush.disabled = true;
-      btnPush.textContent = 'Pushing...';
-      showStatus('info', 'Checking existing file...');
-
-      var apiUrl = 'https://api.github.com/repos/' + OWNER + '/' + repo + '/contents/' + filePath;
-      var headers = {
-        'Authorization': 'token ' + token,
-        'Content-Type': 'application/json',
-        'Accept': 'application/vnd.github+json'
-      };
-
-      var sha;
-      try {
-        var check = await fetch(apiUrl, { headers: headers });
-        if (check.ok) {
-          var existing = await check.json();
-          sha = existing.sha;
-          showStatus('info', 'File exists \u2014 updating...');
-        } else if (check.status === 404) {
-          showStatus('info', 'New file \u2014 creating...');
-        } else {
-          throw new Error('GitHub returned ' + check.status);
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: new FormData(this)
+            });
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('predictedUrl').textContent = widgetUrl;
+                document.getElementById('formWrapper').style.display = 'none';
+                document.getElementById('successScreen').classList.add('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                throw new Error(data.message || 'Failed');
+            }
+        } catch (err) {
+            btn.disabled = false;
+            btn.textContent = '⚡ Send My Brief →';
+            alert('Something went wrong. Please try again or email build@itabs.ai directly.');
         }
-      } catch(e) {
-        showStatus('error', 'Could not reach GitHub: ' + e.message);
-        resetBtn();
-        return;
-      }
-
-      // Encode to base64 (handles Unicode)
-      var encoded = btoa(unescape(encodeURIComponent(cleaned)));
-      var body = { message: commitMsg, content: encoded };
-      if (sha) body.sha = sha;
-
-      try {
-        showStatus('info', 'Pushing...');
-        var res = await fetch(apiUrl, {
-          method: 'PUT',
-          headers: headers,
-          body: JSON.stringify(body)
-        });
-        if (res.ok) {
-          var liveUrl = 'https://' + OWNER + '.github.io/' + repo + '/';
-          showStatus('success',
-            '\u2713 Done! Live at: ' + liveUrl +
-            '<br><a href="' + liveUrl + '" target="_blank" class="live-link">Open live page \u2192</a>'
-          );
-        } else {
-          var err = await res.json();
-          throw new Error(err.message || 'Status ' + res.status);
-        }
-      } catch(e) {
-        showStatus('error', 'Push failed: ' + e.message);
-      }
-
-      resetBtn();
     });
-
-    window.clearToken = function() {
-      localStorage.removeItem('itabs_gh_token');
-      ghToken.value = '';
-      var badge = document.getElementById('tokenSavedBadge');
-      if (badge) badge.style.display = 'none';
-    };
-
-    function showStatus(type, msg) {
-      pushStatus.className = 'status status-' + type;
-      pushStatus.innerHTML = msg;
-      pushStatus.classList.remove('hidden');
-    }
-
-    function resetPushStatus() {
-      pushStatus.className = 'hidden';
-      pushStatus.innerHTML = '';
-    }
-
-    function resetBtn() {
-      btnPush.disabled = false;
-      btnPush.textContent = 'Push to GitHub \u2192';
-    }
-
-  })();
-  </script>
-
+</script>
 </body>
 </html>
