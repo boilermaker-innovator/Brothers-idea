@@ -557,6 +557,27 @@
 
 </div>
 
+  <!-- Onboarding Card 3 -->
+  <div class="card" id="card-3">
+    <div class="card-tag">✦ How it works</div>
+    <div class="card-title">Using iThoughts is as simple as having a thought</div>
+    <div class="card-body">No formatting. No structure. No login. Just tap ＋ and drop whatever is in your head. Raw, half-formed, fleeting — all welcome. Watch what happens when you hit Refresh. These four thoughts below are real examples from first-time users.</div>
+
+    <div class="pills-label">iThoughts dropped</div>
+    <div class="pills-container" id="pills-3"></div>
+
+    <div class="card-actions">
+      <button class="btn-add" onclick="openModal('3')">
+        ＋ Drop your thought
+      </button>
+      <button class="btn-refresh" id="refresh-3" onclick="refreshCard('3')">
+        ↻ Refresh
+      </button>
+    </div>
+
+    <div class="ai-section" id="ai-3"></div>
+  </div>
+
 <!-- Input Modal -->
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal">
@@ -573,7 +594,24 @@
 
 <script>
   let activeCard = null;
-  const thoughts = { '1': [], '2': [] };
+  const thoughts = {
+    '1': [
+      'I had this idea driving home — thoughts are like bricks',
+      'Each one alone means nothing but together you build something',
+      'What if readers could add their own bricks to your card?'
+    ],
+    '2': [
+      'Musk wants to implant chips — we just need a better steering wheel',
+      'The human always drops the first thought — AI never leads',
+      'Think to earn — not mine, not trade, just think'
+    ],
+    '3': [
+      'I tapped + and typed what was on my mind — took 5 seconds',
+      'My thought became a pill — I could see it sitting on the card',
+      'I hit Refresh and AI turned my bricks into two new cards',
+      'Then I branched off and built my own deck from the idea'
+    ]
+  };
 
   function openModal(cardId) {
     activeCard = cardId;
@@ -660,9 +698,15 @@
     `;
 
     try {
+      const API_KEY = 'YOUR-API-KEY-HERE'; // 👈 Paste your sk-ant-... key here
+
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1000,
@@ -715,6 +759,12 @@ Respond ONLY with valid JSON — no markdown, no preamble, no backticks. Format:
     btn.disabled = false;
     btn.innerHTML = '↻ Refresh';
   }
+
+  // Render prefilled thoughts on load
+  renderPills('1');
+  renderPills('2');
+  renderPills('3');
+  updateCount();
 
   // Enter key to submit
   document.getElementById('thoughtInput').addEventListener('keydown', function(e) {
