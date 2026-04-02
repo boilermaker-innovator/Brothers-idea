@@ -776,18 +776,24 @@ Respond ONLY with valid JSON — no markdown, no backticks:
         throw new Error('Could not parse AI response');
       }
 
-      aiSection.innerHTML = `
-        <div class="ai-label">New cards from your thoughts</div>
-        ${parsed.cards.map((c, idx) => `
-          <div class="ai-card">
-            <div class="new-badge">✦ AI synthesised</div>
-            <div class="ai-card-title">${c.title}</div>
-            <div class="ai-card-teaser">${c.teaser}</div>
-            <button class="ibtn" onclick="toggleDetail(this)">ⓘ</button>
-            <div class="ai-card-detail" style="display:none;">${c.detail}</div>
-          </div>
-        `).join('')}
-      `;
+      // Add label if first time
+      if (!aiSection.querySelector('.ai-label')) {
+        aiSection.innerHTML = '<div class="ai-label">Growing deck from your thoughts</div>';
+      }
+
+      // Append new cards instead of replacing
+      parsed.cards.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'ai-card';
+        card.innerHTML = `
+          <div class="new-badge">✦ AI synthesised</div>
+          <div class="ai-card-title">${c.title}</div>
+          <div class="ai-card-teaser">${c.teaser}</div>
+          <button class="ibtn" onclick="toggleDetail(this)">ⓘ</button>
+          <div class="ai-card-detail" style="display:none;">${c.detail}</div>
+        `;
+        aiSection.appendChild(card);
+      });
 
     } catch(err) {
       aiSection.innerHTML = `
