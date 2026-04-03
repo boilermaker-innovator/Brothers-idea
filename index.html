@@ -1270,19 +1270,15 @@ Respond ONLY with valid JSON — no markdown, no backticks:
             <div class="analogy-title">${c.analogy_title || 'Think of it like...'}</div>
             <div class="analogy-text">${c.analogy}</div>
           </div>` : ''}
-          <div class="ibuttons-row">
-            ${(c.ibuttons || []).map((ib, idx) => `
-              <button class="i-button" onclick="openCardDetail(this)">
-                <span class="i-dot">i</span>${ib.keyword}
-              </button>
-              <div class="card-detail-sheet">
-                <div class="detail-handle"></div>
-                <div class="detail-keyword">${ib.keyword}</div>
-                <div class="detail-title">${c.title}</div>
-                <div class="detail-body">${ib.detail}</div>
-                <button class="detail-close" onclick="closeCardDetail(this)">Got it — close</button>
-              </div>
-            `).join('')}
+          <button class="i-button" onclick="openCardDetail(this)">
+            <span class="i-dot">i</span>${c.ibuttons ? c.ibuttons[0].keyword : (c.keyword || 'detail')}
+          </button>
+          <div class="card-detail-sheet">
+            <div class="detail-handle"></div>
+            <div class="detail-keyword">${c.ibuttons ? c.ibuttons[0].keyword : (c.keyword || 'insight')}</div>
+            <div class="detail-title">${c.title}</div>
+            <div class="detail-body">${c.ibuttons ? c.ibuttons[0].detail : (c.detail || '')}</div>
+            <button class="detail-close" onclick="closeCardDetail(this)">Got it — close</button>
           </div>
         `;
         sliderTrack.appendChild(card);
