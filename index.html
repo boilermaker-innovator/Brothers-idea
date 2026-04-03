@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>iThoughts — by iTabs</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>iThoughts — Athletic Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #080810;
@@ -23,204 +23,145 @@
     --pill-border: #2a3a6a;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
+    padding-bottom: 48px;
   }
 
-  /* Ambient */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 10%, rgba(91,141,238,0.07) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 90%, rgba(124,109,232,0.06) 0%, transparent 55%),
-      radial-gradient(ellipse at 60% 40%, rgba(16,185,129,0.04) 0%, transparent 45%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .page {
-    position: relative;
-    z-index: 1;
+  .page-wrap {
     max-width: 420px;
     margin: 0 auto;
-    padding: 0 16px 60px;
+    padding: 0 16px;
   }
 
-  /* ── HEADER ── */
+  /* HEADER */
   .header {
+    padding: 20px 0 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0 24px;
-    animation: fadeUp 0.6s ease both;
   }
 
   .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: -0.5px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.3px;
   }
 
   .logo em {
-    color: var(--accent);
     font-style: normal;
-  }
-
-  .logo-sub {
-    font-size: 9px;
-    color: var(--muted);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-weight: 400;
-    margin-top: 2px;
-  }
-
-  .header-pill {
-    background: rgba(91,141,238,0.1);
-    border: 1px solid rgba(91,141,238,0.25);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 11px;
     color: var(--accent);
-    font-weight: 500;
-    letter-spacing: 0.5px;
   }
 
-  /* ── HERO SECTION ── */
-  .hero-label {
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .counter-pill {
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .beta-badge {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    color: white;
     font-size: 9px;
-    letter-spacing: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 20px;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    font-weight: 500;
-    animation: fadeUp 0.6s 0.1s ease both;
   }
 
-  /* ── MAIN CARD ── */
-  .main-card {
+  /* NEW CARD BUTTON */
+  .new-card-btn {
+    width: 100%;
+    border: 1.5px dashed var(--border);
+    background: transparent;
+    color: var(--soft);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .new-card-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* CARD */
+  .card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 22px;
-    overflow: hidden;
-    animation: fadeUp 0.6s 0.15s ease both;
-    position: relative;
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 16px;
   }
 
-  .main-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
-    opacity: 0.5;
-  }
-
-  .card-hero-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    position: relative;
-  }
-
-  .card-hero-gradient {
-    width: 100%;
-    height: 180px;
-    background: linear-gradient(135deg, #0d1b3e 0%, #1a0a2e 50%, #0a1a2e 100%);
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-  }
-
-  .card-hero-gradient::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 40%, rgba(91,141,238,0.3) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(124,109,232,0.2) 0%, transparent 50%);
-  }
-
-  .hero-stars {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-
-  .star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle var(--d, 3s) var(--delay, 0s) infinite;
-  }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
-  }
-
-  .hero-text {
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-tag {
+  .card-tag {
     font-size: 9px;
-    letter-spacing: 2.5px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--accent);
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
-  .hero-title {
+  .card-title {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
-    line-height: 1.2;
-    color: white;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.3;
   }
 
-  .card-body-section {
-    padding: 20px;
-  }
-
-  .card-description {
+  .card-body-text {
     font-size: 14px;
     color: var(--soft);
-    line-height: 1.75;
-    font-weight: 300;
-    margin-bottom: 18px;
+    line-height: 1.7;
+    margin-bottom: 14px;
   }
 
-  /* Pills */
-  .pills-label {
+  .dropped-label {
     font-size: 9px;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 10px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 8px;
   }
 
+  /* PILLS */
   .pills-row {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
+    min-height: 8px;
   }
 
   .pill {
@@ -230,21 +171,7 @@
     background: var(--pill-bg);
     border: 1px solid var(--pill-border);
     border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: var(--text);
-    font-weight: 400;
-    animation: pillPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  .pill:nth-child(1) { animation-delay: 0.3s; }
-  .pill:nth-child(2) { animation-delay: 0.45s; }
-  .pill:nth-child(3) { animation-delay: 0.6s; }
-  .pill:nth-child(4) { animation-delay: 0.75s; }
-
-  @keyframes pillPop {
-    from { opacity: 0; transform: scale(0.7); }
-    to { opacity: 1; transform: scale(1); }
+    padding: 5px 10px 5px 8px;
   }
 
   .pill-dot {
@@ -255,183 +182,310 @@
     flex-shrink: 0;
   }
 
-  /* Drop button */
-  .btn-drop-thought {
-    width: 100%;
-    padding: 13px;
-    background: transparent;
-    border: 1px dashed var(--pill-border);
-    border-radius: 12px;
-    color: var(--accent);
-    font-size: 13px;
-    font-weight: 500;
+  .pill-text {
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .pill-remove {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 15px;
     cursor: pointer;
+    padding: 0;
+    margin-left: 2px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .pill-remove:hover { color: #ff6b6b; }
+
+  /* CARD ACTIONS */
+  .card-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .drop-btn {
+    flex: 1;
+    border: 1.5px dashed var(--accent);
+    background: transparent;
+    color: var(--accent);
     font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
     transition: all 0.2s;
-    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
 
-  .btn-drop-thought:hover {
-    background: rgba(91,141,238,0.08);
-    border-color: var(--accent);
+  .drop-btn:hover { background: rgba(91,141,238,0.08); }
+
+  .refresh-btn {
+    flex: 1;
+    border: 1.5px solid var(--green);
+    background: transparent;
+    color: var(--green);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
 
-  /* ── SYNTHESISED DECK ── */
+  .refresh-btn:hover { background: rgba(16,185,129,0.08); }
+  .refresh-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* THINKING INDICATOR */
+  .thinking-indicator {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0 2px;
+    color: var(--soft);
+    font-size: 12px;
+  }
+
+  .thinking-indicator.active { display: flex; }
+
+  .dot-pulse {
+    display: flex;
+    gap: 4px;
+  }
+
+  .dot-pulse span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+
+  .dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
+  .dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
+
+  /* DECK SECTION */
+  .deck-section {
+    display: none;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
   .deck-label {
     font-size: 9px;
-    letter-spacing: 2.5px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--green);
     font-weight: 600;
     margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .deck-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(16,185,129,0.3), transparent);
   }
 
   .deck-slider-wrapper {
-    position: relative;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 12px;
   }
 
   .deck-slider-track {
     display: flex;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.35s ease;
   }
 
   .deck-card {
-    flex-shrink: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #0f1f2e 0%, #1a0f2e 100%);
-    border: 1px solid rgba(16,185,129,0.2);
-    border-radius: 14px;
-    padding: 18px;
+    min-width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
     position: relative;
     overflow: hidden;
   }
 
-  .deck-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green), transparent);
-    opacity: 0.4;
-  }
-
-  .deck-badge {
-    display: inline-block;
-    background: rgba(16,185,129,0.15);
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(16,185,129,0.12);
     border: 1px solid rgba(16,185,129,0.3);
-    border-radius: 10px;
-    padding: 3px 10px;
+    color: var(--green);
     font-size: 9px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--green);
+    padding: 3px 8px;
+    border-radius: 20px;
     margin-bottom: 10px;
   }
 
   .deck-card-title {
     font-family: 'Playfair Display', serif;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 7px;
+    margin-bottom: 6px;
     line-height: 1.3;
   }
 
   .deck-card-teaser {
     font-size: 13px;
     color: var(--soft);
-    line-height: 1.6;
-    font-weight: 300;
     margin-bottom: 12px;
+    line-height: 1.6;
   }
 
-  .deck-analogy {
-    background: rgba(0,0,0,0.3);
+  .analogy-box {
+    background: rgba(8,8,16,0.5);
     border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
+    border-radius: 6px;
     padding: 10px 12px;
     margin-bottom: 12px;
   }
 
-  .deck-analogy-label {
+  .analogy-label {
     font-size: 9px;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--accent);
     font-weight: 600;
     margin-bottom: 4px;
   }
 
-  .deck-analogy-text {
+  .analogy-text {
     font-size: 12px;
     color: var(--soft);
     line-height: 1.6;
-    font-weight: 300;
   }
 
-  .deck-ibutton {
-    display: inline-flex;
+  .ibuttons-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .i-btn {
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
+    gap: 5px;
     background: rgba(245,158,11,0.1);
     border: 1px solid rgba(245,158,11,0.3);
-    border-radius: 20px;
     color: var(--gold);
-    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
     font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
   }
 
-  .deck-ibutton:hover { background: rgba(245,158,11,0.2); }
+  .i-btn:hover { background: rgba(245,158,11,0.18); }
 
-  .i-dot {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 15px;
-    height: 15px;
-    background: var(--gold);
+  .i-icon {
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    color: #000;
+    background: var(--gold);
+    color: #080810;
     font-size: 9px;
     font-weight: 800;
-    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
   }
 
-  /* Slider nav */
+  /* CARD DETAIL FRAME — z-index 50, NO shared IDs */
+  .card-detail-frame {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    background: var(--card2);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .card-detail-frame.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .card-detail-kw {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .card-detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .card-detail-body {
+    font-size: 13px;
+    color: var(--soft);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .card-detail-close {
+    margin-top: 14px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--soft);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    padding: 9px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .card-detail-close:hover { border-color: var(--soft); color: var(--text); }
+
+  /* SLIDER NAV */
   .deck-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 12px;
-    padding: 0 2px;
+    margin-top: 10px;
   }
 
   .deck-nav-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: rgba(16,185,129,0.1);
-    border: 1px solid rgba(16,185,129,0.2);
-    color: var(--green);
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--soft);
     font-size: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -439,766 +493,564 @@
     transition: all 0.2s;
   }
 
-  .deck-nav-btn:hover { background: rgba(16,185,129,0.2); }
-  .deck-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .deck-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-  .deck-dots {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
+  .deck-dots { display: flex; gap: 5px; align-items: center; }
 
   .deck-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(16,185,129,0.2);
-    transition: all 0.2s;
-    cursor: pointer;
+    background: var(--muted);
+    transition: background 0.2s;
   }
 
-  .deck-dot.active {
-    background: var(--green);
-    width: 18px;
-    border-radius: 3px;
-  }
+  .deck-dot.active { background: var(--accent); }
 
-  .deck-count {
+  .deck-counter {
     font-size: 11px;
     color: var(--muted);
+    min-width: 28px;
+    text-align: right;
   }
 
-  /* ── CATEGORY SECTION ── */
-  .categories-label {
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 28px 0 14px;
-    font-weight: 500;
-    animation: fadeUp 0.6s 0.4s ease both;
-  }
-
-  .categories-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    animation: fadeUp 0.6s 0.5s ease both;
-  }
-
-  .cat-btn {
-    position: relative;
-    border: none;
-    border-radius: 16px;
-    padding: 18px 16px;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s;
-    overflow: hidden;
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .cat-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.03);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .cat-btn:hover::before { opacity: 1; }
-  .cat-btn:hover { transform: translateY(-2px); }
-  .cat-btn:active { transform: translateY(0); }
-
-  .cat-fitness   { background: linear-gradient(135deg, #0d2a1a 0%, #091a12 100%); border: 1px solid rgba(16,185,129,0.25); }
-  .cat-medical   { background: linear-gradient(135deg, #0d1a3a 0%, #091020 100%); border: 1px solid rgba(91,141,238,0.25); }
-  .cat-business  { background: linear-gradient(135deg, #2a1a0d 0%, #1a1009 100%); border: 1px solid rgba(245,158,11,0.25); }
-  .cat-education { background: linear-gradient(135deg, #1a0d2a 0%, #100920 100%); border: 1px solid rgba(124,109,232,0.25); }
-  .cat-personal  { background: linear-gradient(135deg, #2a0d1a 0%, #1a0912 100%); border: 1px solid rgba(239,68,68,0.25); }
-  .cat-community { background: linear-gradient(135deg, #0d2a2a 0%, #091a1a 100%); border: 1px solid rgba(6,182,212,0.25); }
-
-  .cat-emoji { font-size: 24px; margin-bottom: 8px; display: block; }
-  .cat-title { font-size: 14px; font-weight: 600; color: var(--text); display: block; margin-bottom: 3px; }
-  .cat-sub { font-size: 11px; color: var(--muted); font-weight: 300; display: block; }
-
-  .cat-fitness   .cat-title { color: #6ee7b7; }
-  .cat-medical   .cat-title { color: #93c5fd; }
-  .cat-business  .cat-title { color: #fcd34d; }
-  .cat-education .cat-title { color: #c4b5fd; }
-  .cat-personal  .cat-title { color: #fca5a5; }
-  .cat-community .cat-title { color: #67e8f9; }
-
-  /* ── POPUP OVERLAY ── */
-  .popup-overlay {
+  /* OVERLAYS */
+  .overlay {
+    display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(6px);
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-
-  .popup-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .popup-sheet {
-    background: var(--card);
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    border: 1px solid var(--border);
-    border-bottom: none;
-    max-height: 88vh;
-    overflow-y: auto;
-    transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.34, 1.1, 0.64, 1);
-  }
-
-  .popup-overlay.open .popup-sheet {
-    transform: translateY(0);
-  }
-
-  .popup-handle-area {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px 0;
-  }
-
-  .popup-handle {
-    width: 40px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto;
-  }
-
-  .popup-close {
-    background: rgba(255,255,255,0.07);
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    color: var(--soft);
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    z-index: 200;
+    background: rgba(8,8,16,0.85);
+    backdrop-filter: blur(4px);
+    align-items: flex-end;
     justify-content: center;
-    margin-left: auto;
   }
 
-  .popup-content {
-    padding: 16px 20px 40px;
+  .overlay.open { display: flex; }
+
+  .sheet {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 40px;
+    width: 100%;
+    max-width: 420px;
   }
 
-  .popup-category-tag {
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-weight: 600;
+  .sheet-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--muted);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+
+  .sheet-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .sheet-label {
+    font-size: 12px;
+    color: var(--soft);
     margin-bottom: 6px;
   }
 
-  .popup-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .popup-desc {
-    font-size: 14px;
-    color: var(--soft);
-    line-height: 1.7;
-    font-weight: 300;
-    margin-bottom: 18px;
-  }
-
-  .popup-pills-label {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    font-weight: 500;
-  }
-
-  .popup-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .popup-pill {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--pill-bg);
-    border: 1px solid var(--pill-border);
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: var(--text);
-  }
-
-  .popup-action {
-    display: flex;
-    gap: 10px;
-  }
-
-  .btn-popup-drop {
-    flex: 1;
-    padding: 13px;
-    background: transparent;
-    border: 1px dashed var(--pill-border);
-    border-radius: 12px;
-    color: var(--accent);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
-  }
-
-  .btn-popup-drop:hover { background: rgba(91,141,238,0.08); border-color: var(--accent); }
-
-  .btn-popup-explore {
-    padding: 13px 18px;
-    background: var(--accent);
-    border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .btn-popup-explore:hover { background: #7aa5f5; }
-
-  /* ── DETAIL SHEET ── */
-  .detail-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 500;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
-
-  .detail-overlay.open { opacity: 1; pointer-events: all; }
-
-  .detail-sheet {
-    background: var(--card2);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border: 1px solid var(--border);
-    padding: 20px 20px 40px;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.34, 1.1, 0.64, 1);
-    max-width: 480px;
+  .sheet-input {
     width: 100%;
-    margin: 0 auto;
-  }
-
-  .detail-overlay.open .detail-sheet { transform: translateY(0); }
-
-  .detail-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
-  .detail-kw { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
-  .detail-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; }
-  .detail-body { font-size: 14px; color: var(--soft); line-height: 1.7; font-weight: 300; }
-  .detail-close { margin-top: 18px; width: 100%; padding: 12px; background: rgba(255,255,255,0.06); border: none; border-radius: 10px; color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── INPUT MODAL ── */
-  .input-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
-    z-index: 300;
-    display: flex;
-    align-items: flex-end;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-
-  .input-overlay.open { opacity: 1; pointer-events: all; }
-
-  .input-sheet {
     background: var(--card);
     border: 1px solid var(--border);
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    padding: 20px 20px 40px;
-    width: 100%;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-  }
-
-  .input-overlay.open .input-sheet { transform: translateY(0); }
-
-  .input-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 18px; }
-  .input-title { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 4px; }
-  .input-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
-
-  .thought-textarea {
-    width: 100%;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
+    font-size: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
     resize: none;
-    min-height: 80px;
     outline: none;
     transition: border-color 0.2s;
-    line-height: 1.6;
   }
 
-  .thought-textarea:focus { border-color: var(--accent); }
-  .thought-textarea::placeholder { color: var(--muted); }
+  .sheet-input:focus { border-color: var(--accent); }
+  .sheet-input::placeholder { color: var(--muted); }
 
-  .input-actions { display: flex; gap: 10px; margin-top: 12px; }
+  .sheet-btn {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-bottom: 8px;
+  }
 
-  .btn-cancel { flex: 1; padding: 13px; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; }
+  .sheet-btn:hover { opacity: 0.88; }
+  .sheet-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .btn-drop { flex: 2; padding: 13px; background: var(--accent); border: none; border-radius: 12px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-  .btn-drop:hover { background: #7aa5f5; }
+  .sheet-cancel {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--soft);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 8px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
 
-<div class="page">
+<div class="page-wrap">
 
-  <!-- Header -->
+  <!-- HEADER -->
   <div class="header">
-    <div>
-      <div class="logo">i<em>Thoughts</em></div>
-      <div class="logo-sub">by iTabs</div>
-    </div>
-    <div class="header-pill">✦ Beta</div>
-  </div>
-
-  <!-- Hero label -->
-  <div class="hero-label">✦ What is iThoughts?</div>
-
-  <!-- Main hero card -->
-  <div class="main-card">
-    <div class="card-hero-gradient">
-      <div class="hero-stars" id="heroStars"></div>
-      <div class="hero-text">
-        <div class="hero-tag">💡 The Concept</div>
-        <div class="hero-title">Every great idea started as one fleeting thought</div>
-      </div>
-    </div>
-
-    <div class="card-body-section">
-      <p class="card-description">
-        iThoughts captures the thoughts you'd normally lose — driving home, mid-run, half-asleep. Drop them as pills on a card. When you've laid enough bricks, hit Refresh and AI synthesises them into new cards. The deck builds itself. You stay the author, always.
-      </p>
-
-      <div class="pills-label">iThoughts already dropped</div>
-      <div class="pills-row">
-        <div class="pill"><div class="pill-dot"></div>Thoughts are bricks of knowledge</div>
-        <div class="pill"><div class="pill-dot"></div>Alone they mean nothing, together they build</div>
-        <div class="pill"><div class="pill-dot"></div>Readers can add their own bricks</div>
-        <div class="pill"><div class="pill-dot"></div>AI reads them all and builds new cards</div>
-      </div>
-
-      <button class="btn-drop-thought" onclick="openInput('hero')">＋ Drop your first iThought</button>
-
-      <!-- Pre-built deck -->
-      <div class="deck-label">Growing deck from your thoughts</div>
-
-      <div class="deck-slider-wrapper" id="heroSliderWrapper">
-        <div class="deck-slider-track" id="heroSliderTrack">
-
-          <div class="deck-card">
-            <div class="deck-badge">✦ AI synthesised</div>
-            <div class="deck-card-title">Bricks Become Buildings</div>
-            <div class="deck-card-teaser">Isolated thoughts compound into something you couldn't have planned.</div>
-            <div class="deck-analogy">
-              <div class="deck-analogy-label">Think of it like...</div>
-              <div class="deck-analogy-text">A single LEGO piece is just plastic. A thousand pieces, assembled over time, become something nobody imagined at the start.</div>
-            </div>
-            <button class="deck-ibutton" onclick="openDetail('compounding', 'Why compounding matters', 'Most breakthroughs aren\'t single moments of genius — they\'re the result of hundreds of small observations that finally reach critical mass. iThoughts creates the infrastructure for that accumulation.')">
-              <span class="i-dot">i</span> compounding
-            </button>
-          </div>
-
-          <div class="deck-card">
-            <div class="deck-badge">✦ AI synthesised</div>
-            <div class="deck-card-title">Readers Are Co-Builders</div>
-            <div class="deck-card-teaser">Every person who reads your card can add a brick to your building.</div>
-            <div class="deck-analogy">
-              <div class="deck-analogy-label">The pattern is...</div>
-              <div class="deck-analogy-text">Wikipedia didn't get smart because one person knew everything. It got smart because everyone contributed what they knew.</div>
-            </div>
-            <button class="deck-ibutton" onclick="openDetail('collaboration', 'Collective intelligence', 'When readers contribute iThoughts, they don\'t just comment — they become co-authors. The card literally evolves based on who engages with it, creating something richer than any single mind could produce.')">
-              <span class="i-dot">i</span> collaboration
-            </button>
-          </div>
-
-          <div class="deck-card">
-            <div class="deck-badge">✦ AI synthesised</div>
-            <div class="deck-card-title">Human First, Always</div>
-            <div class="deck-card-teaser">AI synthesises but never leads. The human drops the first brick.</div>
-            <div class="deck-analogy">
-              <div class="deck-analogy-label">Think of it like...</div>
-              <div class="deck-analogy-text">AI is the spotter, not the lifter. It can't generate a thought you haven't had — it can only reveal the connections between the thoughts you have.</div>
-            </div>
-            <button class="deck-ibutton" onclick="openDetail('control', 'Human in the loop', 'Every iThoughts session begins with a human thought and ends with human judgement. AI is the engine but you are always the driver. The deck can\'t grow without you — and that\'s the point.')">
-              <span class="i-dot">i</span> control
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="deck-nav">
-        <button class="deck-nav-btn" id="heroPrev" onclick="slideHero(-1)" disabled>‹</button>
-        <div class="deck-dots" id="heroDots"></div>
-        <span class="deck-count" id="heroCount"></span>
-        <button class="deck-nav-btn" id="heroNext" onclick="slideHero(1)">›</button>
-      </div>
-
+    <div class="logo">i<em>Thoughts</em></div>
+    <div class="header-right">
+      <div class="counter-pill" id="thoughtCounter">0 thoughts</div>
+      <div class="beta-badge">Beta</div>
     </div>
   </div>
 
-  <!-- Categories -->
-  <div class="categories-label">✦ Explore by topic</div>
+  <!-- NEW CARD BUTTON -->
+  <button class="new-card-btn" onclick="openCreateOverlay()">
+    <span style="font-size:18px;line-height:1">+</span> New card
+  </button>
 
-  <div class="categories-grid">
-    <button class="cat-btn cat-fitness" onclick="openCategory('fitness')">
-      <span class="cat-emoji">🏃</span>
-      <span class="cat-title">Fitness</span>
-      <span class="cat-sub">Training insights</span>
-    </button>
-    <button class="cat-btn cat-medical" onclick="openCategory('medical')">
-      <span class="cat-emoji">🧬</span>
-      <span class="cat-title">Medical</span>
-      <span class="cat-sub">Health observations</span>
-    </button>
-    <button class="cat-btn cat-business" onclick="openCategory('business')">
-      <span class="cat-emoji">💼</span>
-      <span class="cat-title">Business</span>
-      <span class="cat-sub">Strategy & ideas</span>
-    </button>
-    <button class="cat-btn cat-education" onclick="openCategory('education')">
-      <span class="cat-emoji">🎓</span>
-      <span class="cat-title">Education</span>
-      <span class="cat-sub">Learning & growth</span>
-    </button>
-    <button class="cat-btn cat-personal" onclick="openCategory('personal')">
-      <span class="cat-emoji">🌱</span>
-      <span class="cat-title">Personal</span>
-      <span class="cat-sub">Life & reflection</span>
-    </button>
-    <button class="cat-btn cat-community" onclick="openCategory('trades')">
-      <span class="cat-emoji">🛠️</span>
-      <span class="cat-title">Trades</span>
-      <span class="cat-sub">Quoting & job insights</span>
-    </button>
-  </div>
+  <!-- CARDS CONTAINER -->
+  <div id="cardsContainer"></div>
 
 </div>
 
-<!-- Category Popup -->
-<div class="popup-overlay" id="popupOverlay" onclick="if(event.target===this)closeCategory()">
-  <div class="popup-sheet">
-    <div class="popup-handle-area">
-      <button class="popup-close" onclick="closeCategory()">✕</button>
-    </div>
-    <div class="popup-content">
-      <div class="popup-category-tag" id="popupTag"></div>
-      <div class="popup-title" id="popupTitle"></div>
-      <div class="popup-desc" id="popupDesc"></div>
-      <div class="popup-pills-label">iThoughts dropped</div>
-      <div class="popup-pills" id="popupPills"></div>
-      <div class="popup-action">
-        <button class="btn-popup-drop" onclick="openInput('popup')">＋ Drop a thought</button>
-        <button class="btn-popup-explore" onclick="exploreCategory()">Explore →</button>
-      </div>
-    </div>
+<!-- INPUT OVERLAY (Drop a thought) -->
+<div class="overlay" id="inputOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="inputOverlayTitle">Drop a thought</div>
+    <p class="sheet-label" id="inputOverlayHint">What did you notice?</p>
+    <textarea class="sheet-input" id="thoughtInput" rows="3" placeholder="e.g. Left knee clicks at the 8km mark…"></textarea>
+    <button class="sheet-btn" onclick="confirmDropThought()">Drop it</button>
+    <button class="sheet-cancel" onclick="closeInputOverlay()">Cancel</button>
   </div>
 </div>
 
-<!-- Detail Sheet -->
-<div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
-  <div class="detail-sheet">
-    <div class="detail-handle"></div>
-    <div class="detail-kw" id="detailKw"></div>
-    <div class="detail-title" id="detailTitle"></div>
-    <div class="detail-body" id="detailBody"></div>
-    <button class="detail-close" onclick="closeDetail()">Got it — close</button>
-  </div>
-</div>
-
-<!-- Input Sheet -->
-<div class="input-overlay" id="inputOverlay" onclick="if(event.target===this)closeInput()">
-  <div class="input-sheet">
-    <div class="input-handle"></div>
-    <div class="input-title">Drop a thought</div>
-    <div class="input-sub">Raw, fleeting, half-formed — all welcome</div>
-    <textarea class="thought-textarea" id="thoughtTextarea" placeholder="What's on your mind..." rows="3"></textarea>
-    <div class="input-actions">
-      <button class="btn-cancel" onclick="closeInput()">Cancel</button>
-      <button class="btn-drop" onclick="dropThought()">Drop it 🧱</button>
-    </div>
+<!-- CREATE OVERLAY (New card) -->
+<div class="overlay" id="createOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">New Card</div>
+    <p class="sheet-label">Card heading</p>
+    <input type="text" class="sheet-input" id="createHeading" placeholder="e.g. Recovery Patterns">
+    <p class="sheet-label">What's this card about?</p>
+    <textarea class="sheet-input" id="createBlurb" rows="3" placeholder="Describe what you want to track…"></textarea>
+    <button class="sheet-btn" id="createSubmitBtn" onclick="submitCreateCard()">Create card</button>
+    <button class="sheet-cancel" onclick="closeCreateOverlay()">Cancel</button>
   </div>
 </div>
 
 <script>
-  // ── STARS ──
-  const starsEl = document.getElementById('heroStars');
-  for (let i = 0; i < 40; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*3}s;--delay:${Math.random()*3}s;opacity:${0.1+Math.random()*0.5}`;
-    starsEl.appendChild(s);
+  const WEBHOOK = 'https://hook.eu2.make.com/vjk9xakasvj6buvmrx8beaeukvwfqd54';
+  const PAGE_KEY = 'athletic';
+
+  // ── LOCAL STORAGE ──────────────────────────────────────────
+  function lsKey(cardId) { return `ithoughts_${PAGE_KEY}_${cardId}`; }
+
+  function savePills(cardId) {
+    const pills = Array.from(
+      document.getElementById(`pills-${cardId}`)
+        .querySelectorAll('.pill-text')
+    ).map(el => el.textContent);
+    localStorage.setItem(lsKey(cardId), JSON.stringify(pills));
+    updateCounter();
   }
 
-  // ── HERO SLIDER ──
-  let heroIdx = 0;
-  const heroCards = document.querySelectorAll('#heroSliderTrack .deck-card');
-  const heroTotal = heroCards.length;
-
-  function initHeroSlider() {
-    const wrapper = document.getElementById('heroSliderWrapper');
-    const track = document.getElementById('heroSliderTrack');
-    const w = wrapper.offsetWidth;
-    heroCards.forEach(c => { c.style.width = w + 'px'; c.style.flexShrink = '0'; });
-    updateHeroSlider();
+  function loadPills(cardId) {
+    try {
+      const s = localStorage.getItem(lsKey(cardId));
+      return s ? JSON.parse(s) : null;
+    } catch { return null; }
   }
 
-  function updateHeroSlider() {
-    const wrapper = document.getElementById('heroSliderWrapper');
-    const track = document.getElementById('heroSliderTrack');
-    const w = wrapper.offsetWidth;
-    heroCards.forEach(c => c.style.width = w + 'px');
-    track.style.transform = `translateX(-${heroIdx * (w + 0)}px)`;
-
-    document.getElementById('heroDots').innerHTML = Array.from({length: heroTotal}, (_, i) =>
-      `<div class="deck-dot ${i===heroIdx?'active':''}" onclick="goHero(${i})"></div>`
-    ).join('');
-
-    document.getElementById('heroCount').textContent = `${heroIdx+1} / ${heroTotal}`;
-    document.getElementById('heroPrev').disabled = heroIdx === 0;
-    document.getElementById('heroNext').disabled = heroIdx === heroTotal - 1;
+  // ── COUNTER ────────────────────────────────────────────────
+  function updateCounter() {
+    let total = 0;
+    document.querySelectorAll('.pills-row').forEach(row => {
+      total += row.querySelectorAll('.pill').length;
+    });
+    const el = document.getElementById('thoughtCounter');
+    el.textContent = total === 1 ? '1 thought' : `${total} thoughts`;
   }
 
-  function slideHero(dir) {
-    heroIdx = Math.max(0, Math.min(heroTotal-1, heroIdx + dir));
-    updateHeroSlider();
+  // ── PARSE AI RESPONSE ──────────────────────────────────────
+  function parseAIResponse(data) {
+    let text = '';
+    if (data && data.content && Array.isArray(data.content)) {
+      text = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
+    } else if (typeof data === 'string') {
+      text = data;
+    } else {
+      text = JSON.stringify(data);
+    }
+    return JSON.parse(text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim());
   }
 
-  function goHero(i) { heroIdx = i; updateHeroSlider(); }
-
-  window.addEventListener('load', initHeroSlider);
-  window.addEventListener('resize', initHeroSlider);
-
-  // ── CATEGORY DATA ──
-  const categories = {
-    fitness: {
-      tag: '🏃 FITNESS',
-      title: 'Athletic Performance Insights',
-      desc: 'Athletes lose countless micro-observations during training — a breathing change, a knee sensation, a mental shift. iThoughts captures these fleeting signals so AI can reveal the patterns your coach never sees.',
+  // ── SEED CARDS ─────────────────────────────────────────────
+  const SEED_CARDS = [
+    {
+      id: 'training',
+      tag: '🏃 TRAINING',
+      title: 'Training Observations',
+      body: "Your body sends signals every session. Most athletes miss them because there's no system to catch them. Drop what you notice — even if it seems minor.",
       pills: [
         'Left hip tightens at the 15km mark',
         'Best runs always follow 8 hours sleep',
-        'Breathing changes 2 mins before I hit the wall',
+        'Breathing changes 2 mins before hitting the wall'
+      ]
+    },
+    {
+      id: 'mental',
+      tag: '💪 MENTAL',
+      title: 'Mental Performance',
+      body: "The mental game is where races are won or lost. Your mind has patterns you haven't named yet — iThoughts helps you find them.",
+      pills: [
+        'I run better in the morning',
         'Music tempo shifts my pace more than I realise'
-      ],
-      color: '#10b981'
+      ]
     },
-    medical: {
-      tag: '🧬 MEDICAL',
-      title: 'Health Observation Patterns',
-      desc: 'Symptoms, sensations and observations that disappear between appointments. iThoughts builds a living health journal where patterns emerge over time — things neither you nor your doctor would spot alone.',
-      pills: [
-        'Energy dips every day around 3pm',
-        'Headaches always follow poor sleep',
-        'Left shoulder tightness when stressed',
-        'Appetite changes before big decisions'
-      ],
-      color: '#5b8dee'
-    },
-    business: {
-      tag: '💼 BUSINESS',
-      title: 'Strategy Compounds Over Time',
-      desc: 'The best business insights don\'t arrive in boardrooms — they arrive in cars, showers, and half-asleep moments. iThoughts captures these raw observations before they disappear, then synthesises them into strategy.',
-      pills: [
-        'Customers always ask about delivery first',
-        'The demo converts better than the pitch',
-        'Pricing page kills momentum — needs redesign',
-        'Best leads come from word of mouth not ads'
-      ],
-      color: '#f59e0b'
-    },
-    education: {
-      tag: '🎓 EDUCATION',
-      title: 'Learning That Builds on Itself',
-      desc: 'Every student has moments of genuine understanding that disappear before the next class. iThoughts captures those sparks and builds a personal learning map that grows with every session.',
-      pills: [
-        'Concepts stick better with visual analogies',
-        'Teaching others is how I actually learn',
-        'Morning study sessions beat late night',
-        'Spaced repetition works — I keep forgetting this'
-      ],
-      color: '#c4b5fd'
-    },
-    personal: {
-      tag: '🌱 PERSONAL',
-      title: 'Your Thinking, Compounded',
-      desc: 'The thoughts you almost didn\'t write down are usually the important ones. iThoughts is your personal thinking feed — a place where your observations compound over time into genuine self-knowledge.',
-      pills: [
-        'I am happiest when I am building something',
-        'Overthinking always looks like productivity',
-        'The best conversations start with one honest question',
-        'Rest is not the absence of work — it is part of it'
-      ],
-      color: '#fca5a5'
-    },
-    trades: {
-      tag: '🛠️ TRADES',
-      title: 'Smarter Quoting Starts Here',
-      desc: 'Perth tradies lose valuable observations every job — what customers always ask, what jobs run over, what makes a quote win. iThoughts captures those patterns so your next quote is sharper than your last.',
-      pills: [
-        'Customers always ask about callout fee first',
-        'Jobs in Joondalup always run 30 mins longer',
-        'Photos before and after win more referrals',
-        'Quoting on-site beats quoting from the office'
-      ],
-      color: '#67e8f9',
-      explore: 'https://boilermaker-innovator.github.io/itabs-quotes/'
-    },
-    community: {
-      tag: '🌐 COMMUNITY',
-      title: 'Collective Intelligence at Scale',
-      desc: 'What happens when a whole community drops iThoughts onto the same card? The deck grows beyond what any individual could build. Community iThoughts creates knowledge that belongs to everyone.',
-      pills: [
-        'Perth needs more late night food options',
-        'The best community projects start hyper-local',
-        'Trust is built in small moments not big gestures',
-        'People contribute more when they feel heard'
-      ],
-      color: '#67e8f9'
+    {
+      id: 'howto',
+      tag: '⚙️ HOW IT WORKS',
+      title: 'How to Use iThoughts',
+      body: "Drop your raw observations as pills on any card. When you've built up enough, hit Refresh — AI synthesises them into new cards. The deck grows itself.",
+      pills: []
     }
-  };
+  ];
 
-  let activeCategory = null;
+  let activeCardId = null;
 
-  function openCategory(key) {
-    activeCategory = key;
-    const cat = categories[key];
-    document.getElementById('popupTag').textContent = cat.tag;
-    document.getElementById('popupTag').style.color = cat.color;
-    document.getElementById('popupTitle').textContent = cat.title;
-    document.getElementById('popupDesc').textContent = cat.desc;
-    document.getElementById('popupPills').innerHTML = cat.pills.map(p =>
-      `<div class="popup-pill"><div class="pill-dot" style="background:${cat.color}"></div>${p}</div>`
-    ).join('');
-    document.getElementById('popupOverlay').classList.add('open');
+  // ── PILLS ──────────────────────────────────────────────────
+  function addPillToCard(cardId, text) {
+    const row = document.getElementById(`pills-${cardId}`);
+    const pill = document.createElement('div');
+    pill.className = 'pill';
+    pill.innerHTML = `
+      <div class="pill-dot"></div>
+      <span class="pill-text">${escHtml(text)}</span>
+      <button class="pill-remove" onclick="removePill(this,'${cardId}')">×</button>
+    `;
+    row.appendChild(pill);
+    savePills(cardId);
   }
 
-  function closeCategory() {
-    document.getElementById('popupOverlay').classList.remove('open');
+  function removePill(btn, cardId) {
+    btn.closest('.pill').remove();
+    savePills(cardId);
   }
 
-  function exploreCategory() {
-    const cat = categories[activeCategory];
-    const url = cat.explore || 'https://boilermaker-innovator.github.io/Brothers-idea/';
-    window.location.href = url;
-  }
-
-  // ── DETAIL SHEET ──
-  function openDetail(kw, title, body) {
-    document.getElementById('detailKw').textContent = kw.toUpperCase();
-    document.getElementById('detailTitle').textContent = title;
-    document.getElementById('detailBody').textContent = body;
-    document.getElementById('detailOverlay').classList.add('open');
-  }
-
-  function closeDetail() {
-    document.getElementById('detailOverlay').classList.remove('open');
-  }
-
-  // ── INPUT SHEET ──
-  let inputContext = 'hero';
-
-  function openInput(ctx) {
-    inputContext = ctx;
+  // ── INPUT OVERLAY ──────────────────────────────────────────
+  function openInputOverlay(cardId) {
+    activeCardId = cardId;
+    const card = SEED_CARDS.find(c => c.id === cardId);
+    document.getElementById('inputOverlayTitle').textContent = 'Drop a thought';
+    document.getElementById('inputOverlayHint').textContent =
+      card ? `What have you noticed? (${card.title})` : 'What did you notice?';
+    document.getElementById('thoughtInput').value = '';
     document.getElementById('inputOverlay').classList.add('open');
-    setTimeout(() => document.getElementById('thoughtTextarea').focus(), 300);
+    setTimeout(() => document.getElementById('thoughtInput').focus(), 120);
   }
 
-  function closeInput() {
+  function closeInputOverlay() {
     document.getElementById('inputOverlay').classList.remove('open');
-    document.getElementById('thoughtTextarea').value = '';
+    activeCardId = null;
   }
 
-  function dropThought() {
-    const text = document.getElementById('thoughtTextarea').value.trim();
-    if (!text) return;
+  function confirmDropThought() {
+    const val = document.getElementById('thoughtInput').value.trim();
+    if (!val || !activeCardId) return;
+    addPillToCard(activeCardId, val);
+    closeInputOverlay();
+  }
 
-    if (inputContext === 'hero') {
-      const pill = document.createElement('div');
-      pill.className = 'pill';
-      pill.style.animation = 'pillPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both';
-      pill.innerHTML = `<div class="pill-dot"></div>${text}`;
-      document.querySelector('.pills-row').appendChild(pill);
-    } else {
-      const pill = document.createElement('div');
-      pill.className = 'popup-pill';
-      const cat = categories[activeCategory];
-      pill.innerHTML = `<div class="pill-dot" style="background:${cat?.color||'var(--accent)'}"></div>${text}`;
-      document.getElementById('popupPills').appendChild(pill);
+  // ── CREATE OVERLAY ─────────────────────────────────────────
+  function openCreateOverlay() {
+    document.getElementById('createHeading').value = '';
+    document.getElementById('createBlurb').value = '';
+    document.getElementById('createOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('createHeading').focus(), 120);
+  }
+
+  function closeCreateOverlay() {
+    document.getElementById('createOverlay').classList.remove('open');
+  }
+
+  async function submitCreateCard() {
+    const heading = document.getElementById('createHeading').value.trim();
+    const blurb   = document.getElementById('createBlurb').value.trim();
+    if (!heading) return;
+
+    const btn = document.getElementById('createSubmitBtn');
+    btn.textContent = 'Creating…';
+    btn.disabled = true;
+
+    const prompt =
+`You are an iTabs card writer.
+Heading: "${heading}"
+Blurb: "${blurb}"
+Rules: title max 6 words, body 2 sentences, tag = emoji + 2 words
+Respond ONLY with valid JSON:
+{"title": "...", "body": "...", "tag": "💡 Topic Name"}`;
+
+    let cardData = null;
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      cardData = parseAIResponse(data);
+    } catch (e) {
+      // Fallback: build card without AI
+      cardData = {
+        title: heading,
+        body: blurb || 'Track your observations here.',
+        tag: '💡 ' + heading.split(' ').slice(0, 2).join(' ')
+      };
     }
 
-    closeInput();
+    const id = 'c' + Date.now();
+    const newCard = { id, tag: cardData.tag, title: cardData.title, body: cardData.body, pills: [] };
+    SEED_CARDS.push(newCard);
+    renderCard(newCard);
+
+    const el = document.getElementById(`card-${id}`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    btn.textContent = 'Create card';
+    btn.disabled = false;
+    closeCreateOverlay();
   }
 
-  // Enter to submit
-  document.getElementById('thoughtTextarea').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); dropThought(); }
-  });
+  // ── CARD DETAIL FRAME — querySelector only, no shared IDs ──
+  function openFrame(btn, kw, title, detail) {
+    const deckCard = btn.closest('.deck-card');
+    const frame    = deckCard.querySelector('.card-detail-frame');
+    frame.querySelector('.card-detail-kw').textContent    = kw.toUpperCase();
+    frame.querySelector('.card-detail-title').textContent = title;
+    frame.querySelector('.card-detail-body').textContent  = detail;
+    frame.classList.add('open');
+  }
 
-  // Touch swipe for hero slider
-  let touchStartX = 0;
-  document.getElementById('heroSliderWrapper').addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
+  function closeFrame(btn) {
+    btn.closest('.card-detail-frame').classList.remove('open');
+  }
 
-  document.getElementById('heroSliderWrapper').addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) slideHero(diff > 0 ? 1 : -1);
-  });
+  // ── SLIDER ─────────────────────────────────────────────────
+  function initSlider(deckSection) {
+    const track   = deckSection.querySelector('.deck-slider-track');
+    const dotsEl  = deckSection.querySelectorAll('.deck-dot');
+    const counter = deckSection.querySelector('.deck-counter');
+    let current = 0;
+    let startX  = 0;
+
+    function go(idx) {
+      const cards = track.querySelectorAll('.deck-card');
+      if (idx < 0 || idx >= cards.length) return;
+      current = idx;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsEl.forEach((d, i) => d.classList.toggle('active', i === current));
+      if (counter) counter.textContent = `${current + 1}/${cards.length}`;
+    }
+
+    deckSection.querySelector('.deck-prev').addEventListener('click', () => go(current - 1));
+    deckSection.querySelector('.deck-next').addEventListener('click', () => go(current + 1));
+
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) go(diff > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    go(0);
+  }
+
+  // ── REFRESH ────────────────────────────────────────────────
+  async function refreshCard(cardId, cardTitle) {
+    const cardEl    = document.getElementById(`card-${cardId}`);
+    const pills     = Array.from(cardEl.querySelectorAll('.pill-text')).map(el => el.textContent);
+
+    if (pills.length === 0) {
+      alert('Drop some thoughts first, then hit Refresh!');
+      return;
+    }
+
+    const refreshBtn  = cardEl.querySelector('.refresh-btn');
+    const thinking    = cardEl.querySelector('.thinking-indicator');
+    const deckSection = cardEl.querySelector('.deck-section');
+
+    refreshBtn.disabled = true;
+    thinking.classList.add('active');
+    deckSection.style.display = 'none';
+
+    const numbered = pills.map((p, i) => `${i + 1}. ${p}`).join('\n');
+
+    const prompt =
+`You are an iThoughts AI synthesiser. Read the iThoughts below and synthesise 2 NEW card ideas.
+
+Original card: "${cardTitle}"
+
+iThoughts:
+${numbered}
+
+Rules:
+- title: max 5 words, punchy, no fluff
+- teaser: ONE short sentence, plain language
+- analogy_title: "Think of it like..." or "The pattern is..."
+- analogy: 1-2 sentences, real-world comparison
+- ibuttons: exactly 2 objects with keyword (1-2 words) and detail (2 sentences)
+
+Respond ONLY with valid JSON:
+{"cards": [{"title": "...", "teaser": "...", "analogy_title": "...", "analogy": "...", "ibuttons": [{"keyword": "...", "detail": "..."}, {"keyword": "...", "detail": "..."}]}, {...}]}`;
+
+    let result = null;
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await res.json();
+      result = parseAIResponse(data);
+    } catch (e) {
+      thinking.classList.remove('active');
+      refreshBtn.disabled = false;
+      alert('Synthesis failed — check your connection and try again.');
+      return;
+    }
+
+    thinking.classList.remove('active');
+    refreshBtn.disabled = false;
+
+    if (!result || !result.cards || !result.cards.length) return;
+
+    const cards = result.cards;
+
+    const dotsHtml = cards.map((_, i) =>
+      `<div class="deck-dot${i === 0 ? ' active' : ''}"></div>`
+    ).join('');
+
+    const deckCardsHtml = cards.map(c => {
+      const ibtns = (c.ibuttons || []).slice(0, 2).map(ib => {
+        const kw  = (ib.keyword || '').replace(/'/g, '&#39;');
+        const ttl = (c.title   || '').replace(/'/g, '&#39;');
+        const det = (ib.detail || '').replace(/'/g, '&#39;');
+        return `<button class="i-btn" onclick="openFrame(this,'${kw}','${ttl}','${det}')">
+          <div class="i-icon">i</div>${ib.keyword}
+        </button>`;
+      }).join('');
+
+      return `
+        <div class="deck-card">
+          <div class="ai-badge">✦ AI SYNTHESISED</div>
+          <div class="deck-card-title">${escHtml(c.title)}</div>
+          <div class="deck-card-teaser">${escHtml(c.teaser)}</div>
+          <div class="analogy-box">
+            <div class="analogy-label">${escHtml(c.analogy_title || 'Think of it like...')}</div>
+            <div class="analogy-text">${escHtml(c.analogy)}</div>
+          </div>
+          <div class="ibuttons-row">${ibtns}</div>
+          <div class="card-detail-frame">
+            <div class="card-detail-kw"></div>
+            <div class="card-detail-title"></div>
+            <div class="card-detail-body"></div>
+            <button class="card-detail-close" onclick="closeFrame(this)">← Close</button>
+          </div>
+        </div>`;
+    }).join('');
+
+    deckSection.innerHTML = `
+      <div class="deck-label">Growing deck from your thoughts</div>
+      <div class="deck-slider-wrapper">
+        <div class="deck-slider-track">${deckCardsHtml}</div>
+      </div>
+      <div class="deck-nav">
+        <button class="deck-nav-btn deck-prev">‹</button>
+        <div class="deck-dots">${dotsHtml}</div>
+        <div class="deck-counter">1/${cards.length}</div>
+        <button class="deck-nav-btn deck-next">›</button>
+      </div>`;
+
+    deckSection.style.display = 'block';
+    initSlider(deckSection);
+  }
+
+  // ── RENDER CARD ────────────────────────────────────────────
+  function renderCard(card) {
+    const savedPills   = loadPills(card.id);
+    const pillsToRender = savedPills !== null ? savedPills : card.pills;
+
+    const pillsHtml = pillsToRender.map(p => `
+      <div class="pill">
+        <div class="pill-dot"></div>
+        <span class="pill-text">${escHtml(p)}</span>
+        <button class="pill-remove" onclick="removePill(this,'${card.id}')">×</button>
+      </div>`).join('');
+
+    const safeTitle = (card.title || '').replace(/'/g, "\\'");
+
+    const html = `
+      <div class="card" id="card-${card.id}">
+        <div class="card-tag">${card.tag}</div>
+        <div class="card-title">${escHtml(card.title)}</div>
+        <div class="card-body-text">${escHtml(card.body)}</div>
+        <div class="dropped-label">ITHOUGHTS DROPPED</div>
+        <div class="pills-row" id="pills-${card.id}">${pillsHtml}</div>
+        <div class="card-actions">
+          <button class="drop-btn" onclick="openInputOverlay('${card.id}')">
+            + Drop a thought
+          </button>
+          <button class="refresh-btn" onclick="refreshCard('${card.id}','${safeTitle}')">
+            ↻ Refresh
+          </button>
+        </div>
+        <div class="thinking-indicator">
+          <div class="dot-pulse"><span></span><span></span><span></span></div>
+          Synthesising your thoughts…
+        </div>
+        <div class="deck-section"></div>
+      </div>`;
+
+    document.getElementById('cardsContainer').insertAdjacentHTML('beforeend', html);
+  }
+
+  // ── UTILITY ────────────────────────────────────────────────
+  function escHtml(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ── INIT ───────────────────────────────────────────────────
+  SEED_CARDS.forEach(card => renderCard(card));
+  updateCounter();
 </script>
 </body>
 </html>
