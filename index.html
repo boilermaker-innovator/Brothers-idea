@@ -509,17 +509,17 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 14px;
+    padding: 6px 12px;
     background: rgba(245,158,11,0.12);
     border: 1px solid rgba(245,158,11,0.3);
     border-radius: 20px;
     color: #f59e0b;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     font-family: 'DM Sans', sans-serif;
-    margin-top: 12px;
+    white-space: nowrap;
   }
 
   .i-button:hover { background: rgba(245,158,11,0.22); }
@@ -1203,12 +1203,12 @@ Rules:
 - teaser: ONE short sentence, plain language
 - analogy_title: short label like "Think of it like..." or "The pattern is..."
 - analogy: one punchy analogy or real-world comparison, 1-2 sentences
-- ibuttons: array of exactly 3 objects, each with:
+- ibuttons: array of exactly 2 objects, each with:
   - keyword: 1-2 words (e.g. "the science", "the pattern", "the fix")
   - detail: 2 sentences max on that specific angle
 
 Respond ONLY with valid JSON — no markdown, no backticks:
-{"cards": [{"title": "Short title", "teaser": "One punchy line.", "analogy_title": "Think of it like...", "analogy": "Analogy here.", "ibuttons": [{"keyword": "the science", "detail": "Detail here."}, {"keyword": "the pattern", "detail": "Detail here."}, {"keyword": "the fix", "detail": "Detail here."}]}, {"title": "Short title", "teaser": "One punchy line.", "analogy_title": "Think of it like...", "analogy": "Analogy here.", "ibuttons": [{"keyword": "the science", "detail": "Detail here."}, {"keyword": "the pattern", "detail": "Detail here."}, {"keyword": "the fix", "detail": "Detail here."}]}]}`
+{"cards": [{"title": "Short title", "teaser": "One punchy line.", "analogy_title": "Think of it like...", "analogy": "Analogy here.", "ibuttons": [{"keyword": "the science", "detail": "Detail here."}, {"keyword": "the fix", "detail": "Detail here."}]}, {"title": "Short title", "teaser": "One punchy line.", "analogy_title": "Think of it like...", "analogy": "Analogy here.", "ibuttons": [{"keyword": "the science", "detail": "Detail here."}, {"keyword": "the fix", "detail": "Detail here."}]}]}`
           }]
         })
       });
@@ -1270,15 +1270,19 @@ Respond ONLY with valid JSON — no markdown, no backticks:
             <div class="analogy-title">${c.analogy_title || 'Think of it like...'}</div>
             <div class="analogy-text">${c.analogy}</div>
           </div>` : ''}
-          <button class="i-button" onclick="openCardDetail(this)">
-            <span class="i-dot">i</span>${c.ibuttons ? c.ibuttons[0].keyword : (c.keyword || 'detail')}
-          </button>
-          <div class="card-detail-sheet">
-            <div class="detail-handle"></div>
-            <div class="detail-keyword">${c.ibuttons ? c.ibuttons[0].keyword : (c.keyword || 'insight')}</div>
-            <div class="detail-title">${c.title}</div>
-            <div class="detail-body">${c.ibuttons ? c.ibuttons[0].detail : (c.detail || '')}</div>
-            <button class="detail-close" onclick="closeCardDetail(this)">Got it — close</button>
+          <div class="ibuttons-row">
+            ${(c.ibuttons || []).map(ib => `
+              <button class="i-button" onclick="openCardDetail(this)">
+                <span class="i-dot">i</span>${ib.keyword}
+              </button>
+              <div class="card-detail-sheet">
+                <div class="detail-handle"></div>
+                <div class="detail-keyword">${ib.keyword}</div>
+                <div class="detail-title">${c.title}</div>
+                <div class="detail-body">${ib.detail}</div>
+                <button class="detail-close" onclick="closeCardDetail(this)">Got it — close</button>
+              </div>
+            `).join('')}
           </div>
         `;
         sliderTrack.appendChild(card);
