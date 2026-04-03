@@ -424,8 +424,228 @@
     border: 1px solid var(--refresh-border);
     border-radius: 16px;
     padding: 18px;
-    margin-bottom: 10px;
     animation: cardIn 0.4s ease;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .source-pills {
+    margin: 12px 0;
+  }
+
+  .source-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .source-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .source-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(74,158,255,0.08);
+    border: 1px solid rgba(74,158,255,0.2);
+    border-radius: 20px;
+    padding: 4px 10px 4px 8px;
+    font-size: 11px;
+    color: var(--soft);
+  }
+
+  .source-pill .pill-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    opacity: 0.7;
+  }
+
+  /* iTabs i-button style */
+  .i-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 20px;
+    color: #f59e0b;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 12px;
+  }
+
+  .i-button:hover { background: rgba(245,158,11,0.22); }
+
+  .i-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: #f59e0b;
+    border-radius: 50%;
+    color: #000;
+    font-size: 10px;
+    font-weight: 800;
+    font-style: italic;
+    flex-shrink: 0;
+  }
+
+  /* Detail modal sheet */
+  .detail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 200;
+  }
+
+  .detail-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .detail-sheet {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    background: var(--card);
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 40px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border);
+  }
+
+  .detail-overlay.active .detail-sheet {
+    transform: translateY(0);
+  }
+
+  .detail-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+
+  .detail-keyword {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f59e0b;
+    margin-bottom: 8px;
+  }
+
+  .detail-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .detail-body {
+    font-size: 14px;
+    color: var(--soft);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .detail-close {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Slider container */
+  .slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 12px;
+  }
+
+  .slider-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0 2px;
+  }
+
+  .slider-btn {
+    background: var(--refresh);
+    border: 1px solid var(--refresh-border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: var(--refresh-color);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .slider-btn:hover { background: rgba(74,255,158,0.1); }
+  .slider-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .slider-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--refresh-border);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .slider-dot.active {
+    background: var(--refresh-color);
+    width: 18px;
+    border-radius: 3px;
+  }
+
+  .slider-count {
+    font-size: 11px;
+    color: var(--muted);
   }
 
   .ai-card-title {
@@ -729,6 +949,17 @@
   </div>
 </div>
 
+<!-- Detail Modal Sheet -->
+<div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetailSheet()">
+  <div class="detail-sheet">
+    <div class="detail-handle"></div>
+    <div class="detail-keyword" id="detailKeyword"></div>
+    <div class="detail-title" id="detailTitle"></div>
+    <div class="detail-body" id="detailBody"></div>
+    <button class="detail-close" onclick="closeDetailSheet()">Got it — close</button>
+  </div>
+</div>
+
 <!-- Input Modal -->
 <div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
   <div class="modal">
@@ -964,8 +1195,10 @@ Rules:
 - teaser: ONE short sentence, plain language
 - detail: 2 sentences max, the deeper insight
 
+- keyword: 1-2 words max, the core topic of the detail (e.g. "sleep", "hip tension", "mental wall")
+
 Respond ONLY with valid JSON — no markdown, no backticks:
-{"cards": [{"title": "Short title", "teaser": "One punchy line.", "detail": "Deeper insight in two sentences max."}, {"title": "Short title", "teaser": "One punchy line.", "detail": "Deeper insight in two sentences max."}]}`
+{"cards": [{"title": "Short title", "teaser": "One punchy line.", "detail": "Deeper insight in two sentences max.", "keyword": "topic"}, {"title": "Short title", "teaser": "One punchy line.", "detail": "Deeper insight in two sentences max.", "keyword": "topic"}]}`
           }]
         })
       });
@@ -989,7 +1222,32 @@ Respond ONLY with valid JSON — no markdown, no backticks:
         aiSection.innerHTML = '<div class="ai-label">Growing deck from your thoughts</div>';
       }
 
-      // Append new cards instead of replacing
+      // Get or create slider
+      let sliderWrapper = aiSection.querySelector('.slider-wrapper');
+      let sliderTrack;
+      if (!sliderWrapper) {
+        sliderWrapper = document.createElement('div');
+        sliderWrapper.className = 'slider-wrapper';
+        sliderTrack = document.createElement('div');
+        sliderTrack.className = 'slider-track';
+        sliderWrapper.appendChild(sliderTrack);
+        aiSection.appendChild(sliderWrapper);
+
+        // Nav
+        const nav = document.createElement('div');
+        nav.className = 'slider-nav';
+        nav.innerHTML = `
+          <button class="slider-btn" id="prev-${cardId}" onclick="slideCard('${cardId}',-1)" disabled>‹</button>
+          <div class="slider-dots" id="dots-${cardId}"></div>
+          <span class="slider-count" id="count-${cardId}"></span>
+          <button class="slider-btn" id="next-${cardId}" onclick="slideCard('${cardId}',1)">›</button>
+        `;
+        aiSection.appendChild(nav);
+      } else {
+        sliderTrack = sliderWrapper.querySelector('.slider-track');
+      }
+
+      // Append new cards to slider
       parsed.cards.forEach(c => {
         const card = document.createElement('div');
         card.className = 'ai-card';
@@ -997,11 +1255,25 @@ Respond ONLY with valid JSON — no markdown, no backticks:
           <div class="new-badge">✦ AI synthesised</div>
           <div class="ai-card-title">${c.title}</div>
           <div class="ai-card-teaser">${c.teaser}</div>
-          <button class="ibtn" onclick="toggleDetail(this)">ⓘ</button>
-          <div class="ai-card-detail" style="display:none;">${c.detail}</div>
+          <div class="source-pills">
+            <div class="source-label">FROM YOUR THOUGHTS</div>
+            <div class="source-pills-row">
+              ${cardThoughts.slice(-3).map(t => `
+                <div class="source-pill">
+                  <div class="pill-dot"></div>
+                  <div class="pill-text">${t.length > 30 ? t.substring(0,30)+'...' : t}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <button class="i-button" onclick="openDetailSheet('${c.title}', '${c.keyword || 'insight'}', this.dataset.detail)" data-detail="${encodeURIComponent(c.detail)}">
+            <span class="i-dot">i</span>${c.keyword || 'detail'}
+          </button>
         `;
-        aiSection.appendChild(card);
+        sliderTrack.appendChild(card);
       });
+
+      updateSlider(cardId);
 
     } catch(err) {
       aiSection.innerHTML = `
@@ -1016,11 +1288,63 @@ Respond ONLY with valid JSON — no markdown, no backticks:
     btn.innerHTML = '↻ Refresh';
   }
 
-  function toggleDetail(btn) {
-    const detail = btn.nextElementSibling;
-    const isOpen = detail.style.display !== 'none';
-    detail.style.display = isOpen ? 'none' : 'block';
-    btn.textContent = isOpen ? 'ⓘ' : '✕';
+  const sliderIndex = {};
+
+  function updateSlider(cardId) {
+    const aiSection = document.getElementById(`ai-${cardId}`);
+    const track = aiSection.querySelector('.slider-track');
+    if (!track) return;
+    const cards = track.querySelectorAll('.ai-card');
+    const total = cards.length;
+    if (!sliderIndex[cardId]) sliderIndex[cardId] = total - 1; // show latest
+    const idx = sliderIndex[cardId];
+
+    // Move track
+    const pct = idx * (100 + 3.2); // 100% + gap
+    track.style.transform = `translateX(-${idx * (track.parentElement.offsetWidth + 12)}px)`;
+
+    // Dots
+    const dotsEl = document.getElementById(`dots-${cardId}`);
+    if (dotsEl) {
+      dotsEl.innerHTML = Array.from({length: total}, (_, i) =>
+        `<div class="slider-dot ${i === idx ? 'active' : ''}" onclick="goToSlide('${cardId}',${i})"></div>`
+      ).join('');
+    }
+
+    // Count
+    const countEl = document.getElementById(`count-${cardId}`);
+    if (countEl) countEl.textContent = `${idx + 1} / ${total}`;
+
+    // Buttons
+    const prev = document.getElementById(`prev-${cardId}`);
+    const next = document.getElementById(`next-${cardId}`);
+    if (prev) prev.disabled = idx === 0;
+    if (next) next.disabled = idx === total - 1;
+  }
+
+  function slideCard(cardId, dir) {
+    const aiSection = document.getElementById(`ai-${cardId}`);
+    const track = aiSection.querySelector('.slider-track');
+    const total = track.querySelectorAll('.ai-card').length;
+    if (!sliderIndex[cardId]) sliderIndex[cardId] = 0;
+    sliderIndex[cardId] = Math.max(0, Math.min(total - 1, sliderIndex[cardId] + dir));
+    updateSlider(cardId);
+  }
+
+  function goToSlide(cardId, idx) {
+    sliderIndex[cardId] = idx;
+    updateSlider(cardId);
+  }
+
+  function openDetailSheet(title, keyword, encodedDetail) {
+    document.getElementById('detailTitle').textContent = title;
+    document.getElementById('detailKeyword').textContent = keyword.toUpperCase();
+    document.getElementById('detailBody').textContent = decodeURIComponent(encodedDetail);
+    document.getElementById('detailOverlay').classList.add('active');
+  }
+
+  function closeDetailSheet() {
+    document.getElementById('detailOverlay').classList.remove('active');
   }
 
   // Render prefilled thoughts on load
