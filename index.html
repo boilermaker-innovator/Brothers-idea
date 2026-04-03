@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>iThoughts — Athletic Training</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #080810;
@@ -23,891 +24,1337 @@
     --pill-border: #2a3a6a;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding-bottom: 48px;
-  }
-
-  .page-wrap {
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 0 16px;
-  }
-
-  /* HEADER */
-  .header {
-    padding: 20px 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.3px;
-  }
-
-  .logo em {
-    font-style: normal;
-    color: var(--accent);
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .counter-pill {
-    background: var(--pill-bg);
-    border: 1px solid var(--pill-border);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
-  .beta-badge {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: white;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    text-transform: uppercase;
-  }
-
-  /* NEW CARD BUTTON */
-  .new-card-btn {
-    width: 100%;
-    border: 1.5px dashed var(--border);
-    background: transparent;
-    color: var(--soft);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 14px;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .new-card-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* CARD */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px;
-    margin-bottom: 16px;
-  }
-
-  .card-tag {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .card-body-text {
-    font-size: 14px;
-    color: var(--soft);
-    line-height: 1.7;
-    margin-bottom: 14px;
-  }
-
-  .dropped-label {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  /* PILLS */
-  .pills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 14px;
-    min-height: 8px;
-  }
-
-  .pill {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--pill-bg);
-    border: 1px solid var(--pill-border);
-    border-radius: 20px;
-    padding: 5px 10px 5px 8px;
-  }
-
-  .pill-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .pill-text {
-    font-size: 12px;
-    color: var(--text);
-  }
-
-  .pill-remove {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 15px;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 2px;
-    line-height: 1;
-    transition: color 0.2s;
-  }
-
-  .pill-remove:hover { color: #ff6b6b; }
-
-  /* CARD ACTIONS */
-  .card-actions {
-    display: flex;
-    gap: 8px;
-  }
-
-  .drop-btn {
-    flex: 1;
-    border: 1.5px dashed var(--accent);
-    background: transparent;
-    color: var(--accent);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 9px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .drop-btn:hover { background: rgba(91,141,238,0.08); }
-
-  .refresh-btn {
-    flex: 1;
-    border: 1.5px solid var(--green);
-    background: transparent;
-    color: var(--green);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 9px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .refresh-btn:hover { background: rgba(16,185,129,0.08); }
-  .refresh-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
-  /* THINKING INDICATOR */
-  .thinking-indicator {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 0 2px;
-    color: var(--soft);
-    font-size: 12px;
-  }
-
-  .thinking-indicator.active { display: flex; }
-
-  .dot-pulse {
-    display: flex;
-    gap: 4px;
-  }
-
-  .dot-pulse span {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 1.2s ease-in-out infinite;
-  }
-
-  .dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
-  .dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes pulse {
-    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-    40% { opacity: 1; transform: scale(1); }
-  }
-
-  /* DECK SECTION */
-  .deck-section {
-    display: none;
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border);
-  }
-
-  .deck-label {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--green);
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .deck-slider-wrapper {
-    overflow: hidden;
-    border-radius: 12px;
-  }
-
-  .deck-slider-track {
-    display: flex;
-    transition: transform 0.35s ease;
-  }
-
-  .deck-card {
-    min-width: 100%;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .ai-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(16,185,129,0.12);
-    border: 1px solid rgba(16,185,129,0.3);
-    color: var(--green);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-  }
-
-  .deck-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    line-height: 1.3;
-  }
-
-  .deck-card-teaser {
-    font-size: 13px;
-    color: var(--soft);
-    margin-bottom: 12px;
-    line-height: 1.6;
-  }
-
-  .analogy-box {
-    background: rgba(8,8,16,0.5);
-    border-left: 3px solid var(--accent);
-    border-radius: 6px;
-    padding: 10px 12px;
-    margin-bottom: 12px;
-  }
-
-  .analogy-label {
-    font-size: 9px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .analogy-text {
-    font-size: 12px;
-    color: var(--soft);
-    line-height: 1.6;
-  }
-
-  .ibuttons-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .i-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(245,158,11,0.1);
-    border: 1px solid rgba(245,158,11,0.3);
-    color: var(--gold);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 6px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .i-btn:hover { background: rgba(245,158,11,0.18); }
-
-  .i-icon {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--gold);
-    color: #080810;
-    font-size: 9px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  /* CARD DETAIL FRAME — z-index 50, NO shared IDs */
-  .card-detail-frame {
-    position: absolute;
-    inset: 0;
-    z-index: 50;
-    background: var(--card2);
-    border-radius: 12px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
-
-  .card-detail-frame.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .card-detail-kw {
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .card-detail-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .card-detail-body {
-    font-size: 13px;
-    color: var(--soft);
-    line-height: 1.7;
-    flex: 1;
-  }
-
-  .card-detail-close {
-    margin-top: 14px;
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--soft);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    padding: 9px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .card-detail-close:hover { border-color: var(--soft); color: var(--text); }
-
-  /* SLIDER NAV */
-  .deck-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .deck-nav-btn {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    color: var(--soft);
-    font-size: 16px;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-
-  .deck-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .deck-dots { display: flex; gap: 5px; align-items: center; }
-
-  .deck-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--muted);
-    transition: background 0.2s;
-  }
-
-  .deck-dot.active { background: var(--accent); }
-
-  .deck-counter {
-    font-size: 11px;
-    color: var(--muted);
-    min-width: 28px;
-    text-align: right;
-  }
-
-  /* OVERLAYS */
-  .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    background: rgba(8,8,16,0.85);
-    backdrop-filter: blur(4px);
-    align-items: flex-end;
-    justify-content: center;
-  }
-
-  .overlay.open { display: flex; }
-
-  .sheet {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-top: 1px solid var(--border);
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 40px;
-    width: 100%;
-    max-width: 420px;
-  }
-
-  .sheet-handle {
-    width: 36px;
-    height: 4px;
-    background: var(--muted);
-    border-radius: 2px;
-    margin: 0 auto 20px;
-  }
-
-  .sheet-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 14px;
-  }
-
-  .sheet-label {
-    font-size: 12px;
-    color: var(--soft);
-    margin-bottom: 6px;
-  }
-
-  .sheet-input {
-    width: 100%;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    resize: none;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .sheet-input:focus { border-color: var(--accent); }
-  .sheet-input::placeholder { color: var(--muted); }
-
-  .sheet-btn {
-    width: 100%;
-    background: var(--accent);
-    border: none;
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 13px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    margin-bottom: 8px;
-  }
-
-  .sheet-btn:hover { opacity: 0.88; }
-  .sheet-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .sheet-cancel {
-    width: 100%;
-    background: none;
-    border: none;
-    color: var(--soft);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    padding: 8px;
-    cursor: pointer;
-  }
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background:
+radial-gradient(ellipse at 20% 10%, rgba(91,141,238,0.07) 0%, transparent 55%),
+radial-gradient(ellipse at 80% 90%, rgba(124,109,232,0.06) 0%, transparent 55%),
+radial-gradient(ellipse at 60% 40%, rgba(16,185,129,0.04) 0%, transparent 45%);
+pointer-events: none;
+z-index: 0;
+}
+
+.page {
+position: relative;
+z-index: 1;
+max-width: 420px;
+margin: 0 auto;
+padding: 0 16px 80px;
+}
+
+/* ── HEADER ── */
+.header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px 0 24px;
+animation: fadeUp 0.5s ease both;
+}
+
+.logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 26px;
+font-weight: 900;
+letter-spacing: -0.5px;
+}
+
+.logo em { color: var(–accent); font-style: normal; }
+
+.logo-sub {
+font-size: 9px;
+color: var(–muted);
+letter-spacing: 3px;
+text-transform: uppercase;
+font-weight: 400;
+margin-top: 2px;
+}
+
+.header-right {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.thought-counter {
+background: rgba(16,185,129,0.1);
+border: 1px solid rgba(16,185,129,0.25);
+border-radius: 20px;
+padding: 5px 12px;
+font-size: 11px;
+color: var(–green);
+font-weight: 600;
+letter-spacing: 0.5px;
+}
+
+.beta-badge {
+background: rgba(91,141,238,0.1);
+border: 1px solid rgba(91,141,238,0.25);
+border-radius: 20px;
+padding: 5px 12px;
+font-size: 11px;
+color: var(–accent);
+font-weight: 500;
+letter-spacing: 0.5px;
+}
+
+/* ── PAGE TITLE ── */
+.page-tag {
+font-size: 9px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–green);
+font-weight: 600;
+margin-bottom: 8px;
+animation: fadeUp 0.5s 0.1s ease both;
+}
+
+.page-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 28px;
+font-weight: 900;
+line-height: 1.15;
+margin-bottom: 6px;
+animation: fadeUp 0.5s 0.15s ease both;
+}
+
+.page-desc {
+font-size: 13px;
+color: var(–soft);
+line-height: 1.65;
+margin-bottom: 24px;
+font-weight: 300;
+animation: fadeUp 0.5s 0.2s ease both;
+}
+
+/* ── NEW CARD BUTTON ── */
+.btn-new-card {
+width: 100%;
+padding: 15px;
+background: transparent;
+border: 1px dashed var(–border);
+border-radius: 16px;
+color: var(–soft);
+font-size: 14px;
+font-weight: 500;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+transition: all 0.2s;
+margin-bottom: 24px;
+animation: fadeUp 0.5s 0.25s ease both;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+
+.btn-new-card:hover {
+border-color: var(–accent);
+color: var(–accent);
+background: rgba(91,141,238,0.05);
+}
+
+/* ── SEED CARD ── */
+.seed-card {
+background: var(–card);
+border: 1px solid var(–border);
+border-radius: 20px;
+overflow: hidden;
+margin-bottom: 20px;
+animation: fadeUp 0.5s ease both;
+position: relative;
+}
+
+.seed-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–accent), var(–accent2), transparent);
+opacity: 0.4;
+}
+
+.seed-card:nth-child(1) { animation-delay: 0.3s; }
+.seed-card:nth-child(2) { animation-delay: 0.4s; }
+.seed-card:nth-child(3) { animation-delay: 0.5s; }
+
+.seed-card-inner { padding: 20px; }
+
+.card-tag {
+font-size: 9px;
+letter-spacing: 2.5px;
+text-transform: uppercase;
+color: var(–accent);
+font-weight: 600;
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+
+.card-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 20px;
+font-weight: 700;
+margin-bottom: 10px;
+line-height: 1.25;
+}
+
+.card-body {
+font-size: 13px;
+color: var(–soft);
+line-height: 1.7;
+font-weight: 300;
+margin-bottom: 18px;
+}
+
+/* Dropped label */
+.dropped-label {
+font-size: 9px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–muted);
+font-weight: 600;
+margin-bottom: 10px;
+}
+
+/* Pills */
+.pills-row {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-bottom: 16px;
+min-height: 0;
+}
+
+.pill {
+display: flex;
+align-items: center;
+gap: 6px;
+background: var(–pill-bg);
+border: 1px solid var(–pill-border);
+border-radius: 20px;
+padding: 5px 10px 5px 12px;
+font-size: 12px;
+color: var(–text);
+font-weight: 400;
+animation: pillPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pillPop {
+from { opacity: 0; transform: scale(0.7); }
+to { opacity: 1; transform: scale(1); }
+}
+
+.pill-text { flex: 1; }
+
+.pill-remove {
+background: none;
+border: none;
+color: var(–muted);
+font-size: 13px;
+cursor: pointer;
+padding: 0 0 0 4px;
+line-height: 1;
+transition: color 0.15s;
+font-family: ‘DM Sans’, sans-serif;
+}
+
+.pill-remove:hover { color: #ef4444; }
+
+/* Card actions */
+.card-actions {
+display: flex;
+gap: 10px;
+}
+
+.btn-drop {
+flex: 1;
+padding: 12px;
+background: transparent;
+border: 1px dashed var(–pill-border);
+border-radius: 12px;
+color: var(–accent);
+font-size: 13px;
+font-weight: 500;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+transition: all 0.2s;
+}
+
+.btn-drop:hover {
+background: rgba(91,141,238,0.08);
+border-color: var(–accent);
+}
+
+.btn-refresh {
+padding: 12px 16px;
+background: rgba(16,185,129,0.1);
+border: 1px solid rgba(16,185,129,0.3);
+border-radius: 12px;
+color: var(–green);
+font-size: 13px;
+font-weight: 600;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+transition: all 0.2s;
+display: flex;
+align-items: center;
+gap: 6px;
+white-space: nowrap;
+}
+
+.btn-refresh:hover { background: rgba(16,185,129,0.2); }
+.btn-refresh:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.refresh-icon { font-size: 15px; transition: transform 0.5s; }
+.btn-refresh.spinning .refresh-icon { animation: spin 0.8s linear infinite; }
+
+@keyframes spin {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+
+/* Thinking dots */
+.thinking {
+display: none;
+align-items: center;
+gap: 6px;
+padding: 10px 0 4px;
+font-size: 11px;
+color: var(–muted);
+letter-spacing: 1px;
+}
+
+.thinking.visible { display: flex; }
+
+.dot-pulse {
+display: flex;
+gap: 4px;
+align-items: center;
+}
+
+.dot-pulse span {
+width: 5px;
+height: 5px;
+background: var(–green);
+border-radius: 50%;
+animation: pulse 1.2s infinite;
+}
+
+.dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
+.dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+40% { opacity: 1; transform: scale(1); }
+}
+
+/* ── DECK SECTION ── */
+.deck-section {
+display: none;
+margin-top: 20px;
+border-top: 1px solid var(–border);
+padding-top: 18px;
+}
+
+.deck-section.visible { display: block; }
+
+.deck-label {
+font-size: 9px;
+letter-spacing: 2.5px;
+text-transform: uppercase;
+color: var(–green);
+font-weight: 600;
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.deck-label::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: linear-gradient(90deg, rgba(16,185,129,0.3), transparent);
+}
+
+.deck-slider-wrapper {
+position: relative;
+overflow: hidden;
+border-radius: 14px;
+}
+
+.deck-slider-track {
+display: flex;
+transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.deck-card {
+flex-shrink: 0;
+width: 100%;
+background: linear-gradient(135deg, #0f1f2e 0%, #1a0f2e 100%);
+border: 1px solid rgba(16,185,129,0.2);
+border-radius: 14px;
+padding: 18px;
+position: relative;
+overflow: hidden;
+}
+
+.deck-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–green), transparent);
+opacity: 0.4;
+}
+
+.deck-badge {
+display: inline-block;
+background: rgba(16,185,129,0.15);
+border: 1px solid rgba(16,185,129,0.3);
+border-radius: 10px;
+padding: 3px 10px;
+font-size: 9px;
+font-weight: 700;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(–green);
+margin-bottom: 10px;
+}
+
+.deck-card-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 17px;
+font-weight: 700;
+color: var(–text);
+margin-bottom: 7px;
+line-height: 1.3;
+}
+
+.deck-card-teaser {
+font-size: 13px;
+color: var(–soft);
+line-height: 1.6;
+font-weight: 300;
+margin-bottom: 12px;
+}
+
+.deck-analogy {
+background: rgba(0,0,0,0.3);
+border-left: 3px solid var(–accent);
+border-radius: 0 8px 8px 0;
+padding: 10px 12px;
+margin-bottom: 14px;
+}
+
+.deck-analogy-label {
+font-size: 9px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–accent);
+font-weight: 600;
+margin-bottom: 4px;
+}
+
+.deck-analogy-text {
+font-size: 12px;
+color: var(–soft);
+line-height: 1.6;
+font-weight: 300;
+}
+
+.deck-ibuttons {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+margin-bottom: 4px;
+}
+
+.deck-ibutton {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 6px 12px;
+background: rgba(245,158,11,0.1);
+border: 1px solid rgba(245,158,11,0.3);
+border-radius: 20px;
+color: var(–gold);
+font-size: 12px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+font-family: ‘DM Sans’, sans-serif;
+}
+
+.deck-ibutton:hover { background: rgba(245,158,11,0.2); }
+
+.i-dot {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 15px;
+height: 15px;
+background: var(–gold);
+border-radius: 50%;
+color: #000;
+font-size: 9px;
+font-weight: 800;
+font-style: italic;
+flex-shrink: 0;
+}
+
+/* card-detail-frame — inline, no shared IDs */
+.card-detail-frame {
+display: none;
+background: rgba(0,0,0,0.4);
+border: 1px solid rgba(245,158,11,0.25);
+border-radius: 12px;
+padding: 14px;
+margin-top: 12px;
+animation: fadeUp 0.25s ease both;
+}
+
+.card-detail-frame.open { display: block; }
+
+.card-detail-close-row {
+display: flex;
+justify-content: flex-end;
+margin-bottom: 8px;
+}
+
+.card-detail-close-btn {
+background: rgba(255,255,255,0.07);
+border: none;
+border-radius: 50%;
+width: 24px;
+height: 24px;
+color: var(–soft);
+font-size: 12px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘DM Sans’, sans-serif;
+}
+
+.card-detail-kw {
+font-size: 9px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–gold);
+font-weight: 700;
+margin-bottom: 5px;
+}
+
+.card-detail-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 15px;
+font-weight: 700;
+margin-bottom: 8px;
+}
+
+.card-detail-body {
+font-size: 12px;
+color: var(–soft);
+line-height: 1.65;
+font-weight: 300;
+}
+
+/* Slider nav */
+.deck-nav {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-top: 12px;
+padding: 0 2px;
+}
+
+.deck-nav-btn {
+width: 34px;
+height: 34px;
+border-radius: 50%;
+background: rgba(16,185,129,0.1);
+border: 1px solid rgba(16,185,129,0.2);
+color: var(–green);
+font-size: 16px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+font-family: ‘DM Sans’, sans-serif;
+}
+
+.deck-nav-btn:hover { background: rgba(16,185,129,0.2); }
+.deck-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.deck-dots {
+display: flex;
+gap: 6px;
+align-items: center;
+}
+
+.deck-dot {
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: rgba(16,185,129,0.2);
+transition: all 0.2s;
+cursor: pointer;
+}
+
+.deck-dot.active {
+background: var(–green);
+width: 18px;
+border-radius: 3px;
+}
+
+.deck-count {
+font-size: 11px;
+color: var(–muted);
+}
+
+/* ── INPUT MODAL ── */
+.input-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.75);
+backdrop-filter: blur(4px);
+z-index: 300;
+display: flex;
+align-items: flex-end;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+}
+
+.input-overlay.open { opacity: 1; pointer-events: all; }
+
+.input-sheet {
+background: var(–card);
+border: 1px solid var(–border);
+border-top-left-radius: 24px;
+border-top-right-radius: 24px;
+padding: 20px 20px 40px;
+width: 100%;
+max-width: 420px;
+margin: 0 auto;
+transform: translateY(100%);
+transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.input-overlay.open .input-sheet { transform: translateY(0); }
+
+.input-handle {
+width: 40px;
+height: 4px;
+background: var(–border);
+border-radius: 2px;
+margin: 0 auto 18px;
+}
+
+.input-card-name {
+font-size: 9px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–accent);
+font-weight: 600;
+margin-bottom: 6px;
+}
+
+.input-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 18px;
+margin-bottom: 4px;
+}
+
+.input-sub {
+font-size: 12px;
+color: var(–muted);
+margin-bottom: 16px;
+}
+
+.thought-textarea {
+width: 100%;
+background: var(–card2);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 14px 16px;
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 15px;
+font-weight: 300;
+resize: none;
+min-height: 80px;
+outline: none;
+transition: border-color 0.2s;
+line-height: 1.6;
+}
+
+.thought-textarea:focus { border-color: var(–accent); }
+.thought-textarea::placeholder { color: var(–muted); }
+
+.input-actions {
+display: flex;
+gap: 10px;
+margin-top: 12px;
+}
+
+.btn-cancel {
+flex: 1;
+padding: 13px;
+background: transparent;
+border: 1px solid var(–border);
+border-radius: 12px;
+color: var(–muted);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 14px;
+cursor: pointer;
+}
+
+.btn-add {
+flex: 2;
+padding: 13px;
+background: var(–accent);
+border: none;
+border-radius: 12px;
+color: #fff;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.btn-add:hover { background: #7aa5f5; }
+
+/* ── CREATE CARD MODAL ── */
+.create-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.75);
+backdrop-filter: blur(4px);
+z-index: 300;
+display: flex;
+align-items: flex-end;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+}
+
+.create-overlay.open { opacity: 1; pointer-events: all; }
+
+.create-sheet {
+background: var(–card);
+border: 1px solid var(–border);
+border-top-left-radius: 24px;
+border-top-right-radius: 24px;
+padding: 20px 20px 40px;
+width: 100%;
+max-width: 420px;
+margin: 0 auto;
+transform: translateY(100%);
+transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.create-overlay.open .create-sheet { transform: translateY(0); }
+
+.create-handle {
+width: 40px;
+height: 4px;
+background: var(–border);
+border-radius: 2px;
+margin: 0 auto 18px;
+}
+
+.create-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 20px;
+margin-bottom: 4px;
+}
+
+.create-sub {
+font-size: 12px;
+color: var(–muted);
+margin-bottom: 18px;
+}
+
+.create-field {
+margin-bottom: 14px;
+}
+
+.create-label {
+font-size: 11px;
+letter-spacing: 1px;
+text-transform: uppercase;
+color: var(–muted);
+font-weight: 500;
+margin-bottom: 6px;
+display: block;
+}
+
+.create-input, .create-textarea {
+width: 100%;
+background: var(–card2);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 12px 14px;
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 14px;
+font-weight: 300;
+outline: none;
+transition: border-color 0.2s;
+}
+
+.create-textarea { resize: none; min-height: 70px; line-height: 1.6; }
+.create-input:focus, .create-textarea:focus { border-color: var(–accent); }
+.create-input::placeholder, .create-textarea::placeholder { color: var(–muted); }
+
+.create-actions {
+display: flex;
+gap: 10px;
+margin-top: 4px;
+}
+
+.btn-create-cancel {
+flex: 1;
+padding: 13px;
+background: transparent;
+border: 1px solid var(–border);
+border-radius: 12px;
+color: var(–muted);
+font-family: ‘DM Sans’, sans-serif;
+font-size: 14px;
+cursor: pointer;
+}
+
+.btn-create-go {
+flex: 2;
+padding: 13px;
+background: var(–accent2);
+border: none;
+border-radius: 12px;
+color: #fff;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+}
+
+.btn-create-go:hover { opacity: 0.9; }
+.btn-create-go:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(14px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── FOOTER PHIL ── */
+.philosophy {
+margin-top: 36px;
+text-align: center;
+animation: fadeUp 0.5s 0.7s ease both;
+}
+
+.philosophy-text {
+font-size: 11px;
+color: var(–muted);
+letter-spacing: 0.5px;
+font-style: italic;
+line-height: 1.6;
+}
+
+.philosophy-dot {
+color: var(–accent);
+}
 </style>
+
 </head>
 <body>
 
-<div class="page-wrap">
+<div class="page">
 
-  <!-- HEADER -->
+  <!-- Header -->
+
   <div class="header">
-    <div class="logo">i<em>Thoughts</em></div>
+    <div>
+      <div class="logo">i<em>Thoughts</em></div>
+      <div class="logo-sub">by iTabs</div>
+    </div>
     <div class="header-right">
-      <div class="counter-pill" id="thoughtCounter">0 thoughts</div>
-      <div class="beta-badge">Beta</div>
+      <div class="thought-counter" id="thoughtCounter">0 thoughts</div>
+      <div class="beta-badge">✦ Beta</div>
     </div>
   </div>
 
-  <!-- NEW CARD BUTTON -->
-  <button class="new-card-btn" onclick="openCreateOverlay()">
-    <span style="font-size:18px;line-height:1">+</span> New card
+  <!-- Page title -->
+
+  <div class="page-tag">🏃 ATHLETIC TRAINING</div>
+  <div class="page-title">Your Training Observations, Compounded</div>
+  <p class="page-desc">Drop what you notice during training — even if it seems minor. When enough bricks are laid, hit Refresh and AI synthesises them into new cards. The deck builds itself.</p>
+
+  <!-- + New card button -->
+
+  <button class="btn-new-card" onclick="openCreateSheet()">
+    <span style="font-size:18px;">＋</span> New card
   </button>
 
-  <!-- CARDS CONTAINER -->
+  <!-- Seed cards container -->
+
   <div id="cardsContainer"></div>
+
+  <!-- Philosophy -->
+
+  <div class="philosophy">
+    <div class="philosophy-text"><span class="philosophy-dot">✦</span> The human always drops the first brick. AI never leads. The deck grows itself.</div>
+  </div>
 
 </div>
 
-<!-- INPUT OVERLAY (Drop a thought) -->
-<div class="overlay" id="inputOverlay">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title" id="inputOverlayTitle">Drop a thought</div>
-    <p class="sheet-label" id="inputOverlayHint">What did you notice?</p>
-    <textarea class="sheet-input" id="thoughtInput" rows="3" placeholder="e.g. Left knee clicks at the 8km mark…"></textarea>
-    <button class="sheet-btn" onclick="confirmDropThought()">Drop it</button>
-    <button class="sheet-cancel" onclick="closeInputOverlay()">Cancel</button>
+<!-- Input sheet -->
+
+<div class="input-overlay" id="inputOverlay" onclick="if(event.target===this)closeInput()">
+  <div class="input-sheet">
+    <div class="input-handle"></div>
+    <div class="input-card-name" id="inputCardName"></div>
+    <div class="input-title">Drop a thought</div>
+    <div class="input-sub">Raw, fleeting, half-formed — all welcome</div>
+    <textarea class="thought-textarea" id="thoughtTextarea" placeholder="What's on your mind..." rows="3"></textarea>
+    <div class="input-actions">
+      <button class="btn-cancel" onclick="closeInput()">Cancel</button>
+      <button class="btn-add" onclick="confirmDrop()">Drop it 🧱</button>
+    </div>
   </div>
 </div>
 
-<!-- CREATE OVERLAY (New card) -->
-<div class="overlay" id="createOverlay">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">New Card</div>
-    <p class="sheet-label">Card heading</p>
-    <input type="text" class="sheet-input" id="createHeading" placeholder="e.g. Recovery Patterns">
-    <p class="sheet-label">What's this card about?</p>
-    <textarea class="sheet-input" id="createBlurb" rows="3" placeholder="Describe what you want to track…"></textarea>
-    <button class="sheet-btn" id="createSubmitBtn" onclick="submitCreateCard()">Create card</button>
-    <button class="sheet-cancel" onclick="closeCreateOverlay()">Cancel</button>
+<!-- Create card sheet -->
+
+<div class="create-overlay" id="createOverlay" onclick="if(event.target===this)closeCreateSheet()">
+  <div class="create-sheet">
+    <div class="create-handle"></div>
+    <div class="create-title">New card</div>
+    <div class="create-sub">AI will write the card body from your heading</div>
+    <div class="create-field">
+      <label class="create-label">Card heading</label>
+      <input class="create-input" id="createHeading" placeholder="e.g. Recovery Patterns" />
+    </div>
+    <div class="create-field">
+      <label class="create-label">One-line context <span style="color:var(--muted);font-weight:300">(optional)</span></label>
+      <textarea class="create-textarea" id="createBlurb" placeholder="e.g. How my body signals when it needs rest" rows="2"></textarea>
+    </div>
+    <div class="create-actions">
+      <button class="btn-create-cancel" onclick="closeCreateSheet()">Cancel</button>
+      <button class="btn-create-go" id="btnCreateGo" onclick="createCard()">Create card ✦</button>
+    </div>
   </div>
 </div>
 
 <script>
-  const WEBHOOK = 'https://hook.eu2.make.com/vjk9xakasvj6buvmrx8beaeukvwfqd54';
-  const PAGE_KEY = 'athletic';
+// ── CONSTANTS ──
+const PAGE_KEY = 'athletic';
+const WEBHOOK = 'https://hook.eu2.make.com/vjk9xakasvj6buvmrx8beaeukvwfqd54';
 
-  // ── LOCAL STORAGE ──────────────────────────────────────────
-  function lsKey(cardId) { return `ithoughts_${PAGE_KEY}_${cardId}`; }
-
-  function savePills(cardId) {
-    const pills = Array.from(
-      document.getElementById(`pills-${cardId}`)
-        .querySelectorAll('.pill-text')
-    ).map(el => el.textContent);
-    localStorage.setItem(lsKey(cardId), JSON.stringify(pills));
-    updateCounter();
+// ── SEED CARDS ──
+const SEED_CARDS = [
+  {
+    id: 'training',
+    tag: '🏃 TRAINING',
+    title: 'Training Observations',
+    body: 'Your body sends signals every session. Most athletes miss them because there\'s no system to catch them. Drop what you notice — even if it seems minor.',
+    pills: [
+      'Left hip tightens at the 15km mark',
+      'Best runs always follow 8 hours sleep',
+      'Breathing changes 2 mins before hitting the wall'
+    ]
+  },
+  {
+    id: 'mental',
+    tag: '💪 MENTAL',
+    title: 'Mental Performance',
+    body: 'The mental game is where races are won or lost. Your mind has patterns you haven\'t named yet — iThoughts helps you find them.',
+    pills: [
+      'I run better in the morning',
+      'Music tempo shifts my pace more than I realise'
+    ]
+  },
+  {
+    id: 'howto',
+    tag: '⚙️ HOW IT WORKS',
+    title: 'How to Use iThoughts',
+    body: 'Drop your raw observations as pills on any card. When you\'ve built up enough, hit Refresh — AI synthesises them into new cards. The deck grows itself.',
+    pills: []
   }
+];
 
-  function loadPills(cardId) {
-    try {
-      const s = localStorage.getItem(lsKey(cardId));
-      return s ? JSON.parse(s) : null;
-    } catch { return null; }
-  }
+// ── LOCALSTORAGE ──
+function lsKey(cardId) { return `ithoughts_${PAGE_KEY}_${cardId}`; }
 
-  // ── COUNTER ────────────────────────────────────────────────
-  function updateCounter() {
-    let total = 0;
-    document.querySelectorAll('.pills-row').forEach(row => {
-      total += row.querySelectorAll('.pill').length;
+function savePills(cardId) {
+  const container = document.querySelector(`#pills-${cardId}`);
+  if (!container) return;
+  const pills = Array.from(container.querySelectorAll('.pill-text')).map(el => el.textContent);
+  localStorage.setItem(lsKey(cardId), JSON.stringify(pills));
+  updateCounter();
+}
+
+function loadPills(cardId) {
+  try {
+    const s = localStorage.getItem(lsKey(cardId));
+    return s ? JSON.parse(s) : null;
+  } catch { return null; }
+}
+
+// Dynamic card pills storage
+function lsDynKey(cardId) { return `ithoughts_${PAGE_KEY}_dyn_${cardId}`; }
+
+// ── COUNTER ──
+function updateCounter() {
+  let total = 0;
+  document.querySelectorAll('.pills-row').forEach(row => {
+    total += row.querySelectorAll('.pill').length;
+  });
+  const el = document.getElementById('thoughtCounter');
+  el.textContent = `${total} thought${total !== 1 ? 's' : ''}`;
+}
+
+// ── ESCAPE HELPERS ──
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+// ── RENDER PILL ──
+function makePill(text, cardId) {
+  const pill = document.createElement('div');
+  pill.className = 'pill';
+  pill.innerHTML = `<span class="pill-text">${escHtml(text)}</span>`;
+  const rm = document.createElement('button');
+  rm.className = 'pill-remove';
+  rm.textContent = '×';
+  rm.addEventListener('click', function() {
+    pill.style.transform = 'scale(0)';
+    pill.style.opacity = '0';
+    pill.style.transition = 'all 0.2s';
+    setTimeout(() => {
+      pill.remove();
+      savePills(cardId);
+    }, 200);
+  });
+  pill.appendChild(rm);
+  return pill;
+}
+
+// ── BUILD DECK CARD (v0.6 DATASET FIX) ──
+function buildDeckCard(synth) {
+  const el = document.createElement('div');
+  el.className = 'deck-card';
+
+  const badge = document.createElement('div');
+  badge.className = 'deck-badge';
+  badge.textContent = '✦ AI SYNTHESISED';
+
+  const title = document.createElement('div');
+  title.className = 'deck-card-title';
+  title.textContent = synth.title || '';
+
+  const teaser = document.createElement('div');
+  teaser.className = 'deck-card-teaser';
+  teaser.textContent = synth.teaser || '';
+
+  const analogy = document.createElement('div');
+  analogy.className = 'deck-analogy';
+  analogy.innerHTML = `
+    <div class="deck-analogy-label">${escHtml(synth.analogy_title || 'Think of it like...')}</div>
+    <div class="deck-analogy-text">${escHtml(synth.analogy || '')}</div>
+  `;
+
+  // i-buttons — DATASET FIX: no inline onclick
+  const ibRow = document.createElement('div');
+  ibRow.className = 'deck-ibuttons';
+
+  (synth.ibuttons || []).slice(0, 2).forEach(ib => {
+    const btn = document.createElement('button');
+    btn.className = 'deck-ibutton';
+    btn.innerHTML = `<span class="i-dot">i</span> ${escHtml(ib.keyword)}`;
+    btn.dataset.kw = ib.keyword;
+    btn.dataset.detail = ib.detail;
+    btn.addEventListener('click', function() {
+      openFrame(this, this.dataset.kw, this.dataset.detail);
     });
-    const el = document.getElementById('thoughtCounter');
-    el.textContent = total === 1 ? '1 thought' : `${total} thoughts`;
-  }
+    ibRow.appendChild(btn);
+  });
 
-  // ── PARSE AI RESPONSE ──────────────────────────────────────
-  function parseAIResponse(data) {
-    let text = '';
-    if (data && data.content && Array.isArray(data.content)) {
-      text = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
-    } else if (typeof data === 'string') {
-      text = data;
-    } else {
-      text = JSON.stringify(data);
-    }
-    return JSON.parse(text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim());
-  }
+  // card-detail-frame — querySelector only, no shared IDs
+  const frame = document.createElement('div');
+  frame.className = 'card-detail-frame';
+  frame.innerHTML = `
+    <div class="card-detail-close-row">
+      <button class="card-detail-close-btn">✕</button>
+    </div>
+    <div class="card-detail-kw"></div>
+    <div class="card-detail-title"></div>
+    <div class="card-detail-body"></div>
+  `;
+  frame.querySelector('.card-detail-close-btn').addEventListener('click', function() {
+    closeFrame(this);
+  });
 
-  // ── SEED CARDS ─────────────────────────────────────────────
-  const SEED_CARDS = [
-    {
-      id: 'training',
-      tag: '🏃 TRAINING',
-      title: 'Training Observations',
-      body: "Your body sends signals every session. Most athletes miss them because there's no system to catch them. Drop what you notice — even if it seems minor.",
-      pills: [
-        'Left hip tightens at the 15km mark',
-        'Best runs always follow 8 hours sleep',
-        'Breathing changes 2 mins before hitting the wall'
-      ]
-    },
-    {
-      id: 'mental',
-      tag: '💪 MENTAL',
-      title: 'Mental Performance',
-      body: "The mental game is where races are won or lost. Your mind has patterns you haven't named yet — iThoughts helps you find them.",
-      pills: [
-        'I run better in the morning',
-        'Music tempo shifts my pace more than I realise'
-      ]
-    },
-    {
-      id: 'howto',
-      tag: '⚙️ HOW IT WORKS',
-      title: 'How to Use iThoughts',
-      body: "Drop your raw observations as pills on any card. When you've built up enough, hit Refresh — AI synthesises them into new cards. The deck grows itself.",
-      pills: []
-    }
-  ];
+  el.appendChild(badge);
+  el.appendChild(title);
+  el.appendChild(teaser);
+  el.appendChild(analogy);
+  el.appendChild(ibRow);
+  el.appendChild(frame);
 
-  let activeCardId = null;
+  return el;
+}
 
-  // ── PILLS ──────────────────────────────────────────────────
-  function addPillToCard(cardId, text) {
-    const row = document.getElementById(`pills-${cardId}`);
-    const pill = document.createElement('div');
-    pill.className = 'pill';
-    pill.innerHTML = `
-      <div class="pill-dot"></div>
-      <span class="pill-text">${escHtml(text)}</span>
-      <button class="pill-remove" onclick="removePill(this,'${cardId}')">×</button>
-    `;
-    row.appendChild(pill);
-    savePills(cardId);
-  }
+function openFrame(btn, kw, detail) {
+  const deckCard = btn.closest('.deck-card');
+  const frame = deckCard.querySelector('.card-detail-frame');
+  // Close any other open frames first
+  document.querySelectorAll('.card-detail-frame.open').forEach(f => {
+    if (f !== frame) f.classList.remove('open');
+  });
+  frame.querySelector('.card-detail-kw').textContent = (kw || '').toUpperCase();
+  frame.querySelector('.card-detail-title').textContent = kw || '';
+  frame.querySelector('.card-detail-body').textContent = detail || '';
+  frame.classList.toggle('open');
+}
 
-  function removePill(btn, cardId) {
-    btn.closest('.pill').remove();
-    savePills(cardId);
-  }
+function closeFrame(btn) {
+  btn.closest('.card-detail-frame').classList.remove('open');
+}
 
-  // ── INPUT OVERLAY ──────────────────────────────────────────
-  function openInputOverlay(cardId) {
-    activeCardId = cardId;
-    const card = SEED_CARDS.find(c => c.id === cardId);
-    document.getElementById('inputOverlayTitle').textContent = 'Drop a thought';
-    document.getElementById('inputOverlayHint').textContent =
-      card ? `What have you noticed? (${card.title})` : 'What did you notice?';
-    document.getElementById('thoughtInput').value = '';
-    document.getElementById('inputOverlay').classList.add('open');
-    setTimeout(() => document.getElementById('thoughtInput').focus(), 120);
-  }
+// ── SLIDER LOGIC ──
+function initSlider(sliderData) {
+  const { wrapperId, trackId, dotsId, countId, prevId, nextId } = sliderData;
+  let idx = 0;
 
-  function closeInputOverlay() {
-    document.getElementById('inputOverlay').classList.remove('open');
-    activeCardId = null;
-  }
-
-  function confirmDropThought() {
-    const val = document.getElementById('thoughtInput').value.trim();
-    if (!val || !activeCardId) return;
-    addPillToCard(activeCardId, val);
-    closeInputOverlay();
-  }
-
-  // ── CREATE OVERLAY ─────────────────────────────────────────
-  function openCreateOverlay() {
-    document.getElementById('createHeading').value = '';
-    document.getElementById('createBlurb').value = '';
-    document.getElementById('createOverlay').classList.add('open');
-    setTimeout(() => document.getElementById('createHeading').focus(), 120);
-  }
-
-  function closeCreateOverlay() {
-    document.getElementById('createOverlay').classList.remove('open');
-  }
-
-  async function submitCreateCard() {
-    const heading = document.getElementById('createHeading').value.trim();
-    const blurb   = document.getElementById('createBlurb').value.trim();
-    if (!heading) return;
-
-    const btn = document.getElementById('createSubmitBtn');
-    btn.textContent = 'Creating…';
-    btn.disabled = true;
-
-    const prompt =
-`You are an iTabs card writer.
-Heading: "${heading}"
-Blurb: "${blurb}"
-Rules: title max 6 words, body 2 sentences, tag = emoji + 2 words
-Respond ONLY with valid JSON:
-{"title": "...", "body": "...", "tag": "💡 Topic Name"}`;
-
-    let cardData = null;
-    try {
-      const res = await fetch(WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
+  function update() {
+    const wrapper = document.getElementById(wrapperId);
+    const track = document.getElementById(trackId);
+    if (!wrapper || !track) return;
+    const w = wrapper.offsetWidth;
+    const cards = track.querySelectorAll('.deck-card');
+    cards.forEach(c => { c.style.width = w + 'px'; c.style.flexShrink = '0'; });
+    track.style.transform = `translateX(-${idx * w}px)`;
+    const total = cards.length;
+    const dotsEl = document.getElementById(dotsId);
+    const countEl = document.getElementById(countId);
+    const prevBtn = document.getElementById(prevId);
+    const nextBtn = document.getElementById(nextId);
+    if (dotsEl) {
+      dotsEl.innerHTML = Array.from({ length: total }, (_, i) =>
+        `<div class="deck-dot ${i === idx ? 'active' : ''}" data-i="${i}"></div>`
+      ).join('');
+      dotsEl.querySelectorAll('.deck-dot').forEach(dot => {
+        dot.addEventListener('click', function() {
+          idx = parseInt(this.dataset.i);
+          update();
+        });
       });
-      const data = await res.json();
-      cardData = parseAIResponse(data);
-    } catch (e) {
-      // Fallback: build card without AI
-      cardData = {
-        title: heading,
-        body: blurb || 'Track your observations here.',
-        tag: '💡 ' + heading.split(' ').slice(0, 2).join(' ')
-      };
     }
-
-    const id = 'c' + Date.now();
-    const newCard = { id, tag: cardData.tag, title: cardData.title, body: cardData.body, pills: [] };
-    SEED_CARDS.push(newCard);
-    renderCard(newCard);
-
-    const el = document.getElementById(`card-${id}`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    btn.textContent = 'Create card';
-    btn.disabled = false;
-    closeCreateOverlay();
+    if (countEl) countEl.textContent = `${idx + 1} / ${total}`;
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === total - 1;
   }
 
-  // ── CARD DETAIL FRAME — querySelector only, no shared IDs ──
-  function openFrame(btn, kw, title, detail) {
-    const deckCard = btn.closest('.deck-card');
-    const frame    = deckCard.querySelector('.card-detail-frame');
-    frame.querySelector('.card-detail-kw').textContent    = kw.toUpperCase();
-    frame.querySelector('.card-detail-title').textContent = title;
-    frame.querySelector('.card-detail-body').textContent  = detail;
-    frame.classList.add('open');
-  }
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
+  if (prevBtn) prevBtn.addEventListener('click', () => { if (idx > 0) { idx--; update(); } });
+  if (nextBtn) nextBtn.addEventListener('click', () => { const t = document.getElementById(trackId)?.querySelectorAll('.deck-card').length || 0; if (idx < t - 1) { idx++; update(); } });
 
-  function closeFrame(btn) {
-    btn.closest('.card-detail-frame').classList.remove('open');
-  }
-
-  // ── SLIDER ─────────────────────────────────────────────────
-  function initSlider(deckSection) {
-    const track   = deckSection.querySelector('.deck-slider-track');
-    const dotsEl  = deckSection.querySelectorAll('.deck-dot');
-    const counter = deckSection.querySelector('.deck-counter');
-    let current = 0;
-    let startX  = 0;
-
-    function go(idx) {
-      const cards = track.querySelectorAll('.deck-card');
-      if (idx < 0 || idx >= cards.length) return;
-      current = idx;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      dotsEl.forEach((d, i) => d.classList.toggle('active', i === current));
-      if (counter) counter.textContent = `${current + 1}/${cards.length}`;
-    }
-
-    deckSection.querySelector('.deck-prev').addEventListener('click', () => go(current - 1));
-    deckSection.querySelector('.deck-next').addEventListener('click', () => go(current + 1));
-
-    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
+  // Touch swipe
+  const wrapper = document.getElementById(wrapperId);
+  if (wrapper) {
+    let startX = 0;
+    wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
       const diff = startX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) go(diff > 0 ? current + 1 : current - 1);
-    }, { passive: true });
-
-    go(0);
+      if (Math.abs(diff) > 50) {
+        const t = document.getElementById(trackId)?.querySelectorAll('.deck-card').length || 0;
+        if (diff > 0 && idx < t - 1) idx++;
+        else if (diff < 0 && idx > 0) idx--;
+        update();
+      }
+    });
   }
 
-  // ── REFRESH ────────────────────────────────────────────────
-  async function refreshCard(cardId, cardTitle) {
-    const cardEl    = document.getElementById(`card-${cardId}`);
-    const pills     = Array.from(cardEl.querySelectorAll('.pill-text')).map(el => el.textContent);
+  window.addEventListener('resize', update);
+  setTimeout(update, 50);
 
-    if (pills.length === 0) {
-      alert('Drop some thoughts first, then hit Refresh!');
-      return;
-    }
+  return { update };
+}
 
-    const refreshBtn  = cardEl.querySelector('.refresh-btn');
-    const thinking    = cardEl.querySelector('.thinking-indicator');
-    const deckSection = cardEl.querySelector('.deck-section');
+// ── TOAST ──
+function showToast(msg) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a28;border:1px solid #22223a;border-radius:20px;padding:10px 20px;font-size:13px;color:#eeeef8;z-index:999;transition:transform 0.3s ease;white-space:nowrap;pointer-events:none;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { toast.style.transform = 'translateX(-50%) translateY(80px)'; }, 3000);
+}
 
-    refreshBtn.disabled = true;
-    thinking.classList.add('active');
-    deckSection.style.display = 'none';
+// ── PARSE AI RESPONSE ──
+function parseAIResponse(data) {
+  let text = '';
+  if (data && data.content && Array.isArray(data.content)) {
+    text = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
+  } else if (typeof data === 'string') {
+    text = data;
+  } else {
+    text = JSON.stringify(data);
+  }
+  return JSON.parse(text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim());
+}
 
-    const numbered = pills.map((p, i) => `${i + 1}. ${p}`).join('\n');
+// ── RENDER CARD ──
+function renderCard(card) {
+  const idx = card.id;
 
-    const prompt =
-`You are an iThoughts AI synthesiser. Read the iThoughts below and synthesise 2 NEW card ideas.
+  const seedEl = document.createElement('div');
+  seedEl.className = 'seed-card';
+  seedEl.id = `card-${idx}`;
+
+  const inner = document.createElement('div');
+  inner.className = 'seed-card-inner';
+
+  const tag = document.createElement('div');
+  tag.className = 'card-tag';
+  tag.textContent = card.tag;
+
+  const title = document.createElement('div');
+  title.className = 'card-title';
+  title.textContent = card.title;
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+  body.textContent = card.body;
+
+  const droppedLabel = document.createElement('div');
+  droppedLabel.className = 'dropped-label';
+  droppedLabel.textContent = 'ITHOUGHTS DROPPED';
+
+  const pillsRow = document.createElement('div');
+  pillsRow.className = 'pills-row';
+  pillsRow.id = `pills-${idx}`;
+
+  // Load pills from localStorage or seed
+  const savedPills = loadPills(idx);
+  const pillsToRender = savedPills !== null ? savedPills : card.pills;
+  pillsToRender.forEach(p => pillsRow.appendChild(makePill(p, idx)));
+
+  const actions = document.createElement('div');
+  actions.className = 'card-actions';
+
+  const dropBtn = document.createElement('button');
+  dropBtn.className = 'btn-drop';
+  dropBtn.textContent = '＋ Drop a thought';
+  dropBtn.addEventListener('click', () => openInput(idx, card.title));
+
+  const refreshBtn = document.createElement('button');
+  refreshBtn.className = 'btn-refresh';
+  refreshBtn.id = `refresh-${idx}`;
+  refreshBtn.innerHTML = `<span class="refresh-icon">↻</span> Refresh`;
+  refreshBtn.addEventListener('click', () => runRefresh(idx, card.title));
+
+  actions.appendChild(dropBtn);
+  actions.appendChild(refreshBtn);
+
+  const thinking = document.createElement('div');
+  thinking.className = 'thinking';
+  thinking.id = `thinking-${idx}`;
+  thinking.innerHTML = `<div class="dot-pulse"><span></span><span></span><span></span></div><span>Synthesising your thoughts...</span>`;
+
+  // Deck section
+  const deckSection = document.createElement('div');
+  deckSection.className = 'deck-section';
+  deckSection.id = `deck-${idx}`;
+
+  const deckLabel = document.createElement('div');
+  deckLabel.className = 'deck-label';
+  deckLabel.textContent = 'Growing deck from your thoughts';
+
+  const sliderWrapper = document.createElement('div');
+  sliderWrapper.className = 'deck-slider-wrapper';
+  sliderWrapper.id = `sw-${idx}`;
+
+  const sliderTrack = document.createElement('div');
+  sliderTrack.className = 'deck-slider-track';
+  sliderTrack.id = `st-${idx}`;
+
+  sliderWrapper.appendChild(sliderTrack);
+
+  const nav = document.createElement('div');
+  nav.className = 'deck-nav';
+  nav.innerHTML = `
+    <button class="deck-nav-btn" id="prev-${idx}">‹</button>
+    <div class="deck-dots" id="dots-${idx}"></div>
+    <span class="deck-count" id="count-${idx}"></span>
+    <button class="deck-nav-btn" id="next-${idx}">›</button>
+  `;
+
+  deckSection.appendChild(deckLabel);
+  deckSection.appendChild(sliderWrapper);
+  deckSection.appendChild(nav);
+
+  inner.appendChild(tag);
+  inner.appendChild(title);
+  inner.appendChild(body);
+  inner.appendChild(droppedLabel);
+  inner.appendChild(pillsRow);
+  inner.appendChild(actions);
+  inner.appendChild(thinking);
+  inner.appendChild(deckSection);
+
+  seedEl.appendChild(inner);
+
+  return seedEl;
+}
+
+// ── REFRESH (AI SYNTHESISE) ──
+async function runRefresh(cardId, cardTitle) {
+  const pillsRow = document.getElementById(`pills-${cardId}`);
+  const pills = Array.from(pillsRow.querySelectorAll('.pill-text')).map(el => el.textContent.trim());
+
+  if (pills.length < 1) {
+    showToast('Drop at least one thought first 🧱');
+    return;
+  }
+
+  const refreshBtn = document.getElementById(`refresh-${cardId}`);
+  const thinkingEl = document.getElementById(`thinking-${cardId}`);
+
+  refreshBtn.disabled = true;
+  refreshBtn.classList.add('spinning');
+  thinkingEl.classList.add('visible');
+
+  const numbered = pills.map((p, i) => `${i + 1}. ${p}`).join('\n');
+
+  const prompt = `You are an iThoughts AI synthesiser. Read the iThoughts below and synthesise 2 NEW card ideas.
 
 Original card: "${cardTitle}"
 
@@ -924,133 +1371,166 @@ Rules:
 Respond ONLY with valid JSON:
 {"cards": [{"title": "...", "teaser": "...", "analogy_title": "...", "analogy": "...", "ibuttons": [{"keyword": "...", "detail": "..."}, {"keyword": "...", "detail": "..."}]}, {...}]}`;
 
-    let result = null;
-    try {
-      const res = await fetch(WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      const data = await res.json();
-      result = parseAIResponse(data);
-    } catch (e) {
-      thinking.classList.remove('active');
-      refreshBtn.disabled = false;
-      alert('Synthesis failed — check your connection and try again.');
-      return;
-    }
+  try {
+    const res = await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
 
-    thinking.classList.remove('active');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const parsed = parseAIResponse(data);
+
+    if (!parsed.cards || !parsed.cards.length) throw new Error('No cards returned');
+
+    const track = document.getElementById(`st-${cardId}`);
+    track.innerHTML = '';
+
+    parsed.cards.forEach(synth => {
+      track.appendChild(buildDeckCard(synth));
+    });
+
+    const deckSection = document.getElementById(`deck-${cardId}`);
+    deckSection.classList.add('visible');
+
+    initSlider({
+      wrapperId: `sw-${cardId}`,
+      trackId: `st-${cardId}`,
+      dotsId: `dots-${cardId}`,
+      countId: `count-${cardId}`,
+      prevId: `prev-${cardId}`,
+      nextId: `next-${cardId}`
+    });
+
+    showToast('✦ Deck refreshed');
+
+  } catch (err) {
+    console.error('Refresh error:', err);
+    showToast('⚠️ Could not reach AI — try again');
+  } finally {
     refreshBtn.disabled = false;
-
-    if (!result || !result.cards || !result.cards.length) return;
-
-    const cards = result.cards;
-
-    const dotsHtml = cards.map((_, i) =>
-      `<div class="deck-dot${i === 0 ? ' active' : ''}"></div>`
-    ).join('');
-
-    const deckCardsHtml = cards.map(c => {
-      const ibtns = (c.ibuttons || []).slice(0, 2).map(ib => {
-        const kw  = (ib.keyword || '').replace(/'/g, '&#39;');
-        const ttl = (c.title   || '').replace(/'/g, '&#39;');
-        const det = (ib.detail || '').replace(/'/g, '&#39;');
-        return `<button class="i-btn" onclick="openFrame(this,'${kw}','${ttl}','${det}')">
-          <div class="i-icon">i</div>${ib.keyword}
-        </button>`;
-      }).join('');
-
-      return `
-        <div class="deck-card">
-          <div class="ai-badge">✦ AI SYNTHESISED</div>
-          <div class="deck-card-title">${escHtml(c.title)}</div>
-          <div class="deck-card-teaser">${escHtml(c.teaser)}</div>
-          <div class="analogy-box">
-            <div class="analogy-label">${escHtml(c.analogy_title || 'Think of it like...')}</div>
-            <div class="analogy-text">${escHtml(c.analogy)}</div>
-          </div>
-          <div class="ibuttons-row">${ibtns}</div>
-          <div class="card-detail-frame">
-            <div class="card-detail-kw"></div>
-            <div class="card-detail-title"></div>
-            <div class="card-detail-body"></div>
-            <button class="card-detail-close" onclick="closeFrame(this)">← Close</button>
-          </div>
-        </div>`;
-    }).join('');
-
-    deckSection.innerHTML = `
-      <div class="deck-label">Growing deck from your thoughts</div>
-      <div class="deck-slider-wrapper">
-        <div class="deck-slider-track">${deckCardsHtml}</div>
-      </div>
-      <div class="deck-nav">
-        <button class="deck-nav-btn deck-prev">‹</button>
-        <div class="deck-dots">${dotsHtml}</div>
-        <div class="deck-counter">1/${cards.length}</div>
-        <button class="deck-nav-btn deck-next">›</button>
-      </div>`;
-
-    deckSection.style.display = 'block';
-    initSlider(deckSection);
+    refreshBtn.classList.remove('spinning');
+    thinkingEl.classList.remove('visible');
   }
+}
 
-  // ── RENDER CARD ────────────────────────────────────────────
-  function renderCard(card) {
-    const savedPills   = loadPills(card.id);
-    const pillsToRender = savedPills !== null ? savedPills : card.pills;
+// ── INPUT SHEET ──
+let activeCardId = null;
+let activeCardTitle = '';
 
-    const pillsHtml = pillsToRender.map(p => `
-      <div class="pill">
-        <div class="pill-dot"></div>
-        <span class="pill-text">${escHtml(p)}</span>
-        <button class="pill-remove" onclick="removePill(this,'${card.id}')">×</button>
-      </div>`).join('');
+function openInput(cardId, cardTitle) {
+  activeCardId = cardId;
+  activeCardTitle = cardTitle || '';
+  document.getElementById('inputCardName').textContent = activeCardTitle;
+  document.getElementById('inputOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('thoughtTextarea').focus(), 300);
+}
 
-    const safeTitle = (card.title || '').replace(/'/g, "\\'");
+function closeInput() {
+  document.getElementById('inputOverlay').classList.remove('open');
+  document.getElementById('thoughtTextarea').value = '';
+}
 
-    const html = `
-      <div class="card" id="card-${card.id}">
-        <div class="card-tag">${card.tag}</div>
-        <div class="card-title">${escHtml(card.title)}</div>
-        <div class="card-body-text">${escHtml(card.body)}</div>
-        <div class="dropped-label">ITHOUGHTS DROPPED</div>
-        <div class="pills-row" id="pills-${card.id}">${pillsHtml}</div>
-        <div class="card-actions">
-          <button class="drop-btn" onclick="openInputOverlay('${card.id}')">
-            + Drop a thought
-          </button>
-          <button class="refresh-btn" onclick="refreshCard('${card.id}','${safeTitle}')">
-            ↻ Refresh
-          </button>
-        </div>
-        <div class="thinking-indicator">
-          <div class="dot-pulse"><span></span><span></span><span></span></div>
-          Synthesising your thoughts…
-        </div>
-        <div class="deck-section"></div>
-      </div>`;
+function confirmDrop() {
+  const text = document.getElementById('thoughtTextarea').value.trim();
+  if (!text || !activeCardId) return;
 
-    document.getElementById('cardsContainer').insertAdjacentHTML('beforeend', html);
+  const pillsRow = document.getElementById(`pills-${activeCardId}`);
+  const pill = makePill(text, activeCardId);
+  pillsRow.appendChild(pill);
+  savePills(activeCardId);
+  closeInput();
+}
+
+document.getElementById('thoughtTextarea').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); confirmDrop(); }
+});
+
+// ── CREATE CARD SHEET ──
+function openCreateSheet() {
+  document.getElementById('createOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('createHeading').focus(), 300);
+}
+
+function closeCreateSheet() {
+  document.getElementById('createOverlay').classList.remove('open');
+  document.getElementById('createHeading').value = '';
+  document.getElementById('createBlurb').value = '';
+  document.getElementById('btnCreateGo').disabled = false;
+  document.getElementById('btnCreateGo').textContent = 'Create card ✦';
+}
+
+async function createCard() {
+  const heading = document.getElementById('createHeading').value.trim();
+  const blurb = document.getElementById('createBlurb').value.trim();
+  if (!heading) { showToast('Enter a card heading first'); return; }
+
+  const goBtn = document.getElementById('btnCreateGo');
+  goBtn.disabled = true;
+  goBtn.textContent = 'Creating...';
+
+  const prompt = `You are an iTabs card writer.
+Heading: "${heading}"
+Blurb: "${blurb || 'Athletic training topic'}"
+Rules: title max 6 words, body 2 sentences, tag = emoji + 2 words in ALL CAPS, relevant to athletic training
+Respond ONLY with valid JSON:
+{"title": "...", "body": "...", "tag": "💡 TOPIC NAME"}`;
+
+  try {
+    const res = await fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const parsed = parseAIResponse(data);
+
+    const newCard = {
+      id: `dyn_${Date.now()}`,
+      tag: parsed.tag || '✦ NEW CARD',
+      title: parsed.title || heading,
+      body: parsed.body || blurb,
+      pills: []
+    };
+
+    const container = document.getElementById('cardsContainer');
+    const el = renderCard(newCard);
+    el.style.animation = 'fadeUp 0.4s ease both';
+    container.appendChild(el);
+    updateCounter();
+    closeCreateSheet();
+    showToast('✦ Card created');
+
+  } catch (err) {
+    console.error('Create error:', err);
+    showToast('⚠️ Could not create card — try again');
+    goBtn.disabled = false;
+    goBtn.textContent = 'Create card ✦';
   }
+}
 
-  // ── UTILITY ────────────────────────────────────────────────
-  function escHtml(str) {
-    return String(str || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-  // ── INIT ───────────────────────────────────────────────────
-  SEED_CARDS.forEach(card => renderCard(card));
+// ── INIT ──
+function init() {
+  const container = document.getElementById('cardsContainer');
+  SEED_CARDS.forEach(card => {
+    container.appendChild(renderCard(card));
+  });
   updateCounter();
+}
+
+init();
 </script>
+
 </body>
 </html>
